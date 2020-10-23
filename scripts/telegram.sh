@@ -23,6 +23,16 @@ fi
 
 if [ "$picture" = "1" ]; then
   wget -O /home/pi/moonraker-telegram/picture/cam_new.jpg $webcam
+
+  convert -rotate $rotate /home/pi/moonraker-telegram/picture/cam_new.jpg /home/pi/moonraker-telegram/picture/cam_new.jpg
+
+  if [ "$horizontally" = "1" ]; then
+    convert -flop /home/pi/moonraker-telegram/picture/cam_new.jpg /home/pi/moonraker-telegram/picture/cam_new.jpg
+  fi
+  if [ "$vertically" = "1" ]; then
+    convert -flop /home/pi/moonraker-telegram/picture/cam_new.jpg /home/pi/moonraker-telegram/picture/cam_new.jpg
+  fi
+ 
   curl -s -X POST \
     ${tokenurl}/sendPhoto \
     -F chat_id=${chatid} \

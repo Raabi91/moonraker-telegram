@@ -8,3 +8,6 @@ msg_pause="printing of $print_filename Paused"
 msg_end="Finished printing $print_filename"
 picture=1
 webcam="http://127.0.0.1:8080/?action=snapshot"
+horizontally="0"
+vertically="0"
+rotate="0"
