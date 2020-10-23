@@ -10,13 +10,13 @@ if [ "$picture" = "1" ]; then
     ${tokenurl}/sendPhoto \
     -F chat_id=${chatid} \
     -F photo="@/home/pi/moonraker-telegram/picture/cam_new.jpg" \
-    -F caption="$msg"
+    -F caption="${msg}"
 
 elif [ "$picture" = "0" ]; then
 
    curl -s -X POST \
      ${tokenurl}/sendMessage \
-     -d text="$msg" \
+     -d text="${msg}" \
      -d chat_id=${chatid}
 
 fi
