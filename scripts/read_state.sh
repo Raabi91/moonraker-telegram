@@ -40,8 +40,8 @@ print_state_read=$(grep -oP '(?<="state": ")[^"]*' print_stats.txt)
             sh /home/pi/moonraker-telegram/scripts/telegram.sh "4"
         fi
 
-    elif [ "$print_state_read" = "standby"]; then
-	print_state="0"
+    elif [ "$print_state_read" = "standby" ]; then
+	    print_state="0"
     fi
 
 
