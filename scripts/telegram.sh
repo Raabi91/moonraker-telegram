@@ -30,7 +30,7 @@ if [ "$picture" = "1" ]; then
     convert -flop /home/pi/moonraker-telegram/picture/cam_new.jpg /home/pi/moonraker-telegram/picture/cam_new.jpg
   fi
   if [ "$vertically" = "1" ]; then
-    convert -flop /home/pi/moonraker-telegram/picture/cam_new.jpg /home/pi/moonraker-telegram/picture/cam_new.jpg
+    convert -flip /home/pi/moonraker-telegram/picture/cam_new.jpg /home/pi/moonraker-telegram/picture/cam_new.jpg
   fi
  
   curl -s -X POST \
