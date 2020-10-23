@@ -10,24 +10,24 @@ curl -s -o print_stats.txt http://127.0.0.1:$port/printer/objects/query?print_st
 print_state_read=$(grep -oP '(?<="state": ")[^"]*' print_stats.txt)
 print_filename=$(grep -oP '(?<="filename": ")[^"]*' print_stats.txt)
 
-	if [ "$print_state_read" = "printing" && "$print_state"="0" ]; then
+	if [ "$print_state_read" = "printing" & "$print_state"="0" ]; then
 	msg="msg_start"
     print_state="1"
     sh /home/pi/moonraker-telegram/scripts/telegram.sh
     fi
     
-    if [ "$print_state_read" = "complete" && "$print_state"="1" ]; then
+    if [ "$print_state_read" = "complete" & "$print_state"="1" ]; then
 	msg="msg_end"
     print_state="0"
     sh /home/pi/moonraker-telegram/scripts/telegram.sh
     fi
 
-    if [ "$print_state_read" = "paused" && "$print_state"="1" ]; then
+    if [ "$print_state_read" = "paused" & "$print_state"="1" ]; then
 	msg="msg_pause"
     sh /home/pi/moonraker-telegram/scripts/telegram.sh
     fi
     
-    if [ "$print_state_read" = "error" && "$print_state"="1" ]; then
+    if [ "$print_state_read" = "error" & "$print_state"="1" ]; then
 	msg="msg_error"
     print_state="0"
     sh /home/pi/moonraker-telegram/scripts/telegram.sh
