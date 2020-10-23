@@ -10,15 +10,15 @@ cp -s /home/pi/moonraker-telegram/telegram_config.sh /home/pi/klipper_config/tel
 
 echo "\n\n========= set permissions ==========="
 sleep 1
-chmod 755 /home/pi/moonraker-telegram/telegram.sh
-chmod 755 /home/pi/moonraker-telegram/read_state.sh
+chmod 755 /home/pi/moonraker-telegram/scripts/telegram.sh
+chmod 755 /home/pi/moonraker-telegram/scripts/read_state.sh
 chmod 755 /home/pi/moonraker-telegram/telegram_config.sh
 
 echo "\n\n========= installation autostart ==========="
 
-crontab -u pi -l | grep -v "/home/pi/moonraker-telegram/read_state.sh  &"  | crontab -u pi -
+crontab -u pi -l | grep -v "/home/pi/moonraker-telegram/scritps/read_state.sh  &"  | crontab -u pi -
 sleep 1
-(crontab -u pi -l ; echo "@reboot sh /home/pi/moonraker-telegram/read_state.sh  &") | crontab -u pi -
+(crontab -u pi -l ; echo "@reboot sh /home/pi/moonraker-telegram/scripts/read_state.sh  &") | crontab -u pi -
 
 echo "\n\n========= installation end ==========="
 echo "\n\n========= open and edit your config with ==========="
