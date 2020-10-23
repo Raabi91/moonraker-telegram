@@ -14,10 +14,10 @@ if [ "$state_msg" = "1" ]; then
 elif [ "$state_msg" = "2" ]; then
     msg="$msg_end"
 
-elif [ "$state_msg" = "2" ]; then
+elif [ "$state_msg" = "3" ]; then
     msg="$msg_pause"
 
-elif [ "$state_msg" = "2" ]; then
+elif [ "$state_msg" = "4" ]; then
     msg="$msg_error"
 fi
 
