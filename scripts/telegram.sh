@@ -3,9 +3,6 @@
 
 tokenurl="https://api.telegram.org/bot$token"
 
-wget -O cam_new.jpg $webcam
-
-
 if [ "$picture" = "1" ]; then
   wget -O /home/pi/moonraker-telegram/picture/cam_new.jpg $webcam
   curl -s -X POST \
