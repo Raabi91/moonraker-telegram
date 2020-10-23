@@ -2,6 +2,7 @@
 . /home/pi/moonraker-telegram/telegram_config.sh
 
 print_state="0"
+pause="0"
 
 while true
 do
@@ -15,6 +16,10 @@ print_filename=$(grep -oP '(?<="filename": ")[^"]*' print_stats.txt)
             print_state="1"
             sh /home/pi/moonraker-telegram/scripts/telegram.sh $msg_start
         fi
+        if [ "$pause" = "1" ]; then
+            pause="0"
+        fi
+
 
     elif [ "$print_state_read" = "complete" ]; then
 	    if [ "$print_state" = "1" ]; then
@@ -28,13 +33,7 @@ print_filename=$(grep -oP '(?<="filename": ")[^"]*' print_stats.txt)
             pause="1"
             sh /home/pi/moonraker-telegram/scripts/telegram.sh $msg_pause
             fi
-        fi
-    
-    elif [ "$print_state_read" != "paused" ]; then
-        if [ "$pause" = "1" ]; then
-            pause="0"
-        fi
-      
+        fi     
     
     elif [ "$print_state_read" = "error" ]; then
         if [ "$print_state" = "1" ]; then
