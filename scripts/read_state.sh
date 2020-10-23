@@ -38,5 +38,5 @@ print_filename=$(grep -oP '(?<="filename": ")[^"]*' print_stats.txt)
     fi
 
 
-sleep 0.5
+sleep 1
 done
