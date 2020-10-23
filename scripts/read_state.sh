@@ -14,7 +14,7 @@ print_filename=$(grep -oP '(?<="filename": ")[^"]*' print_stats.txt)
 	if [ "$print_state_read" = "printing" ]; then
         if [ "$print_state" = "0" ]; then
             print_state="1"
-            sh /home/pi/moonraker-telegram/scripts/telegram.sh $msg_start
+            sh /home/pi/moonraker-telegram/scripts/telegram.sh "$msg_start"
         fi
         if [ "$pause" = "1" ]; then
             pause="0"
@@ -24,21 +24,21 @@ print_filename=$(grep -oP '(?<="filename": ")[^"]*' print_stats.txt)
     elif [ "$print_state_read" = "complete" ]; then
 	    if [ "$print_state" = "1" ]; then
             print_state="0"
-            sh /home/pi/moonraker-telegram/scripts/telegram.sh $msg_end
+            sh /home/pi/moonraker-telegram/scripts/telegram.sh "$msg_end"
         fi
 
     elif [ "$print_state_read" = "paused" ]; then
         if [ "$print_state" = "1" ]; then
             if [ "$pause" = "0" ]; then
             pause="1"
-            sh /home/pi/moonraker-telegram/scripts/telegram.sh $msg_pause
+            sh /home/pi/moonraker-telegram/scripts/telegram.sh "$msg_pause"
             fi
         fi     
     
     elif [ "$print_state_read" = "error" ]; then
         if [ "$print_state" = "1" ]; then
             print_state="0"
-            sh /home/pi/moonraker-telegram/scripts/telegram.sh $msg_error
+            sh /home/pi/moonraker-telegram/scripts/telegram.sh "$msg_error"
         fi
 
     elif [ "$print_state_read" = "standby"]; then
