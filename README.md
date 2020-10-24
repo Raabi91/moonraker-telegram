@@ -14,9 +14,9 @@ until now we supported:
 2. Click Start to begin a conversation with @BotFather
 3. Send /newbot to @BotFather. @BotFather will respond:
 4. Send your bot’s name to @BotFather. Your bot’s name can be anything.
----
+```
 Note that this is not your bot’s Telegram @username. You will create the username in step 5.
----
+```
 5. Send your bot’s username to @BotFather. BotFather will respond:
 6. Begin a conversation with your bot. Click on the t.me/<bot-username> link in @BotFather’s response and click Start at the bottom of your Telegram application. Your newly-created bot will appear in the chat list on the left side of the application.
 
@@ -27,14 +27,14 @@ Telegram’s @BotFather bot sent you an API access token when you created your b
 
 1. Send /token to @BotFather
 2. Select the relevant bot at the bottom of your Telegram application. @BotFather responds with a new API access token:
----
+```
 You can use this token to access HTTP API:
 <API-access-token>
 
 For a description of the Bot API, see this page: https://core.telegram.org/bots/api
----
+```
 
-### Get your Telegram chat ID
+## Get your Telegram chat ID
 
 1. Paste the following link in your browser. Replace <API-access-token> with the API access token that you identified or created in the previous section:
 ```
