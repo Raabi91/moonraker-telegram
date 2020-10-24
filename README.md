@@ -73,7 +73,7 @@ https://api.telegram.org/bot<API-access-token>/getUpdates?offset=0
 
 ## Install The script on a pi
 
-First of all check yopu have added [display_status] to your klipper config. when you have not do this
+First of all check you have added [display_status] to your klipper config. when you have not do this
 
 Download an install the plugin
 
