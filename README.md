@@ -29,6 +29,28 @@ edit the variables between the ""
 
 wenn you are finished reboot your pi to start the script automaticly
 
-## FAQ
+## [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md)
 
-Do you have more Question look at the FAQ
+Do you have more Question look at the [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md)
+
+
+---
+
+**Klipper** by [KevinOConnor](https://github.com/KevinOConnor) :
+
+https://github.com/KevinOConnor/klipper
+
+---
+
+
+**Moonraker** by [Arksine](https://github.com/Arksine) :
+
+https://github.com/Arksine/moonraker
+
+---
+
+**Mainsail Webinterface** by [meteyou](https://github.com/meteyou) :
+
+https://github.com/meteyou/mainsail
+
+---
