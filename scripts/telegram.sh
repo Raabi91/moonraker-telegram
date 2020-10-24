@@ -1,7 +1,7 @@
 #!/bin/bash
 
 curl -s -o telegram_stats.txt http://127.0.0.1:$port/printer/objects/query?print_stats
-curl -s -o display_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
+curl -s -o displaygit pull_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
 
 print_filename=$(grep -oP '(?<="filename": ")[^"]*' print_stats.txt)
 print_duration=$(grep -oP '(?<="print_duration": ")[^"]*' print_stats.txt)
@@ -45,6 +45,7 @@ elif [ "$state_msg" = "4" ]; then
 
 elif [ "$state_msg" = "5" ]; then
     msg="$msg_state"
+    echo $msg
 fi
 
 if [ "$picture" = "1" ]; then
