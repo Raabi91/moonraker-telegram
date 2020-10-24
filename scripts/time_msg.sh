@@ -2,6 +2,9 @@
 
 while true
 do
+
+sleep $time
+
 . /home/pi/moonraker-telegram/telegram_config.sh
 . /home/pi/moonraker-telegram/scripts/time_config.txt
 
@@ -13,7 +16,4 @@ do
     if [ "$time_msg" = "0" ]; then
         exit 0
     fi
-
-
-sleep $time
 done
