@@ -16,20 +16,20 @@ print_state_read=$(grep -oP '(?<="state": ")[^"]*' print_stats.txt)
             sh /home/pi/moonraker-telegram/scripts/telegram.sh "1"
         fi
         if [ "$time" > "0" ]; then
-            sed -i 's/time_pause.*$/time_pause="0"/' /home/pi/moonraker-telegram/scripts/time_config.sh
-	        sed -i 's/time_msg.*$/time_msg="1"/' /home/pi/moonraker-telegram/scripts/time_config.sh 
+            sed -i "s/time_pause=.*$/time_pause="0"/g" /home/pi/moonraker-telegram/scripts/time_config.sh
+	        sed -i "s/time_msg=.*$/time_msg="1"/g" /home/pi/moonraker-telegram/scripts/time_config.sh
             sh /home/pi/moonraker-telegram/scripts/time_msg.sh &
         fi
         if [ "$pause" = "1" ]; then
             pause="0"
-            sed -i 's/time_pause.*$/time_pause="0"/' /home/pi/moonraker-telegram/scripts/time_config.sh
+            sed -i "s/time_pause=.*$/time_pause="0"/g" /home/pi/moonraker-telegram/scripts/time_config.sh
         fi
 
 
     elif [ "$print_state_read" = "complete" ]; then
 	    if [ "$print_state" = "1" ]; then
             print_state="0"
-            sed -i 's/time_msg.*$/time_msg="0"/' /home/pi/moonraker-telegram/scripts/time_config.sh
+            sed -i "s/time_msg=.*$/time_msg="0"/g" /home/pi/moonraker-telegram/scripts/time_config.sh
             sh /home/pi/moonraker-telegram/scripts/telegram.sh "2"
         fi
 
@@ -37,7 +37,7 @@ print_state_read=$(grep -oP '(?<="state": ")[^"]*' print_stats.txt)
         if [ "$print_state" = "1" ]; then
             if [ "$pause" = "0" ]; then
             pause="1"
-            sed -i 's/time_pause.*$/time_pause="1"/' /home/pi/moonraker-telegram/scripts/time_config.sh
+            sed -i "s/time_pause=.*$/time_pause="1"/g" /home/pi/moonraker-telegram/scripts/time_config.sh
             sh /home/pi/moonraker-telegram/scripts/telegram.sh "3"
             fi
         fi     
@@ -45,13 +45,13 @@ print_state_read=$(grep -oP '(?<="state": ")[^"]*' print_stats.txt)
     elif [ "$print_state_read" = "error" ]; then
         if [ "$print_state" = "1" ]; then
             print_state="0"
-            sed -i 's/time_msg.*$/time_msg="0"/' /home/pi/moonraker-telegram/scripts/time_config.sh
+            sed -i "s/time_msg=.*$/time_msg="0"/g" /home/pi/moonraker-telegram/scripts/time_config.sh
             sh /home/pi/moonraker-telegram/scripts/telegram.sh "4"
         fi
 
     elif [ "$print_state_read" = "standby" ]; then
 	    print_state="0"
-        sed -i 's/time_msg.*$/time_msg="0"/' /home/pi/moonraker-telegram/scripts/time_config.sh
+        sed -i "s/time_msg=.*$/time_msg="0"/g" /home/pi/moonraker-telegram/scripts/time_config.sh
         sed -i 's/time_pause.*$/time_pause="0"/' /home/pi/moonraker-telegram/scripts/time_config.sh
     fi
 
