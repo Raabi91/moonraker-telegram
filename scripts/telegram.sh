@@ -8,8 +8,12 @@ print_duration=$(grep -oP '(?<="print_duration": ")[^"]*' print_stats.txt)
 progress=$(grep -oP '(?<="progress": ")[^"]*' display_status.txt)
 
 #### Remaining to H M S ####
+if [ "$print_duration" > "0" ]; then
 math1=$(echo "scale=0; $print_duration/$progress" | bc -l)
 math2=$(echo "scale=0; $math1-$print_duration" | bc -l)
+else
+math2="0"
+fi
 remaining=$(printf "%.0f" $math2)
 print_remaining=$(printf '%dh:%dm:%ds\n' $(($remaining/3600)) $(($remaining%3600/60)) $(($remaining%60)))
 
