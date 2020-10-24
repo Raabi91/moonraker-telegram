@@ -4,8 +4,8 @@ curl -s -o telegram_stats.txt http://127.0.0.1:$port/printer/objects/query?print
 curl -s -o display_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
 
 print_filename=$(grep -oP '(?<="filename": ")[^"]*' print_stats.txt)
-print_duration=$(grep -oP '(?<="print_duration": ")[^"]*' print_stats.txt)
-progress=$(grep -oP '(?<="progress": ")[^"]*' display_status.txt)
+print_duration=$(grep -oP '(?<="print_duration": ,)[^"]*' print_stats.txt)
+progress=$(grep -oP '(?<="progress": ,)[^"]*' display_status.txt)
 
 #### Remaining to H M S ####
 if [ "$print_duration" > "0" ]; then

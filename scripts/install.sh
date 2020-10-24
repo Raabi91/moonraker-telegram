@@ -2,6 +2,7 @@
 
 echo "\n\n========= moonraker-telegram - Installation Script ==========="
 
+sudo apt-get update
 sudo apt-get install bc
 
 echo "\n\n========= Creat telegram_config.sh ==========="
