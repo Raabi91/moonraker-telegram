@@ -1,7 +1,26 @@
 #!/bin/bash
 
 curl -s -o telegram_stats.txt http://127.0.0.1:$port/printer/objects/query?print_stats
+curl -s -o telegram_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
+
 print_filename=$(grep -oP '(?<="filename": ")[^"]*' print_stats.txt)
+print_duration=$(grep -oP '(?<="print_duration": ")[^"]*' print_stats.txt)
+progress=$(grep -oP '(?<="progress": ")[^"]*' display_status.txt)
+
+#### Remaining to H M S ####
+math1=$(echo "scale=0; $print_duration/$progress" | bc -l)
+math2=$(echo "scale=0; $math1-$print_duration" | bc -l)
+remaining=$(printf "%.0f" $math2)
+print_remaining=$(printf '%dh:%dm:%ds\n' $(($remaining/3600)) $(($remaining%3600/60)) $(($remaining%60)))
+
+#### Current to H M S ####
+current=$(printf "%.0f" $print_duration)
+print_current=$(printf '%dh:%dm:%ds\n' $(($current/3600)) $(($current%3600/60)) $(($current%60)))
+
+#### Progress to % ####
+print_progress1=$(echo "scale=1; $progress*100" | bc )
+print_progress=$(printf "%.1f" $print_progress1)%
+
 
 . /home/pi/moonraker-telegram/telegram_config.sh
 
@@ -19,6 +38,9 @@ elif [ "$state_msg" = "3" ]; then
 
 elif [ "$state_msg" = "4" ]; then
     msg="$msg_error"
+
+elif [ "$state_msg" = "5" ]; then
+    msg="$msg_state"
 fi
 
 if [ "$picture" = "1" ]; then
@@ -48,4 +70,4 @@ elif [ "$picture" = "0" ]; then
 
 fi
 
-exit
+exit 0

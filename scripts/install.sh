@@ -1,6 +1,9 @@
 #!/bin/bash
 
 echo "\n\n========= moonraker-telegram - Installation Script ==========="
+
+sudo apt-get install bc
+
 echo "\n\n========= Creat telegram_config.sh ==========="
 
 cp -i /home/pi/moonraker-telegram/example_config.sh /home/pi/moonraker-telegram/telegram_config.sh
