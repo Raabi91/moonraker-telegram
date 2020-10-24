@@ -56,7 +56,7 @@ print_state_read=$(grep -oP '(?<="state": ")[^"]*' print_stats.txt)
     elif [ "$print_state_read" = "standby" ]; then
 	    print_state="0"
         sed -i "s/time_msg=.*$/time_msg="0"/g" /home/pi/moonraker-telegram/scripts/time_config.txt
-        sed -i 's/time_pause.*$/time_pause="0"/' /home/pi/moonraker-telegram/scripts/time_config.txt
+        sed -i "s/time_pause=.*$/time_pause="0"/g" /home/pi/moonraker-telegram/scripts/time_config.txt
     fi
 
 
