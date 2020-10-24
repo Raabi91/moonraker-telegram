@@ -20,7 +20,7 @@ chmod 755 /home/pi/moonraker-telegram/telegram_config.sh
 
 echo "\n\n========= installation autostart ==========="
 
-crontab -u pi -l | grep -v "/home/pi/moonraker-telegram/scripts/read_state.shgit pü"  | crontab -u pi -
+crontab -u pi -l | grep -v "/home/pi/moonraker-telegram/scripts/read_state.sh"  | crontab -u pi -
 sleep 1
 (crontab -u pi -l ; echo "@reboot sh /home/pi/moonraker-telegram/scripts/read_state.sh  &") | crontab -u pi -
 
