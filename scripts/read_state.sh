@@ -1,6 +1,9 @@
 #!/bin/bash
 . /home/pi/moonraker-telegram/telegram_config.sh
 
+echo "time_msg=0" > /home/pi/moonraker-telegram/scripts/time_config.txt
+echo "time_pause=0" >> /home/pi/moonraker-telegram/scripts/time_config.txt
+
 print_state="0"
 pause="0"
 
