@@ -15,11 +15,11 @@ else
 math2="0"
 fi
 remaining=$(printf "%.0f" $math2)
-print_remaining=$(printf '%dh:%dm:%ds\n' $(($remaining/3600)) $(($remaining%3600/60)) $(($remaining%60)))
+print_remaining=$(printf '%d:%d:%d\n' $(($remaining/3600)) $(($remaining%3600/60)) $(($remaining%60)))
 
 #### Current to H M S ####
 current=$(printf "%.0f" $print_duration)
-print_current=$(printf '%dh:%dm:%ds\n' $(($current/3600)) $(($current%3600/60)) $(($current%60)))
+print_current=$(printf '%d:%d:%d\n' $(($current/3600)) $(($current%3600/60)) $(($current%60)))
 
 #### Progress to % ####
 print_progress1=$(echo "scale=1; $progress*100" | bc )
