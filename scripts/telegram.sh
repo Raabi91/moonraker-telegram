@@ -1,7 +1,7 @@
 #!/bin/bash
 
 curl -s -o telegram_stats.txt http://127.0.0.1:$port/printer/objects/query?print_stats
-curl -s -o telegram_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
+curl -s -o display_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
 
 print_filename=$(grep -oP '(?<="filename": ")[^"]*' print_stats.txt)
 print_duration=$(grep -oP '(?<="print_duration": ")[^"]*' print_stats.txt)
