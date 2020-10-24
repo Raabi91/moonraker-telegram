@@ -3,7 +3,7 @@
 while true
 do
 . /home/pi/moonraker-telegram/telegram_config.sh
-. /home/pi/moonraker-telegram/scripts/time_config.sh
+. /home/pi/moonraker-telegram/scripts/time_config.txt
 
 	if [ "$time_msg" = "1" ]; then
         if [ "$time_pause" = "0" ]; then
