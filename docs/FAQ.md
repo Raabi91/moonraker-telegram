@@ -1,10 +1,14 @@
 # FAQ
 
 ## How Upgrade the script
+
+execute the code wenn you will ask to overwrite your telegram_config.sh say no
+
 ```
 cd ~/moonraker-telegram
 git reset --hard HEAD
 git pull
+sh ./scripts/install.sh
 sudo reboot
 ```
 

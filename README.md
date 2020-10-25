@@ -1,5 +1,5 @@
 # moonraker-telegram
- A plugin to send the printer State  before, during and after a print via Telegram Messenger 
+A Script/Programm to send the printer State before, during and after a print via Telegram Messenger. But its only Working with moonraker
 
 until now we supported:
 - Print start
@@ -7,6 +7,10 @@ until now we supported:
 - Print Paused
 - Print Failed
 - Send State timed
+- Commands avaible (/state, /pause, /resume, /cancel)
+- you can deactivate the messages by not entering any text at the config
+
+### !!! Attention new update instructions in FAQ !!!
 
 ## Create a Telegram bot
 

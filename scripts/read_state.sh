@@ -1,6 +1,8 @@
 #!/bin/bash
 . /home/pi/moonraker-telegram/telegram_config.sh
 
+python3 /home/pi/moonraker-telegram/scripts/bot.py "$token" "$port" &
+
 echo "time_msg=0" > /home/pi/moonraker-telegram/scripts/time_config.txt
 echo "time_pause=0" >> /home/pi/moonraker-telegram/scripts/time_config.txt
 
@@ -18,7 +20,7 @@ print_state_read=$(grep -oP '(?<="state": ")[^"]*' print_stats.txt)
             print_state="1"
             sh /home/pi/moonraker-telegram/scripts/telegram.sh "1"
             sleep 10
-            if [ "$time" > "0" ]; then
+            if [ "$time" -gt "0" ]; then
             sed -i "s/time_pause=.*$/time_pause="0"/g" /home/pi/moonraker-telegram/scripts/time_config.txt
 	        sed -i "s/time_msg=.*$/time_msg="1"/g" /home/pi/moonraker-telegram/scripts/time_config.txt
             sh /home/pi/moonraker-telegram/scripts/time_msg.sh &

@@ -48,8 +48,9 @@ elif [ "$state_msg" = "5" ]; then
     echo $msg
 fi
 
-if [ "$picture" = "1" ]; then
-  wget -O /home/pi/moonraker-telegram/picture/cam_new.jpg $webcam
+if [ -n "${msg}" ]; then
+ if [ "$picture" = "1" ]; then
+  curl -o /home/pi/moonraker-telegram/picture/cam_new.jpg $webcam
 
   convert -rotate $rotate /home/pi/moonraker-telegram/picture/cam_new.jpg /home/pi/moonraker-telegram/picture/cam_new.jpg
 
@@ -66,13 +67,14 @@ if [ "$picture" = "1" ]; then
     -F photo="@/home/pi/moonraker-telegram/picture/cam_new.jpg" \
     -F caption="${msg}"
 
-elif [ "$picture" = "0" ]; then
+ elif [ "$picture" = "0" ]; then
 
    curl -s -X POST \
      ${tokenurl}/sendMessage \
      -d text="${msg}" \
      -d chat_id=${chatid}
 
+ fi
 fi
 
 exit 0

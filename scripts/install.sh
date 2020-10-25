@@ -3,6 +3,11 @@
 echo "\n\n========= moonraker-telegram - Installation Script ==========="
 
 sudo apt-get install bc
+sudo apt-get install python3
+sudo apt-get install python3-pip
+pip3 install requests
+pip3 install telepot
+
 
 echo "\n\n========= Creat telegram_config.sh ==========="
 
