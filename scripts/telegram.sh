@@ -45,7 +45,21 @@ elif [ "$state_msg" = "4" ]; then
 
 elif [ "$state_msg" = "5" ]; then
     msg="$msg_state"
-    echo $msg
+
+elif [ "$state_msg" = "6" ]; then
+    msg="aviable commands are:
+    /help
+    /state
+    /pause
+    /resume
+    /cancel"
+
+       curl -s -X POST \
+     ${tokenurl}/sendMessage \
+     -d text="${msg}" \
+     -d chat_id=${chatid}
+     msg=""
+
 fi
 
 if [ -n "${msg}" ]; then

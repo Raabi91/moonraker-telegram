@@ -26,7 +26,9 @@ def handle(msg):
 
     print ('Got command: %s' % command)
 
-    if command == '/state':
+    if command == '/help':
+        os.system("sh /home/pi/moonraker-telegram/scripts/telegram.sh 6")
+    elif command == '/state':
         os.system("sh /home/pi/moonraker-telegram/scripts/telegram.sh 5")
     elif command == '/pause':
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/pause')
