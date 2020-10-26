@@ -47,7 +47,7 @@ elif [ "$state_msg" = "5" ]; then
     msg="$msg_state"
 
 elif [ "$state_msg" = "6" ]; then
-    msg="aviable commands are:
+    msg="available commands are:
     /help
     /state
     /pause
