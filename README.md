@@ -8,7 +8,7 @@ until now we supported:
 - Print Paused
 - Print Failed
 - Send State timed
-- First Commands avaible (/state, /pause, /resume, /cancel)
+- First Commands avaible (/state, /pause, /resume, /cancel, /help)
 - You can deactivate the messages by not entering any text at the config
 
 ### !!! Attention new update instructions in FAQ !!!
