@@ -93,7 +93,7 @@ the edit your config with
 ```
 sudo nano /home/pi/moonraker-telegram/telegram_config.sh
 ```
-or use mainsail web interface
+or use mainsail or fluidd web interface
 
 edit the variables between the ""
 
@@ -122,5 +122,11 @@ https://github.com/Arksine/moonraker
 **Mainsail Webinterface** by [meteyou](https://github.com/meteyou) :
 
 https://github.com/meteyou/mainsail
+
+---
+
+**Fluidd Webinterface** by [cadriel](https://github.com/cadriel) :
+
+https://github.com/cadriel/fluidd
 
 ---

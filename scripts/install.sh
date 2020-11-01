@@ -31,7 +31,7 @@ sleep 1
 echo "\n\n========= installation end ==========="
 echo "\n\n========= open and edit your config with ==========="
 echo "\n\n========= sudo nano /home/pi/moonraker-telegram/telegram_config.sh ==========="
-echo "\n\n========= or use mainsail and edit the telegram_config.sh ==========="
+echo "\n\n========= or use mainsail or fluidd and edit the telegram_config.sh ==========="
 
 
 exit 1
