@@ -5,7 +5,7 @@ curl -s -o /home/pi/display_status.txt http://127.0.0.1:$port/printer/objects/qu
 
 print_filename=$(grep -oP '(?<="filename": ")[^"]*' /home/pi/telegram_stats.txt)
 print_duration=$(grep -oP '(?<="print_duration": )[^,]*' /home/pi/telegram_stats.txt)
-progress=$(grep -oP '(?<="progress": )[^,]*' display_status.txt)
+progress=$(grep -oP '(?<="progress": )[^,]*' /home/pi/display_status.txt)
 
 #### Remaining to H M S ####
 if [ "$print_duration" > "0" ]; then
