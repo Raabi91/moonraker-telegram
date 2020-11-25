@@ -1,10 +1,10 @@
 #!/bin/bash
 
-curl -s -o telegram_stats.txt http://127.0.0.1:$port/printer/objects/query?print_stats
-curl -s -o display_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
+curl -s -o /home/pi/telegram_stats.txt http://127.0.0.1:$port/printer/objects/query?print_stats
+curl -s -o /home/pi/display_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
 
-print_filename=$(grep -oP '(?<="filename": ")[^"]*' telegram_stats.txt)
-print_duration=$(grep -oP '(?<="print_duration": )[^,]*' telegram_stats.txt)
+print_filename=$(grep -oP '(?<="filename": ")[^"]*' /home/pi/telegram_stats.txt)
+print_duration=$(grep -oP '(?<="print_duration": )[^,]*' /home/pi/telegram_stats.txt)
 progress=$(grep -oP '(?<="progress": )[^,]*' display_status.txt)
 
 #### Remaining to H M S ####
@@ -59,7 +59,13 @@ elif [ "$state_msg" = "6" ]; then
      -d text="${msg}" \
      -d chat_id=${chatid}
      msg=""
-
+else
+  msg="$state_msg"
+  curl -s -X POST \
+  ${tokenurl}/sendMessage \
+  -d text="${msg}" \
+  -d chat_id=${chatid}
+  msg=""
 fi
 
 if [ -n "${msg}" ]; then
