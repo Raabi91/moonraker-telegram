@@ -30,6 +30,9 @@ print_current=$(printf '%02d:%02d:%02d\n' $(($current/3600)) $(($current%3600/60
 print_progress1=$(echo "scale=1; $progress*100" | bc )
 print_progress=$(printf "%.1f" $print_progress1)%
 
+
+. $DIR_TEL/telegram_config.sh
+
 tokenurl="https://api.telegram.org/bot$token"
 state_msg="$1"
 
