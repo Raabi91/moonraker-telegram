@@ -2,7 +2,7 @@
 
 ## How Upgrade the script
 
-if you use multiple bots. you must first put them in the folder you created
+if you use multiple bots. you must first go in the folder you created
 
 ```
 cd Your_folder_name
