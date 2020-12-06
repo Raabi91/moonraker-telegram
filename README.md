@@ -87,13 +87,20 @@ if u use it the first time use this
 cd
 git clone https://github.com/Raabi91/moonraker-telegram
 cd moonraker-telegram
+```
+then install the script with
+
+```
 sh ./scripts/install.sh
 ```
-the edit your config with
+during installation you will be asked for the config path of moonraker. enter the full path here. if you have only one instance of moonraker it should 
 ```
-sudo nano /home/pi/moonraker-telegram/telegram_config.sh
+/home/pi/klipper_config
 ```
-or use mainsail or fluidd web interface
+be
+
+
+the edit your config use mainsail or fluidd web interface
 
 edit the variables between the ""
 
