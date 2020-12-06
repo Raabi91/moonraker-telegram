@@ -19,7 +19,7 @@ echo -e "\n\nyour moonraker config path (like /home/pi/klipper_config):"
 read CONFIG
 
 cp -i $DIR/example_config.sh $DIR/telegram_config.sh
-cp -s $DIR/telegram_config.sh $CONFIG/telegram_config.sh
+sudo cp -s $DIR/telegram_config.sh $CONFIG/telegram_config.sh
 
 
 
