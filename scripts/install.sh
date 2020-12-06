@@ -1,5 +1,8 @@
 #!/bin/bash
 
+MYDIR=`dirname $0`
+DIR="`cd $MYDIR/; pwd`"
+
 echo "\n\n========= moonraker-telegram - Installation Script ==========="
 
 sudo apt-get install bc
@@ -11,26 +14,30 @@ pip3 install telepot
 
 echo "\n\n========= Creat telegram_config.sh ==========="
 
-cp -i /home/pi/moonraker-telegram/example_config.sh /home/pi/moonraker-telegram/telegram_config.sh
-cp -s /home/pi/moonraker-telegram/telegram_config.sh /home/pi/klipper_config/telegram_config.sh
+echo -e "\n\n========= pleas input your settings description on github ==========="
+echo -e "\n\nyour moonraker config path (like /home/pi/klipper_config):"
+read CONFIG
+
+cp -i $DIR/example_config.sh $DIR/telegram_config.sh
+cp -s $DIR/telegram_config.sh $CONFIG/telegram_config.sh
 
 
 
 echo "\n\n========= set permissions ==========="
 sleep 1
-chmod 755 /home/pi/moonraker-telegram/scripts/telegram.sh
-chmod 755 /home/pi/moonraker-telegram/scripts/read_state.sh
-chmod 755 /home/pi/moonraker-telegram/telegram_config.sh
+chmod 755 $DIR/scripts/telegram.sh
+chmod 755 $DIR/scripts/read_state.sh
+chmod 755 $DIR/telegram_config.sh
 
 echo "\n\n========= installation autostart ==========="
 
-crontab -u pi -l | grep -v "/home/pi/moonraker-telegram/scripts/read_state.sh"  | crontab -u pi -
+crontab -u pi -l | grep -v "$DIR"  | crontab -u pi -
 sleep 1
-(crontab -u pi -l ; echo "@reboot sh /home/pi/moonraker-telegram/scripts/read_state.sh  &") | crontab -u pi -
+(crontab -u pi -l ; echo "@reboot cd $DIR && sh /scripts/read_state.sh  &") | crontab -u pi -
 
 echo "\n\n========= installation end ==========="
 echo "\n\n========= open and edit your config with ==========="
-echo "\n\n========= sudo nano /home/pi/moonraker-telegram/telegram_config.sh ==========="
+echo "\n\n========= sudo nano $DIR/telegram_config.sh ==========="
 echo "\n\n========= or use mainsail or fluidd and edit the telegram_config.sh ==========="
 
 

@@ -1,12 +1,15 @@
 #!/bin/bash
 
+MYDIR_TIME=`dirname $0`
+DIR_TIME="`cd $MYDIR_TIME/../; pwd`"
+
 while true
 do
-. /home/pi/moonraker-telegram/telegram_config.sh
+. $DIR_TIME/telegram_config.sh
 SECONDS=0
 
 while [ $SECONDS -lt $time ]; do
-   . /home/pi/moonraker-telegram/scripts/time_config.txt
+   . $DIR_TIME/scripts/time_config.txt
       if [ "$time_msg" = "0" ]; then
         exit 0 
       fi
@@ -15,11 +18,11 @@ SECONDS=$(echo "$SECONDS + 10" | bc -l)
     :
 done
 
-. /home/pi/moonraker-telegram/scripts/time_config.txt
+. $DIR_TIME/scripts/time_config.txt
 
 	if [ "$time_msg" = "1" ]; then
         if [ "$time_pause" = "0" ]; then
-        sh /home/pi/moonraker-telegram/scripts/telegram.sh "5"
+        sh $DIR_TIME/scripts/telegram.sh "5"
         SECONDS=0
         fi
     fi

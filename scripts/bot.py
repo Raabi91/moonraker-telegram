@@ -7,6 +7,7 @@ from telepot.loop import MessageLoop
 
 token = sys.argv[1]
 port = sys.argv[2]
+DIR = sys.argv[3]
 
 """
 After **inserting token** in the source code, run it:
@@ -27,9 +28,9 @@ def handle(msg):
     print ('Got command: %s' % command)
 
     if command == '/help':
-        os.system("sh /home/pi/moonraker-telegram/scripts/telegram.sh 6")
+        os.system(f'sh {DIR}/scripts/telegram.sh 6')
     elif command == '/state':
-        os.system("sh /home/pi/moonraker-telegram/scripts/telegram.sh 5")
+        os.system(f'sh {DIR}/scripts/telegram.sh 5')
     elif command == '/pause':
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/pause')
         print(x.text)
