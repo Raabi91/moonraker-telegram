@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MYDIR=`dirname $0`
-DIR="`cd $MYDIR/; pwd`"
+DIR="`cd $MYDIR/../; pwd`"
 
 echo "\n\n========= moonraker-telegram - Installation Script ==========="
 
