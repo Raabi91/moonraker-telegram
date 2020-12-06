@@ -12,22 +12,19 @@ sh ./scripts/install.sh
 sudo reboot
 ```
 
-## How Edit my config after first instalation
+## How Edit my config with mainsail
 
-you have 3 ways
-
-1.
 got to Mainsail -> Settings -> Maschine
+
 and go into the config folder than you can edit the telegram_config.sh
 
-2.
-Open the config  in SSH an edit the settings
+After Edit the Config  do a Reboot
 
-```
-sudo nano /home/pi/powermanager/config.sh
-```
-3.
-use Ftp and search the file to edit and reupload it. the path is /home/pi/powermanager/
+## How Edit my config with fluidd
+
+got to Mainsail -> Printer -> config tab
+
+now you can edit the telegram_config.sh
 
 After Edit the Config  do a Reboot
 
@@ -61,3 +58,20 @@ now you can add the call in a gcode macro. here is a example
 gcode:
     RUN_SHELL_COMMAND CMD=telegram 
 ```
+
+## How Too run multiple bots
+
+### Too use this you musst use a second bot in telegram
+
+Create a Dir for a second bot like
+
+```
+mkdir telegram1
+```
+
+then go in to the folder
+
+```
+cd telegram1
+```
+and now do a normal [installation](https://github.com/Raabi91/moonraker-telegram/blob/main/README.md)

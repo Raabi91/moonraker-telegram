@@ -1,11 +1,16 @@
 #!/bin/bash
 
-curl -s -o /home/pi/telegram_stats.txt http://127.0.0.1:$port/printer/objects/query?print_stats
-curl -s -o /home/pi/display_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
+MYDIR_TEL=`dirname $0`
+DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 
-print_filename=$(grep -oP '(?<="filename": ")[^"]*' /home/pi/telegram_stats.txt)
-print_duration=$(grep -oP '(?<="print_duration": )[^,]*' /home/pi/telegram_stats.txt)
-progress=$(grep -oP '(?<="progress": )[^,]*' /home/pi/display_status.txt)
+. $DIR_TEL/telegram_config.sh
+
+curl -s -o $DIR_TEL/telegram_stats.txt http://127.0.0.1:$port/printer/objects/query?print_stats
+curl -s -o $DIR_TEL/display_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
+
+print_filename=$(grep -oP '(?<="filename": ")[^"]*' $DIR_TEL/telegram_stats.txt)
+print_duration=$(grep -oP '(?<="print_duration": )[^,]*' $DIR_TEL/telegram_stats.txt)
+progress=$(grep -oP '(?<="progress": )[^,]*' $DIR_TEL/display_status.txt)
 
 #### Remaining to H M S ####
 if [ "$print_duration" > "0" ]; then
@@ -26,7 +31,7 @@ print_progress1=$(echo "scale=1; $progress*100" | bc )
 print_progress=$(printf "%.1f" $print_progress1)%
 
 
-. /home/pi/moonraker-telegram/telegram_config.sh
+. $DIR_TEL/telegram_config.sh
 
 tokenurl="https://api.telegram.org/bot$token"
 state_msg="$1"
@@ -70,21 +75,21 @@ fi
 
 if [ -n "${msg}" ]; then
  if [ "$picture" = "1" ]; then
-  curl -o /home/pi/moonraker-telegram/picture/cam_new.jpg $webcam
+  curl -o $DIR_TEL/picture/cam_new.jpg $webcam
 
-  convert -rotate $rotate /home/pi/moonraker-telegram/picture/cam_new.jpg /home/pi/moonraker-telegram/picture/cam_new.jpg
+  convert -rotate $rotate $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
 
   if [ "$horizontally" = "1" ]; then
-    convert -flop /home/pi/moonraker-telegram/picture/cam_new.jpg /home/pi/moonraker-telegram/picture/cam_new.jpg
+    convert -flop $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
   fi
   if [ "$vertically" = "1" ]; then
-    convert -flip /home/pi/moonraker-telegram/picture/cam_new.jpg /home/pi/moonraker-telegram/picture/cam_new.jpg
+    convert -flip $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
   fi
  
   curl -s -X POST \
     ${tokenurl}/sendPhoto \
     -F chat_id=${chatid} \
-    -F photo="@/home/pi/moonraker-telegram/picture/cam_new.jpg" \
+    -F photo="@$DIR_TEL/picture/cam_new.jpg" \
     -F caption="${msg}"
 
  elif [ "$picture" = "0" ]; then
