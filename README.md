@@ -10,7 +10,7 @@ until now we supported:
 - Send State timed
 - First Commands avaible (/state, /pause, /resume, /cancel, /help)
 - You can deactivate the messages by not entering any text at the config
-
+- send own messages (without a picture) via klipper shell plugin an gcode macros (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
 ### !!! Attention new update instructions in FAQ !!!
 
 ## Create a Telegram bot

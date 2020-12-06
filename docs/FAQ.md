@@ -63,7 +63,7 @@ gcode:
 
 ### Too use this you musst use a second bot in telegram
 
-Create a Dir for a second bot like (the name )
+Create a Dir for a second bot like
 
 ```
 mkdir telegram1
