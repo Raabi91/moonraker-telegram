@@ -11,7 +11,7 @@ cd Your_folder_name
 execute the code wenn you will ask to overwrite your telegram_config.sh say no
 
 ```
-cd /moonraker-telegram
+cd moonraker-telegram
 git reset --hard HEAD
 git pull
 sh ./scripts/install.sh
