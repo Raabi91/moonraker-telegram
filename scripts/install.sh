@@ -27,13 +27,13 @@ echo "\n\n========= set permissions ==========="
 sleep 1
 chmod 755 $DIR/scripts/telegram.sh
 chmod 755 $DIR/scripts/read_state.sh
-chmod 755 $DIR/telegram_config.sh
+sudo chmod 777 $DIR/telegram_config.sh
 
 echo "\n\n========= installation autostart ==========="
 
 crontab -u pi -l | grep -v "$DIR"  | crontab -u pi -
 sleep 1
-(crontab -u pi -l ; echo "@reboot cd $DIR && sh /scripts/read_state.sh  &") | crontab -u pi -
+(crontab -u pi -l ; echo "@reboot sh $DIR/scripts/read_state.sh  &") | crontab -u pi -
 
 echo "\n\n========= installation end ==========="
 echo "\n\n========= open and edit your config with ==========="
