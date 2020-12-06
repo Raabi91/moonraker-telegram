@@ -3,6 +3,8 @@
 MYDIR_TEL=`dirname $0`
 DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 
+. $DIR_TEL/telegram_config.sh
+
 curl -s -o $DIR_TEL/telegram_stats.txt http://127.0.0.1:$port/printer/objects/query?print_stats
 curl -s -o $DIR_TEL/display_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
 
@@ -27,9 +29,6 @@ print_current=$(printf '%02d:%02d:%02d\n' $(($current/3600)) $(($current%3600/60
 #### Progress to % ####
 print_progress1=$(echo "scale=1; $progress*100" | bc )
 print_progress=$(printf "%.1f" $print_progress1)%
-
-
-. $DIR_TEL/telegram_config.sh
 
 tokenurl="https://api.telegram.org/bot$token"
 state_msg="$1"
