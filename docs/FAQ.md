@@ -57,6 +57,7 @@ now you can add the call in a gcode macro. here is a example
 [gcode_macro telegram]
 gcode:
     RUN_SHELL_COMMAND CMD=telegram 
+```
 
 ## How Too run multiple bots
 
