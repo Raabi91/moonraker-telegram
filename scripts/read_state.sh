@@ -15,8 +15,8 @@ pause="0"
 while true
 do
 
-curl -s -o print_stats.txt http://127.0.0.1:$port/printer/objects/query?print_stats
-print_state_read=$(grep -oP '(?<="state": ")[^"]*' print_stats.txt)
+curl -s -o $DIR_STATE/print_stats.txt http://127.0.0.1:$port/printer/objects/query?print_stats
+print_state_read=$(grep -oP '(?<="state": ")[^"]*' $DIR_STATE/print_stats.txt)
 
 	if [ "$print_state_read" = "printing" ]; then
         if [ "$print_state" = "0" ]; then
