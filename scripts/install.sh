@@ -24,19 +24,19 @@ if ! grep -q "config_dir=" $DIR/telegram_config.sh
     echo -e "\n\n========= pleas input your settings description on github ==========="
     echo -e "\n\nyour moonraker config path (like /home/pi/klipper_config):"
     read CONFIG 
-    echo "# moonraker config path" >> $DIR/scripts/telegram_config.sh
-    echo "config_dir="$CONFIG"" >> $DIR/scripts/telegram_config.sh
-elif ! grep -q "bot_disable=" $DIR/telegram_config.sh
+    echo "# moonraker config path" >> $DIR/telegram_config.sh
+    echo "config_dir="$CONFIG"" >> $DIR/telegram_config.sh
+fi
+if ! grep -q "bot_disable=" $DIR/telegram_config.sh
     then 
-    echo "# Make all commands Disable with 1" >> $DIR/scripts/telegram_config.sh
-    echo "bot_disable="0"" >> $DIR/scripts/telegram_config.sh        
+    echo "# Make all commands Disable with 1" >> $DIR/telegram_config.sh
+    echo "bot_disable="0"" >> $DIR/telegram_config.sh        
 fi
 
 
 . $DIR/telegram_config.sh
 
     sudo cp -s $DIR/telegram_config.sh $config_dir/telegram_config.sh
-    echo $config_dir/telegram_config.sh
 
 
 echo "\n\n========= set permissions ==========="
