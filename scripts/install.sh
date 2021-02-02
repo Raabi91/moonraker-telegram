@@ -14,9 +14,8 @@ pip3 install telepot
 
 
 echo "\n\n========= Check for telegram_config.sh ==========="
-if [ -e $DIR/telegram_config.sh ]
-then;
-else
+if ! [ -e $DIR/telegram_config.sh ]
+then
     cp $DIR/example_config.sh $DIR/telegram_config.sh
 fi
 
