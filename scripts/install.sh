@@ -24,7 +24,7 @@ if ! grep -q "config_dir=" $DIR/telegram_config.sh
     echo -e "\n\n========= pleas input your settings description on github ==========="
     echo -e "\n\nyour moonraker config path (like /home/pi/klipper_config):"
     read CONFIG 
-    echo "# moonraker config path" >> $DIR/telegram_config.sh
+    echo "\n # moonraker config path" >> $DIR/telegram_config.sh
     echo "config_dir="$CONFIG"" >> $DIR/telegram_config.sh
 fi
 if ! grep -q "bot_disable=" $DIR/telegram_config.sh
