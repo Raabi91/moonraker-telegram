@@ -3,8 +3,8 @@
 A Script/Programm to send the printer State before, during and after a print via Telegram Messenger. But its only Working with moonraker
 
 Update 03.02.2021
--New install script
--Add option to disable commands in config (you will see this after you have execute the new install script)
+- New install script
+- Add option to disable commands in config (you will see this after you have execute the new install script)
 
 until now we supported:
 - Print start
