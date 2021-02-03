@@ -37,3 +37,5 @@ rotate="0"
 horizontally="0"
 #flip the pic vertically bevor sending, 1 = yes, 0 = No
 vertically="0"
+# Make all commands Disable with 1
+bot_disable="0"

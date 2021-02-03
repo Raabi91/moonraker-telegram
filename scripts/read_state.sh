@@ -4,7 +4,9 @@ DIR_STATE="`cd $MYDIR_STATE/../; pwd`"
 
 . $DIR_STATE/telegram_config.sh
 
+if [ "$bot_disable" = "0" ]; then
 python3 $DIR_STATE/scripts/bot.py "$token" "$port" "$DIR_STATE" &
+fi
 
 echo "time_msg=0" > $DIR_STATE/scripts/time_config.txt
 echo "time_pause=0" >> $DIR_STATE/scripts/time_config.txt

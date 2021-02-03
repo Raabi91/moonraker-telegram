@@ -13,15 +13,30 @@ pip3 install requests
 pip3 install telepot
 
 
-echo "\n\n========= Creat telegram_config.sh ==========="
+echo "\n\n========= Check for telegram_config.sh ==========="
+if ! [ -e $DIR/telegram_config.sh ]
+then
+    cp $DIR/example_config.sh $DIR/telegram_config.sh
+fi
 
-echo -e "\n\n========= pleas input your settings description on github ==========="
-echo -e "\n\nyour moonraker config path (like /home/pi/klipper_config):"
-read CONFIG
+if ! grep -q "config_dir=" $DIR/telegram_config.sh
+    then
+    echo -e "\n\n========= pleas input your settings description on github ==========="
+    echo -e "\n\nyour moonraker config path (like /home/pi/klipper_config):"
+    read CONFIG 
+    echo '\n # moonraker config path' >> $DIR/telegram_config.sh
+    echo "config_dir="$CONFIG"" >> $DIR/telegram_config.sh
+fi
+if ! grep -q "bot_disable=" $DIR/telegram_config.sh
+    then 
+    echo '# Make all commands Disable with 1' >> $DIR/telegram_config.sh
+    echo 'bot_disable="0"' >> $DIR/telegram_config.sh        
+fi
 
-cp -i $DIR/example_config.sh $DIR/telegram_config.sh
-sudo cp -s $DIR/telegram_config.sh $CONFIG/telegram_config.sh
 
+. $DIR/telegram_config.sh
+
+    cp -l $DIR/telegram_config.sh $config_dir/telegram_config.sh
 
 
 echo "\n\n========= set permissions ==========="
@@ -30,7 +45,7 @@ chmod 755 $DIR/scripts/telegram.sh
 chmod 755 $DIR/scripts/read_state.sh
 sudo chmod 777 $DIR/telegram_config.sh
 
-echo "\n\n========= installation autostart ==========="
+echo "\n\n========= install autostart ==========="
 
 crontab -u pi -l | grep -v "$DIR"  | crontab -u pi -
 sleep 1
