@@ -19,6 +19,9 @@ until now we supported:
 
 ### !!! Attention new update instructions in FAQ !!!
 
+## Info / Contact / Help
+If you want to talk to other users of this plugin and maybe have some influence in the development of this plugin, you can join the [Moonraker-Telegram-Group](https://t.me/joinchat/HEI8MD3rG1qhl7tg)
+
 ## Create a Telegram bot
 
 1. Search for the @BotFather username in your Telegram application
