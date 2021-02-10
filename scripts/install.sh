@@ -44,8 +44,12 @@ fi
 
 echo "\n\n========= set permissions ==========="
 sleep 1
-chmod 755 $DIR/scripts/telegram.sh
-chmod 755 $DIR/scripts/read_state.sh
+sudo chmod 755 $DIR/scripts/telegram.sh
+sudo chmod 755 $DIR/scripts/read_state.sh
+sudo chmod 755 $DIR/scripts/time_msg.sh
+sudo chmod 755 $DIR/scripts/bot.py
+sudo chmod 755 $DIR/scripts/moonraker-telegram_start.sh
+sudo chmod 755 $DIR/scripts/websocket-connection-telegram.py
 sudo chmod 777 $DIR/telegram_config.sh
 
 echo "\n\n========= install autostart ==========="
