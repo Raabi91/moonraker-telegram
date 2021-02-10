@@ -5,7 +5,7 @@ DIR_STATE="`cd $MYDIR_STATE/../; pwd`"
 . $DIR_STATE/telegram_config.sh
 . $DIR_STATE/scripts/state_config.txt
 
-print_state_read=$(grep -oP '(?<="state": ")[^"]*' $DIR_STATE/webhsocket_state.txt)
+print_state_read=$(grep -oP '(?<="state": ")[^"]*' $DIR_STATE/websocket_state.txt)
 
 	if [ "$print_state_read" = "printing" ]; then
         if [ "$print_state" = "0" ]; then

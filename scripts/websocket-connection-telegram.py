@@ -14,8 +14,8 @@ def on_message(ws, message):
     if start == '0':
         if "state" in message:
             #print(message)
-            os.remove(f'{DIR}/webhsocket_state.txt')
-            f = open( f'{DIR}/webhsocket_state.txt', 'w' )
+            os.remove(f'{DIR}/websocket_state.txt')
+            f = open( f'{DIR}/websocket_state.txt', 'w' )
             f.write(message)
             f.close()
             os.system(f'sh {DIR}/scripts/read_state.sh')
