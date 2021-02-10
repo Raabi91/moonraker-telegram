@@ -5,8 +5,9 @@ DIR_STATE="`cd $MYDIR_STATE/../; pwd`"
 . $DIR_STATE/telegram_config.sh
 . $DIR_STATE/scripts/state_config.txt
 
+method=$(grep -oP '(?<="method": ")[^"]*' $DIR_STATE/websocket_state.txt)
 print_state_read=$(grep -oP '(?<="state": ")[^"]*' $DIR_STATE/websocket_state.txt)
-
+if [ "$method" = "notify_status_update" ]; then
 	if [ "$print_state_read" = "printing" ]; then
         if [ "$print_state" = "0" ]; then
             sed -i "s/print_state=.*$/print_state="1"/g" $DIR_STATE/scripts/state_config.txt
@@ -52,7 +53,5 @@ print_state_read=$(grep -oP '(?<="state": ")[^"]*' $DIR_STATE/websocket_state.tx
         sed -i "s/time_msg=.*$/time_msg="0"/g" $DIR_STATE/scripts/time_config.txt
         sed -i "s/time_pause=.*$/time_pause="0"/g" $DIR_STATE/scripts/time_config.txt
     fi
-
-
-sleep 1
-done
+fi
+exit 1

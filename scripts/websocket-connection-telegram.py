@@ -12,11 +12,9 @@ port1 = sys.argv[1]
 DIR1 = sys.argv[2]
 
 def on_message(ws, message):
-    if start == '0':
         if "state" in message:
-            #print(message)
-            os.remove(f'{DIR1}/websocket_state.txt')
-            f = open( f'{DIR1}/websocket_state.txt', 'w' )
+            print(message)
+            f = open(f'{DIR1}/websocket_state.txt', 'w' )
             f.write(message)
             f.close()
             os.system(f'sh {DIR1}/scripts/read_state.sh')

@@ -15,3 +15,4 @@ echo "time_pause=0" >> $DIR_START/scripts/time_config.txt
 
 echo "print_state=0" > $DIR_START/scripts/state_config.txt
 echo "pause=0" >$DIR_START/scripts/state_config.txt
+exit 1
