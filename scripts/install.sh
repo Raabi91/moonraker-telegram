@@ -9,9 +9,11 @@ sudo apt-get install bc
 sudo apt-get install python3
 sudo apt-get install python3-pip
 sudo apt-get install python3-setuptools
-pip install wheel
+pip3 install wheel
+pip3 install websocket_client
 pip3 install requests
 pip3 install telepot
+
 
 
 echo "\n\n========= Check for telegram_config.sh ==========="
