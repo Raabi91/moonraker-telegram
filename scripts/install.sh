@@ -50,7 +50,7 @@ echo "\n\n========= install autostart ==========="
 
 crontab -u pi -l | grep -v "$DIR"  | crontab -u pi -
 sleep 1
-(crontab -u pi -l ; echo "@reboot sh $DIR/scripts/read_state.sh  &") | crontab -u pi -
+(crontab -u pi -l ; echo "@reboot sh $DIR/scripts/moonraker-telegram_start.sh") | crontab -u pi -
 
 echo "\n\n========= installation end ==========="
 echo "\n\n========= open and edit your config with ==========="
