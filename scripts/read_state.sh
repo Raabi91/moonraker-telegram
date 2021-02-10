@@ -7,6 +7,7 @@ DIR_STATE="`cd $MYDIR_STATE/../; pwd`"
 
 method=$(grep -oP '(?<="method": ")[^"]*' $DIR_STATE/websocket_state.txt)
 print_state_read=$(grep -oP '(?<="state": ")[^"]*' $DIR_STATE/websocket_state.txt)
+
 if [ "$method" = "notify_status_update" ]; then
 	if [ "$print_state_read" = "printing" ]; then
         if [ "$print_state" = "0" ]; then
