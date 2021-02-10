@@ -1,24 +1,25 @@
 import websocket
 import json
 import os
+import sys
 try:
     import thread
 except ImportError:
     import _thread as thread
 import time
 
-PORT1 = sys.argv[1]
+port1 = sys.argv[1]
 DIR1 = sys.argv[2]
 
 def on_message(ws, message):
     if start == '0':
         if "state" in message:
             #print(message)
-            os.remove(f'{DIR}/websocket_state.txt')
-            f = open( f'{DIR}/websocket_state.txt', 'w' )
+            os.remove(f'{DIR1}/websocket_state.txt')
+            f = open( f'{DIR1}/websocket_state.txt', 'w' )
             f.write(message)
             f.close()
-            os.system(f'sh {DIR}/scripts/read_state.sh')
+            os.system(f'sh {DIR1}/scripts/read_state.sh')
 
 def on_error(ws, error):
     print(error)
@@ -47,7 +48,7 @@ def on_open(ws):
     
 def connect_websocket():
 #    websocket.enableTrace(True)
-    ws = websocket.WebSocketApp(f'ws://127.0.0.1:{port}/websocket',
+    ws = websocket.WebSocketApp(f'ws://127.0.0.1:{port1}/websocket',
                               on_message = on_message,
                               on_error = on_error,
                               on_close = on_close)
