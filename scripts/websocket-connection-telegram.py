@@ -21,11 +21,12 @@ def on_message(ws, message):
             }
             ws.send(json.dumps(data))
         if "print_stats" in message:
-            print(message)
-            f = open(f'{DIR1}/websocket_state.txt', 'w' )
-            f.write(message)
-            f.close()
-            os.system(f'sh {DIR1}/scripts/read_state.sh')
+            if "state" in message:    
+                print(message)
+                f = open(f'{DIR1}/websocket_state.txt', 'w' )
+                f.write(message)
+                f.close()
+                os.system(f'sh {DIR1}/scripts/read_state.sh')
 
 def on_error(ws, error):
     print(error)
