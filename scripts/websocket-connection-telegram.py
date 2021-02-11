@@ -20,7 +20,7 @@ def on_message(ws, message):
              "id": "5"
             }
             ws.send(json.dumps(data))
-        if "state" in message:
+        if "print_stats" in message:
             print(message)
             f = open(f'{DIR1}/websocket_state.txt', 'w' )
             f.write(message)
