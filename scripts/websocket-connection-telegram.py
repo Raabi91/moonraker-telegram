@@ -12,6 +12,14 @@ port1 = sys.argv[1]
 DIR1 = sys.argv[2]
 
 def on_message(ws, message):
+        if "Klipper state: Ready" in message:
+            data = {
+             "jsonrpc": "2.0",
+             "method": "printer.objects.subscribe",
+             "params": {"objects": {"print_stats": ["state",]}},
+             "id": "5"
+            }
+            ws.send(json.dumps(data))
         if "state" in message:
             print(message)
             f = open(f'{DIR1}/websocket_state.txt', 'w' )
