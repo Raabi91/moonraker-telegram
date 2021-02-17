@@ -10,8 +10,10 @@ sudo apt-get install python3
 sudo apt-get install python3-pip
 sudo apt-get install python3-setuptools
 pip3 install wheel
+pip3 install websocket_client
 pip3 install requests
 pip3 install telepot
+
 
 
 echo "\n\n========= Check for telegram_config.sh ==========="
@@ -42,15 +44,19 @@ fi
 
 echo "\n\n========= set permissions ==========="
 sleep 1
-chmod 755 $DIR/scripts/telegram.sh
-chmod 755 $DIR/scripts/read_state.sh
+sudo chmod 755 $DIR/scripts/telegram.sh
+sudo chmod 755 $DIR/scripts/read_state.sh
+sudo chmod 755 $DIR/scripts/time_msg.sh
+sudo chmod 755 $DIR/scripts/bot.py
+sudo chmod 755 $DIR/scripts/moonraker-telegram_start.sh
+sudo chmod 755 $DIR/scripts/websocket-connection-telegram.py
 sudo chmod 777 $DIR/telegram_config.sh
 
 echo "\n\n========= install autostart ==========="
 
 crontab -u pi -l | grep -v "$DIR"  | crontab -u pi -
 sleep 1
-(crontab -u pi -l ; echo "@reboot sh $DIR/scripts/read_state.sh  &") | crontab -u pi -
+(crontab -u pi -l ; echo "@reboot sh $DIR/scripts/moonraker-telegram_start.sh &") | crontab -u pi -
 
 echo "\n\n========= installation end ==========="
 echo "\n\n========= open and edit your config with ==========="
