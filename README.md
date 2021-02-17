@@ -2,6 +2,9 @@
 
 A Script/Programm to send the printer State before, during and after a print via Telegram Messenger. But its only Working with moonraker
 
+Update 17.02.2021
+- switch from http request to websocket connection at read state
+
 Update 03.02.2021
 - New install script
 - Add option to disable all commands in config (you will see this after you have execute the new install script)
