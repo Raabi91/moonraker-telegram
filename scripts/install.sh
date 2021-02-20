@@ -1,8 +1,5 @@
 #!/bin/bash
 
-SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-MTPATH=$(sed 's/\/scripts//g' <<< $SCRIPTPATH)
-echo $SCRIPTPATH
 MYDIR=`dirname $0`
 DIR="`cd $MYDIR/../; pwd`"
 
@@ -68,9 +65,9 @@ echo "\n\n========= install autostart ==========="
 
 install_systemd_service()
 {
-    SERVICE=$(<$SCRIPTPATH/moonraker-telegram.service)
+    SERVICE=$(<$DIR/moonraker-telegram.service)
     echo $SERVICE
-    MTPATH_ESC=$(sed "s/\//\\\\\//g" <<< $MTPATH)
+    MTPATH_ESC=$(sed "s/\//\\\\\//g" <<< $MYDIR)
     echo $MTPATH_ESC
 
     SERVICE=$(sed "s/MT_DESC/moonraker-telegram$multi_instanz/g" <<< $SERVICE)
