@@ -8,10 +8,10 @@ Type=simple
 Restart=always
 RestartSec=1
 User=MT_USER
-WorkingDirectory=MT_DIR
-ExecStart=sh MT_DIR/scripts/moonraker-telegram_start.sh
+WorkingDirectory=MT_DIR/scripts
+ExecStart=sh MT_DIR/scripts/moonraker-telegram_start.sh &
 
-ExecStop=sh MT_DIR/scripts/moonraker-telegram_stop.sh
+ExecStop=sh MT_DIR/scripts/moonraker-telegram_stop.sh &
 ExecStop=/bin/sleep 2  
 
 [Install]
