@@ -41,7 +41,7 @@ if ! grep -q "multi_instanz=" $DIR/multi_config.sh
     echo "If you only use it once per hardware, simply press enter."
     read INSTANZ 
     echo '\n # if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service.' > $DIR/multi_config.sh
-    echo "multi_instanz="$INSTANZ"" >> $DIR/multi_config.sh      
+    echo "multi_instanz="moonraker-telegram$INSTANZ"" >> $DIR/multi_config.sh      
 fi
 
 
@@ -67,22 +67,22 @@ echo "\n\n========= install autostart ==========="
 # {
     SERVICE=$(<$MYDIR/moonraker-telegram.service)
     echo $SERVICE
-    SERVICE=$(sed "s/MT_DESC/moonraker-telegram$multi_instanz/g" <<< $SERVICE)
+    SERVICE=$(sed "s/MT_DESC/$multi_instanz/g" <<< $SERVICE)
     echo $SERVICE
     SERVICE=$(sed "s/MT_USER/$USER/g" <<< $SERVICE)
     echo $SERVICE
     SERVICE=$(sed "s/MT_DIR/$MYDIR/g" <<< $SERVICE)
     echo $SERVICE
 
-    echo "$SERVICE" | sudo tee /etc/systemd/system/moonraker-telegram$multi_instanz.service > /dev/null
+    echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/null
     sudo systemctl daemon-reload
-    sudo systemctl enable moonraker-telegram$multi_instanz
+    sudo systemctl enable $multi_instanz
 #}
 
 
 start_moonraker-telegram() 
 {
-    sudo systemctl start moonraker-telegram$multi_instanz
+    sudo systemctl start $multi_instanz
 }
 crontab -u pi -l | grep -v "$DIR"  | crontab -u pi -
 sleep 1

@@ -1,5 +1,5 @@
 [Unit]
-Description=moonraker-telegram
+Description=MT_DESC
 After=moonraker.service
 StartLimitIntervalSec=0
 
