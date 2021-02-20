@@ -5,13 +5,12 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-Restart=always
-RestartSec=1
+Restart=no
 User=MT_USER
 WorkingDirectory=MT_DIR/scripts
 ExecStart=sh MT_DIR/scripts/moonraker-telegram_start.sh &
 
-ExecStop=sh MT_DIR/scripts/moonraker-telegram_stop.sh  
+ExecStop=sh MT_DIR/scripts/moonraker-telegram_stop.sh &
 
 [Install]
 WantedBy=multi-user.target
