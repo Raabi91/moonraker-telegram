@@ -45,6 +45,7 @@ if [ "$method" = "notify_status_update" ]; then
     elif [ "$print_state_read" = "error" ]; then
         if [ "$print_state" = "1" ]; then
             sed -i "s/print_state=.*$/print_state="0"/g" $DIR_STATE/scripts/state_config.txt
+            sed -i "s/time_pause=.*$/time_pause="0"/g" $DIR_STATE/scripts/time_config.txt
             sed -i "s/time_msg=.*$/time_msg="0"/g" $DIR_STATE/scripts/time_config.txt
             sh $DIR_STATE/scripts/telegram.sh "4"
         fi
