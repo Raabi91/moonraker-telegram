@@ -2,6 +2,8 @@
 
 MYDIR=`dirname $0`
 DIR="`cd $MYDIR/../; pwd`"
+SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+MTPATH=$(sed 's/\/scripts//g' <<< $SCRIPTPATH)
 
 echo "\n\n========= moonraker-telegram - Installation Script ==========="
 
@@ -63,21 +65,24 @@ sudo chmod 777 $DIR/telegram_config.sh
 
 echo "\n\n========= install autostart ==========="
 
-#install_systemd_service()
-# {
-SERVICE=$(<$DIR/scripts/moonraker-telegram.service)
-echo $SERVICE
-SERVICE=$(sed "s/MT_DESC/$multi_instanz/g" <<< $SERVICE)
-echo $SERVICE
-SERVICE=$(sed "s/MT_USER/$USER/g" <<< $SERVICE)
-echo $SERVICE
-SERVICE=$(sed "s/MT_DIR/$DIR/g" <<< $SERVICE)
-echo $SERVICE
+install_systemd_service()
+{
+    SERVICE=$(<$SCRIPTPATH/moonraker-telegram.service)
+    echo $SERVICE
+    MTPATH_ESC=$(sed "s/\//\\\\\//g" <<< $MTPATH)
+    echo $MTPATH_ESC
 
-echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/null
-sudo systemctl daemon-reload
-sudo systemctl enable $multi_instanz
-#}
+    SERVICE=$(sed "s/MT_DESC/$multi_instanz/g" <<< $SERVICE)
+    echo $SERVICE
+    SERVICE=$(sed "s/MT_USER/$USER/g" <<< $SERVICE)
+    echo $SERVICE
+    SERVICE=$(sed "s/MT_DIR/$MTPATH_ESC/g" <<< $SERVICE)
+    echo $SERVICE
+
+    echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/null
+    sudo systemctl daemon-reload
+    sudo systemctl enable $multi_instanz
+}
 
 
 start_moonraker-telegram() 
