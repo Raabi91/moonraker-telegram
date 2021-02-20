@@ -15,4 +15,3 @@ echo "print_state=0" > $DIR_START/scripts/state_config.txt
 echo "pause=0" >> $DIR_START/scripts/state_config.txt
 
 python3 $DIR_START/scripts/websocket-connection-telegram.py "$port" "$DIR_START" &
-exit 1

@@ -76,7 +76,7 @@ echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/nul
 sudo systemctl daemon-reload
 sudo systemctl enable $multi_instanz
 
-if crontab -l | grep -i $DIR; then
+if crontab -l | grep -i /home/pi; then
     crontab -u pi -l | grep -v "$DIR"  | crontab -u pi -
     sleep 1
     (crontab -u pi -l ; echo "") | crontab -u pi -
