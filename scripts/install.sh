@@ -65,18 +65,18 @@ echo "\n\n========= install autostart ==========="
 
 #install_systemd_service()
 # {
-    SERVICE=$(<$MYDIR/moonraker-telegram.service)
-    echo $SERVICE
-    SERVICE=$(sed "s/MT_DESC/$multi_instanz/g" <<< $SERVICE)
-    echo $SERVICE
-    SERVICE=$(sed "s/MT_USER/$USER/g" <<< $SERVICE)
-    echo $SERVICE
-    SERVICE=$(sed "s/MT_DIR/$MYDIR/g" <<< $SERVICE)
-    echo $SERVICE
+SERVICE=$(<$MYDIR/moonraker-telegram.service)
+echo $SERVICE
+SERVICE=$(sed "s/MT_DESC/$multi_instanz/g" <<< $SERVICE)
+echo $SERVICE
+SERVICE=$(sed "s/MT_USER/$USER/g" <<< $SERVICE)
+echo $SERVICE
+SERVICE=$(sed "s/MT_DIR/$MYDIR/g" <<< $SERVICE)
+echo $SERVICE
 
-    echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/null
-    sudo systemctl daemon-reload
-    sudo systemctl enable $multi_instanz
+echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/null
+sudo systemctl daemon-reload
+sudo systemctl enable $multi_instanz
 #}
 
 
