@@ -14,7 +14,8 @@ execute the code wenn you will ask to overwrite your telegram_config.sh say no
 cd moonraker-telegram
 git reset --hard HEAD
 git pull --no-edit
-sh ./scripts/install.sh
+chmod 755 ./scripts/install.sh
+./scripts/install.sh
 sudo reboot
 ```
 

@@ -2,8 +2,6 @@
 
 MYDIR=`dirname $0`
 DIR="`cd $MYDIR/../; pwd`"
-SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-MTPATH=$(sed 's/\/scripts//g' <<< $SCRIPTPATH)
 
 echo "\n\n========= moonraker-telegram - Installation Script ==========="
 
@@ -63,35 +61,28 @@ sudo chmod 755 $DIR/scripts/moonraker-telegram_start.sh
 sudo chmod 755 $DIR/scripts/websocket-connection-telegram.py
 sudo chmod 777 $DIR/telegram_config.sh
 
-echo "\n\n========= install autostart ==========="
+echo "\n\n========= install systemd ==========="
 
-install_systemd_service()
-{
-    SERVICE=$(<$SCRIPTPATH/moonraker-telegram.service)
-    echo $SERVICE
-    MTPATH_ESC=$(sed "s/\//\\\\\//g" <<< $MTPATH)
-    echo $MTPATH_ESC
+SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+MTPATH=$(sed 's/\/scripts//g' <<< $SCRIPTPATH)
 
-    SERVICE=$(sed "s/MT_DESC/$multi_instanz/g" <<< $SERVICE)
-    echo $SERVICE
-    SERVICE=$(sed "s/MT_USER/$USER/g" <<< $SERVICE)
-    echo $SERVICE
-    SERVICE=$(sed "s/MT_DIR/$MTPATH_ESC/g" <<< $SERVICE)
-    echo $SERVICE
+SERVICE=$(<$SCRIPTPATH/moonraker-telegram.service)
+MTPATH_ESC=$(sed "s/\//\\\\\//g" <<< $MTPATH)
+SERVICE=$(sed "s/MT_DESC/$multi_instanz/g" <<< $SERVICE)
+SERVICE=$(sed "s/MT_USER/$USER/g" <<< $SERVICE)
+SERVICE=$(sed "s/MT_DIR/$MTPATH_ESC/g" <<< $SERVICE)
 
-    echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/null
-    sudo systemctl daemon-reload
-    sudo systemctl enable $multi_instanz
-}
+echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/null
+sudo systemctl daemon-reload
+sudo systemctl enable $multi_instanz
 
-
-start_moonraker-telegram() 
-{
-    sudo systemctl start $multi_instanz
-}
 crontab -u pi -l | grep -v "$DIR"  | crontab -u pi -
 sleep 1
 (crontab -u pi -l ; echo "") | crontab -u pi -
+
+echo "\n\n========= start systemd for $multi_instanz ==========="
+
+sudo systemctl start $multi_instanz
 
 echo "\n\n========= installation end ==========="
 echo "\n\n========= open and edit your config with ==========="
