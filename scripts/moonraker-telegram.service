@@ -1,0 +1,18 @@
+[Unit]
+Description=moonraker-telegram
+After=moonraker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=MT_USER
+WorkingDirectory=MT_DIR
+ExecStart=sh MT_DIR/moonraker-telegram_start.sh
+
+ExecStop=sh MT_DIR/moonraker-telegram_stop.sh
+ExecStop= /bin/sleep 2  
+
+[Install]
+WantedBy=multi-user.target
