@@ -11,8 +11,7 @@ User=MT_USER
 WorkingDirectory=MT_DIR/scripts
 ExecStart=sh MT_DIR/scripts/moonraker-telegram_start.sh &
 
-ExecStop=sh MT_DIR/scripts/moonraker-telegram_stop.sh &
-ExecStop=/bin/sleep 2  
+ExecStop=sh MT_DIR/scripts/moonraker-telegram_stop.sh  
 
 [Install]
 WantedBy=multi-user.target
