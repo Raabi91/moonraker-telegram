@@ -1,0 +1,2 @@
+# Python dependencies for Moonraker-telegram
+websocket-client==0.57.0
