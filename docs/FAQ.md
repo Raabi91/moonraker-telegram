@@ -7,6 +7,7 @@ if you use multiple bots. you must first go in the folder you created
 ```
 cd Your_folder_name
 ```
+then perform the update with the difference that the service name must be adapted to the instance. (sudo systemctl restart moonraker-telegram_____)
 
 execute the code wenn you will ask to overwrite your telegram_config.sh say no
 
@@ -14,9 +15,11 @@ execute the code wenn you will ask to overwrite your telegram_config.sh say no
 cd moonraker-telegram
 git reset --hard HEAD
 git pull --no-edit
-sh ./scripts/install.sh
-sudo reboot
+chmod 755 ./scripts/install.sh
+./scripts/install.sh
+sudo systemctl restart moonraker-telegram
 ```
+
 
 ## How Edit my config with mainsail
 
@@ -81,3 +84,10 @@ then go in to the folder
 cd telegram1
 ```
 and now do a normal [installation](https://github.com/Raabi91/moonraker-telegram/blob/main/README.md)
+only with the difference that you have to enter a suitable string when asking for multi installations so that you can later distinguish between the 2 Telegram installations.
+
+this string ensures that your further instances get their own name, which is added after moonraker-telegram in systemd.
+
+if you have specified "1" in the mullti instance, the service for it is "moonraker-telegram1". if you have specified "_voron", it is "moonraker-telegram_voron".
+
+these service names are needed for restarting

@@ -2,12 +2,7 @@
 
 A Script/Programm to send the printer State before, during and after a print via Telegram Messenger. But its only Working with moonraker
 
-Update 17.02.2021
-- switch from http request to websocket connection at read state
-
-Update 03.02.2021
-- New install script
-- Add option to disable all commands in config (you will see this after you have execute the new install script)
+## [Chancelog](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/changelog.md)
 
 until now we supported:
 - Print start
@@ -103,7 +98,8 @@ cd moonraker-telegram
 then install the script with
 
 ```
-sh ./scripts/install.sh
+chmod 755 ./scripts/install.sh
+./scripts/install.sh
 ```
 during installation you will be asked for the config path of moonraker. enter the full path here. if you have only one instance of moonraker it should 
 ```
@@ -111,12 +107,19 @@ during installation you will be asked for the config path of moonraker. enter th
 ```
 be
 
+you will also be asked for multiple installations. 
+If you have only one installation, you just have to confirm with enter. 
+if you want to have multiple installations, have a look at the [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md).
 
-the edit your config use mainsail or fluidd web interface
+then edit your config use mainsail or fluidd web interface
 
 edit the variables between the ""
 
-wenn you are finished reboot your pi to start the script automaticly
+wenn you are finished restart monraker-telegram with
+
+```
+sudo systemctl restart moonraker-telegram
+```
 
 ## [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md)
 
