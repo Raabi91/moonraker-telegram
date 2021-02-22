@@ -1,5 +1,6 @@
 22.02.2021
-switch from crontab to systemd service (now you can restart moontaker-telegram without a reboot)
+- switch from crontab to systemd service (now you can restart moontaker-telegram without a reboot)
+
 17.02.2021
 - switch from http request to websocket connection at read state
 
