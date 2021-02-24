@@ -4,7 +4,7 @@ A Script/Programm to send the printer State before, during and after a print via
 
 ## [Chancelog](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/changelog.md)
 
-##until now we supported:
+## until now we supported:
 - Print start
 - Print Complete
 - Print Paused
