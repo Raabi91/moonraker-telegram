@@ -3,7 +3,7 @@
 MYDIR=`dirname $0`
 DIR="`cd $MYDIR/../; pwd`"
 
-echo "\n\n========= moonraker-telegram - Installation Script ==========="
+echo "========= moonraker-telegram - Installation Script ==========="
 
 sudo apt-get install bc
 sudo apt-get install python3
