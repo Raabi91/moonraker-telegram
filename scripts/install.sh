@@ -40,7 +40,7 @@ if ! grep -q "multi_instanz=" $DIR/multi_config.sh
     echo "if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service"
     echo "If you only use it once per hardware, simply press enter."
     read INSTANZ 
-    echo '\n # if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service.' > $DIR/multi_config.sh
+    echo "# if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service." > $DIR/multi_config.sh
     echo "multi_instanz="moonraker-telegram$INSTANZ"" >> $DIR/multi_config.sh      
 fi
 
