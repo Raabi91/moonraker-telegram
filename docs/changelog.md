@@ -1,3 +1,7 @@
+06.03.2021
+- add function to send pictures over the custom command
+- move installation from readme to docs
+
 22.02.2021
 - switch from crontab to systemd service (now you can restart moontaker-telegram without a reboot)
 
