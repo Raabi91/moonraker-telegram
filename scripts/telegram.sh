@@ -35,6 +35,7 @@ print_progress=$(printf "%.1f" $print_progress1)%
 
 tokenurl="https://api.telegram.org/bot$token"
 state_msg="$1"
+custom_picture="$2"
 
 if [ "$state_msg" = "1" ]; then
     msg="$msg_start"
@@ -65,12 +66,30 @@ elif [ "$state_msg" = "6" ]; then
      -d chat_id=${chatid}
      msg=""
 else
-  msg="$state_msg"
-  curl -s -X POST \
-  ${tokenurl}/sendMessage \
-  -d text="${msg}" \
-  -d chat_id=${chatid}
-  msg=""
+  if [ "$custom_picture" = "1" ]; then
+    msg="$state_msg"
+    curl -o $DIR_TEL/picture/cam_new.jpg $webcam
+    convert -rotate $rotate $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+    if [ "$horizontally" = "1" ]; then
+      convert -flop $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+    fi
+    if [ "$vertically" = "1" ]; then
+      convert -flip $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+    fi
+ 
+    curl -s -X POST \
+      ${tokenurl}/sendPhoto \
+      -F chat_id=${chatid} \
+      -F photo="@$DIR_TEL/picture/cam_new.jpg" \
+      -F caption="${msg}"
+  else 
+    msg="$state_msg"
+    curl -s -X POST \
+    ${tokenurl}/sendMessage \
+    -d text="${msg}" \
+    -d chat_id=${chatid}
+    msg=""
+  fi
 fi
 
 if [ -n "${msg}" ]; then

@@ -46,12 +46,25 @@ the you musst add the shell comand to your printer.cfg like this
 
 ```
 [gcode_shell_command telegram]
-command: sh /home/pi/moonraker-telegram/scripts/telegram.sh "this is a message from your printer"
+command: sh /home/pi/moonraker-telegram/scripts/telegram.sh "this is a message from your printer" "0"
 timeout: 2.
 verbose: false
 ```
 
-the message In the "" you can edit at your owne message
+the message In the "" you can edit at your owne message. the second "" is for a picture with 0 it will send no picture.
+
+here some examples for the command line:
+
+```
+Only Text:
+sh /home/pi/moonraker-telegram/scripts/telegram.sh "this is a message from your printer" "0"
+
+Text and picture:
+sh /home/pi/moonraker-telegram/scripts/telegram.sh "this is a message from your printer" "1"
+
+Only picture:
+sh /home/pi/moonraker-telegram/scripts/telegram.sh "" "1"
+```
 
 if you need more mesages the copy an paste your first message an edit the name like
 ```
