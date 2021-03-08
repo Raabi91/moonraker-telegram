@@ -16,24 +16,15 @@ pip3 install telepot
 
 
 
-echo -e "\n========= Check for telegram_config.sh ==========="
-if ! [ -e $DIR/telegram_config.sh ]
-then
-    cp $DIR/example_config.sh $DIR/telegram_config.sh
-fi
+echo -e "\n========= Check for config ==========="
 
-if ! grep -q "config_dir=" $DIR/telegram_config.sh
+if ! grep -q "config_dir=" $DIR/multi_config.sh
     then
     echo -e "========= pleas input your settings description on github ==========="
     echo -e "your moonraker config path (like /home/pi/klipper_config):"
     read CONFIG 
-    echo -e "\n# moonraker config path" >> $DIR/telegram_config.sh
-    echo -e "config_dir="$CONFIG"" >> $DIR/telegram_config.sh
-fi
-if ! grep -q "bot_disable=" $DIR/telegram_config.sh
-    then 
-    echo -e "\n# Make all commands Disable with 1" >> $DIR/telegram_config.sh
-    echo 'bot_disable="0"' >> $DIR/telegram_config.sh        
+    echo -e "\n# moonraker config path" >> $DIR/multi_config.sh
+    echo -e "config_dir="$CONFIG"" >> $DIR/multi_config.sh
 fi
 if ! grep -q "multi_instanz=" $DIR/multi_config.sh
     then 
@@ -44,13 +35,27 @@ if ! grep -q "multi_instanz=" $DIR/multi_config.sh
     echo "multi_instanz="moonraker-telegram$INSTANZ"" >> $DIR/multi_config.sh      
 fi
 
-. $DIR/telegram_config.sh
 . $DIR/multi_config.sh
-    
+
+if ! [ -e $config_dir/telegram_config.sh ]
+then
+    cp $DIR/example_config.sh $config_dir/telegram_config.sh
+fi
+
+if [ -L $config_dir/telegram_config.sh ]
+then
     rm $config_dir/telegram_config.sh
-    ln -s $DIR/telegram_config.sh $config_dir/telegram_config.sh
+    cp $DIR/telegram_config.sh $config_dir/telegram_config.sh
+    rm $DIR/telegram_config.sh
+fi
+if ! grep -q "bot_disable=" $config_dir/telegram_config.sh
+    then 
+    echo -e "\n# Make all commands Disable with 1" >> $config_dir/telegram_config.sh
+    echo 'bot_disable="0"' >> $config_dir/telegram_config.sh        
+fi
 
-
+. $config_dir/telegram_config.sh
+    
 echo -e "\n========= set permissions ==========="
 sleep 1
 sudo chmod 755 $DIR/scripts/telegram.sh
@@ -59,7 +64,7 @@ sudo chmod 755 $DIR/scripts/time_msg.sh
 sudo chmod 755 $DIR/scripts/bot.py
 sudo chmod 755 $DIR/scripts/moonraker-telegram_start.sh
 sudo chmod 755 $DIR/scripts/websocket-connection-telegram.py
-sudo chmod 777 $DIR/telegram_config.sh
+sudo chmod 777 $config_dir/telegram_config.sh
 
 echo -e "\n========= install systemd ==========="
 

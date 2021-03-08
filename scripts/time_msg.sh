@@ -5,7 +5,8 @@ DIR_TIME="`cd $MYDIR_TIME/../; pwd`"
 
 while true
 do
-. $DIR_TIME/telegram_config.sh
+. $DIR_TIME/multi_config.sh
+. $config_dir/telegram_config.sh
 SECONDS=0
 
 while [ $SECONDS -lt $time ]; do

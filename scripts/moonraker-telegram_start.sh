@@ -2,7 +2,8 @@
 MYDIR_START=`dirname $0`
 DIR_START="`cd $MYDIR_START/../; pwd`"
 
-. $DIR_START/telegram_config.sh
+. $DIR_START/multi_config.sh
+. $config_dir/telegram_config.sh
 
 if [ "$bot_disable" = "0" ]; then
 python3 $DIR_START/scripts/bot.py "$token" "$port" "$DIR_START" &

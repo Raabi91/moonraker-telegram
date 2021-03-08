@@ -2,7 +2,8 @@
 MYDIR_STATE=`dirname $0`
 DIR_STATE="`cd $MYDIR_STATE/../; pwd`"
 
-. $DIR_STATE/telegram_config.sh
+. $DIR_STATE/multi_config.sh
+. $config_dir/telegram_config.sh
 . $DIR_STATE/scripts/state_config.txt
 
 method=$(grep -oP '(?<="method": ")[^"]*' $DIR_STATE/websocket_state.txt)
