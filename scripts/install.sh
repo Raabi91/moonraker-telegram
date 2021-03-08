@@ -46,8 +46,9 @@ fi
 
 . $DIR/telegram_config.sh
 . $DIR/multi_config.sh
-
-    cp -l $DIR/telegram_config.sh $config_dir/telegram_config.sh
+    
+    rm $config_dir/telegram_config.sh
+    ln -s $DIR/telegram_config.sh $config_dir/telegram_config.sh
 
 
 echo -e "\n========= set permissions ==========="
