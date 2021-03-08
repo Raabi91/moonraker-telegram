@@ -85,6 +85,7 @@ else
       -F chat_id=${chatid} \
       -F photo="@$DIR_TEL/picture/cam_new.jpg" \
       -F caption="${msg}"
+    msg=""
   else 
     msg="$state_msg"
     curl -s -X POST \
