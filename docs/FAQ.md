@@ -17,6 +17,9 @@ git reset --hard HEAD
 git pull --no-edit
 chmod 755 ./scripts/install.sh
 ./scripts/install.sh
+```
+then restart moonraker-telegram
+```
 sudo systemctl restart moonraker-telegram
 ```
 
