@@ -13,12 +13,15 @@ print_duration=$(grep -oP '(?<="print_duration": )[^,]*' $DIR_TEL/telegram_stats
 progress=$(grep -oP '(?<="progress": )[^,]*' $DIR_TEL/display_status.txt)
 
 #### Remaining to H M S ####
-if [ "$print_duration" > "0" ]; then
-math1=$(echo "scale=0; $print_duration/$progress" | bc -l)
-math2=$(echo "scale=0; $math1-$print_duration" | bc -l)
+if [ "$print_duration" = "0.0" ]; then
+ math2="0"
 else
-math2="0"
+ math1=$(echo "scale=0; $print_duration/$progress" | bc -l)
+ math2=$(echo "scale=0; $math1-$print_duration" | bc -l)
+ echo $math1
+ echo $math2
 fi
+
 remaining=$(printf "%.0f" $math2)
 print_remaining=$(printf '%02d:%02d:%02d\n' $(($remaining/3600)) $(($remaining%3600/60)) $(($remaining%60)))
 
@@ -68,7 +71,7 @@ elif [ "$state_msg" = "6" ]; then
 else
   if [ "$custom_picture" = "1" ]; then
     msg="$state_msg"
-    curl -o $DIR_TEL/picture/cam_new.jpg $webcam
+    curl -s -o $DIR_TEL/picture/cam_new.jpg $webcam
     convert -rotate $rotate $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
     if [ "$horizontally" = "1" ]; then
       convert -flop $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
