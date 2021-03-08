@@ -6,6 +6,9 @@ A Script/Programm to send the printer State before, during and after a print via
 
 ## [Chancelog](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/changelog.md)
 
+### !!! Attention new update instructions in FAQ !!!
+### if you have a problem to edit your config do an upgrade
+
 
 ## until now we supported:
 - Print start
@@ -17,10 +20,6 @@ A Script/Programm to send the printer State before, during and after a print via
 - You can deactivate the messages by not entering any text at the config
 - send own messages (with a picture) via klipper shell plugin an gcode macros (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
 - multiple bots for multiple moonraker setups (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
-
-
-### !!! Attention new update instructions in FAQ !!!
-
 
 ## Info / Contact / Help
 If you want to talk to other users of this plugin and maybe have some influence in the development of this plugin, you can join the [Moonraker-Telegram-Group](https://t.me/joinchat/HEI8MD3rG1qhl7tg)

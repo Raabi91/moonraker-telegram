@@ -20,6 +20,13 @@ chmod 755 ./scripts/install.sh
 sudo systemctl restart moonraker-telegram
 ```
 
+if you have 
+```
+# moonraker config path
+config_dir=/home/pi/klipper_config
+```
+in telegram_config.sh you musst del it manuel at the moment. the text afer config_dir= can be any 
+
 
 ## How Edit my config with mainsail
 

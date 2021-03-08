@@ -1,3 +1,7 @@
+08.03.2021
+ - fixing bugs
+ - rework the telegram-config location 
+
 06.03.2021
 - add function to send pictures over the custom command
 - move installation from readme to docs
