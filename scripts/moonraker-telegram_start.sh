@@ -6,7 +6,7 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
 . $config_dir/telegram_config.sh
 
 if [ "$bot_disable" = "0" ]; then
-python3 $DIR_START/scripts/bot.py "$token" "$port" "$DIR_START" &
+python3 $DIR_START/scripts/bot.py "$token" "$port" "$DIR_START" "$chatid" &
 fi
 
 echo "time_msg=0" > $DIR_START/scripts/time_config.txt
