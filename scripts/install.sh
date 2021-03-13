@@ -14,8 +14,6 @@ pip3 install websocket_client
 pip3 install requests
 pip3 install telepot
 
-
-
 echo -e "\n========= Check for config ==========="
 
 if ! grep -q "config_dir=" $DIR/multi_config.sh
