@@ -43,12 +43,15 @@ custom_picture="$2"
 
 if [ "$state_msg" = "1" ]; then
     msg="$msg_start"
+    sleep $delay_start_msg
 
 elif [ "$state_msg" = "2" ]; then
     msg="$msg_end"
+    sleep $delay_end_msg
 
 elif [ "$state_msg" = "3" ]; then
     msg="$msg_pause"
+    sleep $delay_pause_msg
 
 elif [ "$state_msg" = "4" ]; then
     msg="$msg_error"

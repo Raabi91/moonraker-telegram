@@ -7,7 +7,8 @@ if you use multiple bots. you must first go in the folder you created
 ```
 cd Your_folder_name
 ```
-then perform the update with the difference that the service name must be adapted to the instance. (sudo systemctl restart moonraker-telegram_____)
+
+then perform the update with the difference that the service name must be adapted to the instance. (sudo systemctl restart moonraker-telegram**\_**)
 
 execute the code wenn you will ask to overwrite your telegram_config.sh say no
 
@@ -18,18 +19,21 @@ git pull --no-edit
 chmod 755 ./scripts/install.sh
 ./scripts/install.sh
 ```
+
 then restart moonraker-telegram
+
 ```
 sudo systemctl restart moonraker-telegram
 ```
 
-if you have 
+if you have
+
 ```
 # moonraker config path
 config_dir=/home/pi/klipper_config
 ```
-in telegram_config.sh you musst del it manuel at the moment. the text afer config_dir= can be any 
 
+in telegram_config.sh you musst del it manuel at the moment. the text afer config_dir= can be any
 
 ## How Edit my config with mainsail
 
@@ -37,7 +41,7 @@ got to Mainsail -> Settings -> Maschine
 
 and go into the config folder than you can edit the telegram_config.sh
 
-After Edit the Config  do a Reboot
+After Edit the Config do a Reboot
 
 ## How Edit my config with fluidd
 
@@ -45,11 +49,11 @@ got to Mainsail -> Printer -> config tab
 
 now you can edit the telegram_config.sh
 
-After Edit the Config  do a Reboot
+After Edit the Config do a Reboot
 
 ## How to send own messages via klipper shell plugin
 
-first of all you need to install the shell plugin for klipper. 
+first of all you need to install the shell plugin for klipper.
 does this best per kiauh. you find it at the Advanced section.
 
 the you musst add the shell comand to your printer.cfg like this
@@ -77,18 +81,23 @@ sh /home/pi/moonraker-telegram/scripts/telegram.sh "" "1"
 ```
 
 if you need more mesages the copy an paste your first message an edit the name like
+
 ```
 [gcode_shell_command telegram1]
 ```
+
 to call the comand use
+
 ```
 RUN_SHELL_COMMAND CMD=telegram
 ```
+
 now you can add the call in a gcode macro. here is a example
+
 ```
 [gcode_macro telegram]
 gcode:
-    RUN_SHELL_COMMAND CMD=telegram 
+    RUN_SHELL_COMMAND CMD=telegram
 ```
 
 ## How Too run multiple bots
@@ -106,11 +115,24 @@ then go in to the folder
 ```
 cd telegram1
 ```
+
 and now do a normal [installation](https://github.com/Raabi91/moonraker-telegram/blob/main/README.md)
 only with the difference that you have to enter a suitable string when asking for multi installations so that you can later distinguish between the 2 Telegram installations.
 
 this string ensures that your further instances get their own name, which is added after moonraker-telegram in systemd.
 
-if you have specified "1" in the mullti instance, the service for it is "moonraker-telegram1". if you have specified "_voron", it is "moonraker-telegram_voron".
+if you have specified "1" in the mullti instance, the service for it is "moonraker-telegram1". if you have specified "\_voron", it is "moonraker-telegram_voron".
 
 these service names are needed for restarting
+
+## How Too commands over button
+
+Tell the botfather which commands are available. This enables Telegram to auto-complete commands to your bot. Send /setcommands to @botfather, select the bot and then send the lines in the box below (one message with multiple lines).
+
+```
+state - Sends the current status including a current photo.
+pause - Pause current Print.  A confirmation is required
+resume - resume current Print.
+cancel - Aborts the currently running print. A confirmation is required
+help - show list of commands.
+```

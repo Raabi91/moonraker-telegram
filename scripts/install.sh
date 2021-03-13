@@ -39,30 +39,48 @@ fi
 
 if ! [ -e $config_dir/telegram_config.sh ]
 then
-    cp $DIR/example_config.sh $config_dir/telegram_config.sh
+    sudo cp $DIR/example_config.sh $config_dir/telegram_config.sh
+    sudo chmod 777 $config_dir/telegram_config.sh
 fi
 
 if [ -L $config_dir/telegram_config.sh ]
 then
-    rm $config_dir/telegram_config.sh
-    cp $DIR/telegram_config.sh $config_dir/telegram_config.sh
-    rm $DIR/telegram_config.sh
+    sudo rm $config_dir/telegram_config.sh
+    sudo cp $DIR/telegram_config.sh $config_dir/telegram_config.sh
+    sudo rm $DIR/telegram_config.sh
+    sudo chmod 777 $config_dir/telegram_config.sh
 fi
 if ! grep -q "bot_disable=" $config_dir/telegram_config.sh
     then 
     echo -e "\n# Make all commands Disable with 1" >> $config_dir/telegram_config.sh
-    echo 'bot_disable="0"' >> $config_dir/telegram_config.sh        
+    echo 'bot_disable="0"' >> $config_dir/telegram_config.sh
+fi
+if ! grep -q "delay_start_msg=" $config_dir/telegram_config.sh
+    then 
+    echo -e "\n# delay fot the Print start Message" >> $config_dir/telegram_config.sh
+    echo 'delay_start_msg=="0"' >> $config_dir/telegram_config.sh
+fi
+if ! grep -q "delay_end_msg=" $config_dir/telegram_config.sh
+    then 
+    echo -e "\n# delay fot the Print end Message" >> $config_dir/telegram_config.sh
+    echo 'delay_end_msg=="0"' >> $config_dir/telegram_config.sh
+fi
+if ! grep -q "delay_pause_msg=" $config_dir/telegram_config.sh
+    then 
+    echo -e "\n# Delay fot the Pause Message" >> $config_dir/telegram_config.sh
+    echo 'delay_pause_msg=="0"' >> $config_dir/telegram_config.sh
 fi
 
 . $config_dir/telegram_config.sh
     
 echo -e "\n========= set permissions ==========="
 sleep 1
-sudo chmod 755 $DIR/scripts/telegram.sh
-sudo chmod 755 $DIR/scripts/read_state.sh
-sudo chmod 755 $DIR/scripts/time_msg.sh
 sudo chmod 755 $DIR/scripts/bot.py
 sudo chmod 755 $DIR/scripts/moonraker-telegram_start.sh
+sudo chmod 755 $DIR/scripts/moonraker-telegram_stop.sh
+sudo chmod 755 $DIR/scripts/read_state.sh
+sudo chmod 755 $DIR/scripts/telegram.sh
+sudo chmod 755 $DIR/scripts/time_msg.sh
 sudo chmod 755 $DIR/scripts/websocket-connection-telegram.py
 sudo chmod 777 $config_dir/telegram_config.sh
 
