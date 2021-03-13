@@ -8,7 +8,7 @@ if you use multiple bots. you must first go in the folder you created
 cd Your_folder_name
 ```
 
-then perform the update with the difference that the service name must be adapted to the instance. (sudo systemctl restart moonraker-telegram**\_**)
+then perform the update with the difference that the service name must be adapted to the instance. (sudo systemctl restart moonraker-telegramxxxx)
 
 execute the code wenn you will ask to overwrite your telegram_config.sh say no
 
