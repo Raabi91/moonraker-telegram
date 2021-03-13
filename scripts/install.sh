@@ -55,17 +55,17 @@ if ! grep -q "bot_disable=" $config_dir/telegram_config.sh
 fi
 if ! grep -q "delay_start_msg=" $config_dir/telegram_config.sh
     then 
-    echo -e "\n# delay fot the Print start Message" >> $config_dir/telegram_config.sh
+    echo -e "\n# delay for the Print start Message" >> $config_dir/telegram_config.sh
     echo 'delay_start_msg="0"' >> $config_dir/telegram_config.sh
 fi
 if ! grep -q "delay_end_msg=" $config_dir/telegram_config.sh
     then 
-    echo -e "\n# delay fot the Print end Message" >> $config_dir/telegram_config.sh
+    echo -e "\n# delay for the Print end Message" >> $config_dir/telegram_config.sh
     echo 'delay_end_msg="0"' >> $config_dir/telegram_config.sh
 fi
 if ! grep -q "delay_pause_msg=" $config_dir/telegram_config.sh
     then 
-    echo -e "\n# Delay fot the Pause Message" >> $config_dir/telegram_config.sh
+    echo -e "\n# Delay for the Pause Message" >> $config_dir/telegram_config.sh
     echo 'delay_pause_msg="0"' >> $config_dir/telegram_config.sh
 fi
 
