@@ -5,14 +5,8 @@ DIR="`cd $MYDIR/../; pwd`"
 
 echo "========= moonraker-telegram - Installation Script ==========="
 
-sudo apt-get install bc
-sudo apt-get install python3
-sudo apt-get install python3-pip
-sudo apt-get install python3-setuptools
-pip3 install wheel
-pip3 install websocket_client
-pip3 install requests
-pip3 install telepot
+sudo apt-get install bc python3 python3-pip python3-setuptools
+pip3 install wheel websocket_client requests telepot
 
 echo -e "\n========= Check for config ==========="
 
