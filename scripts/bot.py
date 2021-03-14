@@ -32,7 +32,7 @@ def on_chat_message(msg):
             content_type, chat_type, chat_id = telepot.glance(msg)
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
                 [InlineKeyboardButton(text='yes', callback_data='yes_pause')],
-                [InlineKeyboardButton(text='no', callback_data='NO')],
+                [InlineKeyboardButton(text='no', callback_data='no')],
                 ])
             bot.sendMessage(chat_id, 'do you really want to pause', reply_markup=keyboard)
         elif command == '/resume':
@@ -42,7 +42,7 @@ def on_chat_message(msg):
             content_type, chat_type, chat_id = telepot.glance(msg)
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
                 [InlineKeyboardButton(text='yes', callback_data='yes_cancel')],
-                [InlineKeyboardButton(text='no', callback_data='NO')],
+                [InlineKeyboardButton(text='no', callback_data='no')],
                 ])
             bot.sendMessage(chat_id, 'do you really want to abort', reply_markup=keyboard)
             
@@ -57,6 +57,8 @@ def on_callback_query(msg):
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/pause')
         print(x.text)
         bot.sendMessage(from_id, 'Got it')
+    elif query_data == 'no':
+        bot.sendMessage(from_id, 'Okay, i do nothing')
 
 bot = telepot.Bot(f'{token}')
 

@@ -12,6 +12,7 @@ curl -s -o $DIR_TEL/display_status.txt http://127.0.0.1:$port/printer/objects/qu
 print_filename=$(grep -oP '(?<="filename": ")[^"]*' $DIR_TEL/telegram_stats.txt)
 print_duration=$(grep -oP '(?<="print_duration": )[^,]*' $DIR_TEL/telegram_stats.txt)
 progress=$(grep -oP '(?<="progress": )[^,]*' $DIR_TEL/display_status.txt)
+print_state_read1=$(grep -oP '(?<="state": ")[^"]*' $DIR_TEL/websocket_state.txt)
 
 #### Remaining to H M S ####
 if [ "$print_duration" = "0.0" ]; then
@@ -57,8 +58,17 @@ elif [ "$state_msg" = "4" ]; then
     msg="$msg_error"
 
 elif [ "$state_msg" = "5" ]; then
-    msg="$msg_state"
-
+    if [ "$print_state_read1" = "printing" ]; then    
+        msg="$msg_state"
+    elif [ "$print_state_read1" = "standby" ]; then    
+        msg="hey, i'm idling, please let me print something"
+    elif [ "$print_state_read1" = "complete" ]; then    
+        msg="hey, i finished the last print now i am idling"
+    elif [ "$print_state_read1" = "paused" ]; then    
+        msg="hey, i'm on break, please take a look"
+    elif [ "$print_state_read1" = "error" ]; then    
+        msg="hey, i had a error. please look it up"
+     fi
 elif [ "$state_msg" = "6" ]; then
     msg="available commands are:
     /help
