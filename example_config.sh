@@ -39,9 +39,9 @@ horizontally="0"
 vertically="0"
 # Make all commands Disable with 1
 bot_disable="0"
-# delay fot the Print start Message
+# delay for the Print start Message
 delay_start_msg=="0"
-# delay fot the Print end Message
+# delay for the Print end Message
 delay_end_msg=="0"
-# Delay fot the Pause Message
+# Delay for the Pause Message
 delay_pause_msg=="0"
