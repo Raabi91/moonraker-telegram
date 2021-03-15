@@ -10,6 +10,12 @@ pip3 install wheel websocket_client requests telepot
 
 echo -e "\n========= Check for config ==========="
 
+if ! [ -e $DIR/multi_config.sh ]
+then
+    sudo touch $DIR/multi_config.sh
+    sudo chmod 777 $DIR/multi_config.sh
+fi
+
 if ! grep -q "config_dir=" $DIR/multi_config.sh
     then
     echo -e "========= pleas input your settings description on github ==========="
