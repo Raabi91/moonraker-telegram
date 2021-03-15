@@ -10,12 +10,6 @@ pip3 install wheel websocket_client requests telepot
 
 echo -e "\n========= Check for config ==========="
 
-if ! [ -e $DIR/multi_config.sh ]
-then
-    sudo touch $DIR/multi_config.sh
-    sudo chmod 777 $DIR/multi_config.sh
-fi
-
 if ! grep -q "config_dir=" $DIR/multi_config.sh
     then
     echo -e "========= pleas input your settings description on github ==========="
@@ -30,7 +24,7 @@ if ! grep -q "multi_instanz=" $DIR/multi_config.sh
     echo "if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service"
     echo "If you only use it once per hardware, simply press enter."
     read INSTANZ 
-    echo "# if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service." > $DIR/multi_config.sh
+    echo "# if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service." >> $DIR/multi_config.sh
     echo "multi_instanz="moonraker-telegram$INSTANZ"" >> $DIR/multi_config.sh      
 fi
 
