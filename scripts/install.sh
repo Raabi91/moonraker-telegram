@@ -13,7 +13,8 @@ echo -e "\n========= Check for config ==========="
 if ! grep -q "config_dir=" $DIR/multi_config.sh
     then
     echo -e "========= pleas input your settings description on github ==========="
-    echo -e "your moonraker config path (like /home/pi/klipper_config):"
+    echo -e "please enter your moonraker config path"
+    echo -e "and press enter (like /home/pi/klipper_config):"
     read CONFIG 
     echo -e "\n# moonraker config path" >> $DIR/multi_config.sh
     echo -e "config_dir="$CONFIG"" >> $DIR/multi_config.sh
