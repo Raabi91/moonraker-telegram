@@ -106,8 +106,8 @@ fi
 
 echo -e "\n========= start systemd for $multi_instanz ==========="
 
+sudo systemctl stop $multi_instanz
 sudo systemctl start $multi_instanz
-sudo systemctl restart $multi_instanz
 
 echo -e "\n========= installation end ==========="
 echo "========= open and edit your config with ==========="
