@@ -78,7 +78,6 @@ cd moonraker-telegram
 then install the script with
 
 ```
-chmod 755 ./scripts/install.sh
 ./scripts/install.sh
 ```
 during installation you will be asked for the config path of moonraker. enter the full path here. if you have only one instance of moonraker it should 
