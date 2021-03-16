@@ -6,6 +6,7 @@ import sys
 from telepot.loop import MessageLoop
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 
+
 token = sys.argv[1]
 port = sys.argv[2]
 DIR = sys.argv[3]
