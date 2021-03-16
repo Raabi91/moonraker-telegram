@@ -107,5 +107,4 @@ echo -e "\n========= installation end ==========="
 echo "========= open and edit your config with ==========="
 echo "========= mainsail or fluidd and edit the telegram_config.sh ==========="
 
-
 exit 1
