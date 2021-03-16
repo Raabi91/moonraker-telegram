@@ -43,26 +43,6 @@ then
     sudo rm $DIR/telegram_config.sh
     sudo chmod 777 $config_dir/telegram_config.sh
 fi
-if ! grep -q "bot_disable=" $config_dir/telegram_config.sh
-    then 
-    echo -e "\n# Make all commands Disable with 1" >> $config_dir/telegram_config.sh
-    echo 'bot_disable="0"' >> $config_dir/telegram_config.sh
-fi
-if ! grep -q "delay_start_msg=" $config_dir/telegram_config.sh
-    then 
-    echo -e "\n# delay for the Print start Message" >> $config_dir/telegram_config.sh
-    echo 'delay_start_msg="0"' >> $config_dir/telegram_config.sh
-fi
-if ! grep -q "delay_end_msg=" $config_dir/telegram_config.sh
-    then 
-    echo -e "\n# delay for the Print end Message" >> $config_dir/telegram_config.sh
-    echo 'delay_end_msg="0"' >> $config_dir/telegram_config.sh
-fi
-if ! grep -q "delay_pause_msg=" $config_dir/telegram_config.sh
-    then 
-    echo -e "\n# Delay for the Pause Message" >> $config_dir/telegram_config.sh
-    echo 'delay_pause_msg="0"' >> $config_dir/telegram_config.sh
-fi
 
 . $config_dir/telegram_config.sh
     
