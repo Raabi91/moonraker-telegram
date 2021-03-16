@@ -64,6 +64,8 @@ if ! grep -q "delay_pause_msg=" $config_dir/telegram_config.sh
     echo 'delay_pause_msg="0"' >> $config_dir/telegram_config.sh
 fi
 
+echo 'test update' >> $config_dir/telegram_config.sh
+
 . $config_dir/telegram_config.sh
     
 echo -e "\n========= set permissions ==========="
