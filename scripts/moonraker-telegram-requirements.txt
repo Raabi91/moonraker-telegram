@@ -1,1 +1,5 @@
-#
+# Python dependencies for Moonraker-telegram
+wheel==0.32.3
+websocket_client==0.57.0
+requests==2.21.0
+telepot==12.7
