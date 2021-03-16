@@ -5,115 +5,96 @@ DIR="`cd $MYDIR/../; pwd`"
 
 echo "========= moonraker-telegram - Installation Script ==========="
 
-install_packages()
-{
-    sudo apt-get install bc python3 python3-pip python3-setuptools
-    pip3 install wheel websocket_client requests telepot
-}
+sudo apt-get install bc python3 python3-pip python3-setuptools
+pip3 install wheel websocket_client requests telepot
 
-create_config()
-{
-    echo -e "\n========= Check for config ==========="
+echo -e "\n========= Check for config ==========="
 
-    if ! grep -q "config_dir=" $DIR/multi_config.sh
-        then
-        echo -e "========= pleas input your settings description on github ==========="
-        echo -e "please enter your moonraker config path"
-        echo -e "and press enter (like /home/pi/klipper_config):"
-        read CONFIG 
-        echo "# moonraker config path" >> $DIR/multi_config.sh
-        echo "config_dir=$CONFIG" >> $DIR/multi_config.sh
-    fi
-    if ! grep -q "multi_instanz=" $DIR/multi_config.sh
-        then 
-        echo "if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service"
-        echo "If you only use it once per hardware, simply press enter."
-        read INSTANZ 
-        echo "# if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service." >> $DIR/multi_config.sh
-        echo "multi_instanz="moonraker-telegram$INSTANZ"" >> $DIR/multi_config.sh      
-    fi
-
-    . $DIR/multi_config.sh
-
-    if ! [ -e $config_dir/telegram_config.sh ]
+if ! grep -q "config_dir=" $DIR/multi_config.sh
     then
-        sudo cp $DIR/example_config.sh $config_dir/telegram_config.sh
-        sudo chmod 777 $config_dir/telegram_config.sh
-    fi
+    echo -e "========= pleas input your settings description on github ==========="
+    echo -e "please enter your moonraker config path"
+    echo -e "and press enter (like /home/pi/klipper_config):"
+    read CONFIG 
+    echo "# moonraker config path" >> $DIR/multi_config.sh
+    echo "config_dir=$CONFIG" >> $DIR/multi_config.sh
+fi
+if ! grep -q "multi_instanz=" $DIR/multi_config.sh
+    then 
+    echo "if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service"
+    echo "If you only use it once per hardware, simply press enter."
+    read INSTANZ 
+    echo "# if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service." >> $DIR/multi_config.sh
+    echo "multi_instanz="moonraker-telegram$INSTANZ"" >> $DIR/multi_config.sh      
+fi
 
-    if [ -L $config_dir/telegram_config.sh ]
-    then
-        sudo rm $config_dir/telegram_config.sh
-        sudo cp $DIR/telegram_config.sh $config_dir/telegram_config.sh
-        sudo rm $DIR/telegram_config.sh
-        sudo chmod 777 $config_dir/telegram_config.sh
-    fi
-    if ! grep -q "bot_disable=" $config_dir/telegram_config.sh
-        then 
-        echo -e "\n# Make all commands Disable with 1" >> $config_dir/telegram_config.sh
-        echo 'bot_disable="0"' >> $config_dir/telegram_config.sh
-    fi
-    if ! grep -q "delay_start_msg=" $config_dir/telegram_config.sh
-        then 
-        echo -e "\n# delay for the Print start Message" >> $config_dir/telegram_config.sh
-        echo 'delay_start_msg="0"' >> $config_dir/telegram_config.sh
-    fi
-    if ! grep -q "delay_end_msg=" $config_dir/telegram_config.sh
-        then 
-        echo -e "\n# delay for the Print end Message" >> $config_dir/telegram_config.sh
-        echo 'delay_end_msg="0"' >> $config_dir/telegram_config.sh
-    fi
-    if ! grep -q "delay_pause_msg=" $config_dir/telegram_config.sh
-        then 
-        echo -e "\n# Delay for the Pause Message" >> $config_dir/telegram_config.sh
-        echo 'delay_pause_msg="0"' >> $config_dir/telegram_config.sh
-    fi
+. $DIR/multi_config.sh
 
-    echo 'test update' >> $config_dir/telegram_config.sh
-
-    . $config_dir/telegram_config.sh
-    
-    echo -e "\n========= set permissions ==========="
-    sleep 1
+if ! [ -e $config_dir/telegram_config.sh ]
+then
+    sudo cp $DIR/example_config.sh $config_dir/telegram_config.sh
     sudo chmod 777 $config_dir/telegram_config.sh
-}
+fi
 
-install_systemd_service()
-{
+if [ -L $config_dir/telegram_config.sh ]
+then
+    sudo rm $config_dir/telegram_config.sh
+    sudo cp $DIR/telegram_config.sh $config_dir/telegram_config.sh
+    sudo rm $DIR/telegram_config.sh
+    sudo chmod 777 $config_dir/telegram_config.sh
+fi
+if ! grep -q "bot_disable=" $config_dir/telegram_config.sh
+    then 
+    echo -e "\n# Make all commands Disable with 1" >> $config_dir/telegram_config.sh
+    echo 'bot_disable="0"' >> $config_dir/telegram_config.sh
+fi
+if ! grep -q "delay_start_msg=" $config_dir/telegram_config.sh
+    then 
+    echo -e "\n# delay for the Print start Message" >> $config_dir/telegram_config.sh
+    echo 'delay_start_msg="0"' >> $config_dir/telegram_config.sh
+fi
+if ! grep -q "delay_end_msg=" $config_dir/telegram_config.sh
+    then 
+    echo -e "\n# delay for the Print end Message" >> $config_dir/telegram_config.sh
+    echo 'delay_end_msg="0"' >> $config_dir/telegram_config.sh
+fi
+if ! grep -q "delay_pause_msg=" $config_dir/telegram_config.sh
+    then 
+    echo -e "\n# Delay for the Pause Message" >> $config_dir/telegram_config.sh
+    echo 'delay_pause_msg="0"' >> $config_dir/telegram_config.sh
+fi
 
-    echo -e "\n========= install systemd ==========="
+. $config_dir/telegram_config.sh
+    
+echo -e "\n========= set permissions ==========="
+sleep 1
+sudo chmod 777 $config_dir/telegram_config.sh
 
-    SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-    MTPATH=$(sed 's/\/scripts//g' <<< $SCRIPTPATH)
+echo -e "\n========= install systemd ==========="
 
-    SERVICE=$(<$SCRIPTPATH/moonraker-telegram.service)
-    MTPATH_ESC=$(sed "s/\//\\\\\//g" <<< $MTPATH)
-    SERVICE=$(sed "s/MT_DESC/$multi_instanz/g" <<< $SERVICE)
-    SERVICE=$(sed "s/MT_USER/$USER/g" <<< $SERVICE)
-    SERVICE=$(sed "s/MT_DIR/$MTPATH_ESC/g" <<< $SERVICE)
+SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+MTPATH=$(sed 's/\/scripts//g' <<< $SCRIPTPATH)
 
-    echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/null
-    sudo systemctl daemon-reload
-    sudo systemctl enable $multi_instanz
+SERVICE=$(<$SCRIPTPATH/moonraker-telegram.service)
+MTPATH_ESC=$(sed "s/\//\\\\\//g" <<< $MTPATH)
+SERVICE=$(sed "s/MT_DESC/$multi_instanz/g" <<< $SERVICE)
+SERVICE=$(sed "s/MT_USER/$USER/g" <<< $SERVICE)
+SERVICE=$(sed "s/MT_DIR/$MTPATH_ESC/g" <<< $SERVICE)
 
-    if crontab -l | grep -i /home/pi; then
+echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/null
+sudo systemctl daemon-reload
+sudo systemctl enable $multi_instanz
+
+if crontab -l | grep -i /home/pi; then
     crontab -u pi -l | grep -v "$DIR"  | crontab -u pi -
     sleep 1
     (crontab -u pi -l ; echo "") | crontab -u pi -
-    fi
+fi
 
-start_moonraker-telegram() {
-    echo -e "\n========= start systemd for $multi_instanz ==========="
+echo -e "\n========= start systemd for $multi_instanz ==========="
 
-    sudo systemctl stop $multi_instanz
-    sudo systemctl start $multi_instanz
-    sudo systemctl start KlipperScreen
-}
-
-install_packages
-create_config
-install_systemd_service
-start_moonraker-telegram
+sudo systemctl stop $multi_instanz
+sudo systemctl start $multi_instanz
 
 echo -e "\n========= installation end ==========="
 echo "========= open and edit your config with ==========="
