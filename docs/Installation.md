@@ -99,3 +99,17 @@ wenn you are finished restart monraker-telegram with
 ```
 sudo systemctl restart moonraker-telegram
 ```
+
+then add this
+
+```
+[update_manager client moonraker-telegram]
+type: git_repo
+path: /home/pi/moonraker-telegram
+origin: https://github.com/Raabi91/moonraker-telegram.git
+env: /usr/lib/python3/
+requirements: scripts/moonraker-telegram-requirements.txt
+install_script: scripts/install.sh
+```
+
+too your moonraker config for moonraker Update Manager

@@ -1,6 +1,22 @@
 # FAQ
 
-## How Upgrade the script
+## How to set up updatet manager from moonraker
+
+add this
+
+```
+[update_manager client moonraker-telegram]
+type: git_repo
+path: /home/pi/moonraker-telegram
+origin: https://github.com/Raabi91/moonraker-telegram.git
+env: /usr/lib/python3/
+requirements: scripts/moonraker-telegram-requirements.txt
+install_script: scripts/install.sh
+```
+
+too your moonraker config
+
+## How Upgrade the script in SSH
 
 if you use multiple bots. you must first go in the folder you created
 

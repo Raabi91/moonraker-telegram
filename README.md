@@ -2,6 +2,26 @@
 
 A Script/Programm to send the printer State before, during and after a print via Telegram Messenger. But its only Working with moonraker
 
+
+## Update_Mangager now Suppoertet
+
+if you wan´t to use the updatet manager from moonraker for update moonraker-telegram, then you need to reinstall moonraker telegram
+
+here is the how to:
+
+ 1. save your telegram_config.sh on your pc (copy & paste)
+ 2. Go into ssh an remove the moonraker-telegram folder
+ ´´´
+ rm -rf moonraker-telegram
+ ´´´
+ 3. do a new [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md)
+ 4. Add the the update manager config to your moonraker config you will find it in the [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md)
+ 5. restore your telegram_config.sh
+ 6. restart moonraker-telegram
+ ´´´
+ sudo systemctl restart moonraker-telegram
+ ´´´
+
 ## [Chancelog](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/changelog.md)
 
 ### !!! Attention new update instructions in FAQ !!!
