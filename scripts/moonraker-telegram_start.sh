@@ -28,8 +28,6 @@ if ! grep -q "delay_pause_msg=" $config_dir/telegram_config.sh
     echo 'delay_pause_msg="0"' >> $config_dir/telegram_config.sh
 fi
 
-echo 'testupdate"' >> $config_dir/telegram_config.sh
-
 sudo chmod 777 $config_dir/telegram_config.sh
 
 ################################################
