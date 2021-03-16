@@ -68,13 +68,6 @@ fi
     
 echo -e "\n========= set permissions ==========="
 sleep 1
-sudo chmod 755 $DIR/scripts/bot.py
-sudo chmod 755 $DIR/scripts/moonraker-telegram_start.sh
-sudo chmod 755 $DIR/scripts/moonraker-telegram_stop.sh
-sudo chmod 755 $DIR/scripts/read_state.sh
-sudo chmod 755 $DIR/scripts/telegram.sh
-sudo chmod 755 $DIR/scripts/time_msg.sh
-sudo chmod 755 $DIR/scripts/websocket-connection-telegram.py
 sudo chmod 777 $config_dir/telegram_config.sh
 
 echo -e "\n========= install systemd ==========="
