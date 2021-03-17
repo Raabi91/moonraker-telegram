@@ -22,9 +22,10 @@ here is the how to:
  sudo systemctl restart moonraker-telegram
  ´´´
 
-## [Chancelog](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/changelog.md)
 
-### !!! Attention new update instructions in FAQ !!!
+
+## [changelog](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/changelog.md)
+
 
 ### if you have a problem to edit your config do an upgrade
 
