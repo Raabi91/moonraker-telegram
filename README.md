@@ -2,6 +2,7 @@
 
 A Script/Programm to send the printer State before, during and after a print via Telegram Messenger. But its only Working with moonraker
 
+---
 
 ## Update_Mangager now Suppoertet
 
@@ -22,10 +23,11 @@ here is the how to:
  sudo systemctl restart moonraker-telegram
  ´´´
 
+---
 
+## [Changelog](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/changelog.md)
 
-## [changelog](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/changelog.md)
-
+---
 
 ### if you have a problem to edit your config do an upgrade
 

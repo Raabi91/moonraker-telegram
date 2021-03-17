@@ -1,4 +1,12 @@
-13.03.2021#
+  17.03.2021
+
+- Spelling error corrected
+
+  16.03.2021 (v1.0.1)
+
+- support for offical update manager
+
+  13.03.2021
 
 - Confirmations for cancel and pause commands
 - Delays for start, end and pause messages
