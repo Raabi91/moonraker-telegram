@@ -65,42 +65,34 @@ https://api.telegram.org/bot<API-access-token>/getUpdates?offset=0
 
 ## Install The script on a pi
 
-First of all check you have added [display_status] to your klipper config. when you have not do this
+First of all check you have added [display_status] to your Mainsail/Fluidd Config (/home/pi/klipper_config/mainsail.conf for example). This is normally used to enable LCD Display.
 
 Download an install the plugin
 
-if u use it the first time use this
+If that's the first time you use it (or if you deleted the folder) do this :
 ```
-cd
+cd ~
 git clone https://github.com/Raabi91/moonraker-telegram
 cd moonraker-telegram
 ```
-then install the script with
 
+then install the script with
 ```
 ./scripts/install.sh
 ```
-during installation you will be asked for the config path of moonraker. enter the full path here. if you have only one instance of moonraker it should 
+
+during installation you will be asked for the config path of Moonraker. Enter the full path here. if you have only one instance of moonraker, default is :
 ```
 /home/pi/klipper_config
 ```
-be
 
-you will also be asked for multiple installations. 
+You will also be asked for multiple installations. 
 If you have only one installation, you just have to confirm with enter. 
 if you want to have multiple installations, have a look at the [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md).
 
-then edit your config use mainsail or fluidd web interface
+Then edit your config (telegram_config.sh) using the Mainsail or Fluidd web interface, edit the variables between the "".
 
-edit the variables between the ""
-
-wenn you are finished restart monraker-telegram with
-
-```
-sudo systemctl restart moonraker-telegram
-```
-
-then add this
+Then add this to Moonraker configuration file for the Update Manager (default : /home/pi/klipper_script/moonraker.conf) :
 
 ```
 [update_manager client moonraker-telegram]
@@ -112,4 +104,9 @@ requirements: scripts/moonraker-telegram-requirements.txt
 install_script: scripts/install.sh
 ```
 
-too your moonraker config for moonraker Update Manager
+When you are done restart monraker-telegram with
+```
+sudo systemctl restart moonraker-telegram
+```
+
+(I also suggest a full reboot if needed).
