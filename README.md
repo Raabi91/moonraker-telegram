@@ -10,18 +10,18 @@ if you wan´t to use the updatet manager from moonraker for update moonraker-tel
 
 here is the how to:
 
- 1. save your telegram_config.sh on your pc (copy & paste)
- 2. Go into ssh an remove the moonraker-telegram folder
- ´´´
- rm -rf moonraker-telegram
- ´´´
- 3. do a new [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md)
- 4. Add the the update manager config to your moonraker config you will find it in the [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md)
- 5. restore your telegram_config.sh
- 6. restart moonraker-telegram
- ´´´
- sudo systemctl restart moonraker-telegram
- ´´´
+1.  save your telegram_config.sh on your pc (copy & paste)
+2.  Go into ssh an remove the moonraker-telegram folder
+    ´´´
+    rm -rf moonraker-telegram
+    ´´´
+3.  do a new [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md)
+4.  Add the the update manager config to your moonraker config you will find it in the [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md)
+5.  restore your telegram_config.sh
+6.  restart moonraker-telegram
+    ´´´
+    sudo systemctl restart moonraker-telegram
+    ´´´
 
 ---
 
@@ -46,6 +46,8 @@ here is the how to:
 ## Info / Contact / Help
 
 If you want to talk to other users of this plugin and maybe have some influence in the development of this plugin, you can join the [Moonraker-Telegram-Group](https://t.me/joinchat/HEI8MD3rG1qhl7tg)
+
+or u use the [discord server](https://discord.gg/9xQqv8hUTe)
 
 ## [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md)
 
