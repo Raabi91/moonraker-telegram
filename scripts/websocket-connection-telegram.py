@@ -26,7 +26,9 @@ def on_message(ws, message):
                 f = open(f'{DIR1}/websocket_state.txt', 'w' )
                 f.write(message)
                 f.close()
-                os.system(f'sh {DIR1}/scripts/read_state.sh')
+                os.system(f'sh {DIR1}/scripts/read_state.sh "0"')
+        if "Klipper state: Shutdown" in message:
+            os.system(f'sh {DIR1}/scripts/read_state.sh "1"')
 
 def on_error(ws, error):
     print(error)

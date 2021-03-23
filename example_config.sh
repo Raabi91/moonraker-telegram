@@ -2,7 +2,7 @@
 # Edit only the variables between the ""
 # Port from moonraker
 port="7125"
-# Your telegram bot tocken
+# Your telegram bot token
 token="your_token"
 # Your chat ID
 chatid="your_chatid"
