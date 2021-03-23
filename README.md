@@ -47,8 +47,6 @@ here is the how to:
 
 If you want to talk to other users of this plugin and maybe have some influence in the development of this plugin, you can join the [Moonraker-Telegram-Group](https://t.me/joinchat/HEI8MD3rG1qhl7tg)
 
-or u use the [discord server](https://discord.gg/9xQqv8hUTe)
-
 ## [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md)
 
 For installation lock at [Installation.md](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md) in the docs folder
