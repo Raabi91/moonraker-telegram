@@ -1,1 +1,0 @@
-{"result": {"status": {"display_status": {"progress": 0.0, "message": null}}, "eventtime": 184.060941179}}
