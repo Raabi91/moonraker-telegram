@@ -6,13 +6,26 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . $DIR_TEL/multi_config.sh
 . $config_dir/telegram_config.sh
 
-curl -s -o $DIR_TEL/telegram_stats.txt http://127.0.0.1:$port/printer/objects/query?print_stats
-curl -s -o $DIR_TEL/display_status.txt http://127.0.0.1:$port/printer/objects/query?display_status
+print=$(curl -s "http://127.0.0.1:$port/printer/objects/query?print_stats&display_status&extruder=target,temperature&heater_bed=target,temperature")
+#### Filename ####
+print_filename=$(echo "$print" | grep -oP '(?<="filename": ")[^"]*')
+#### Print Duration ####
+print_duration=$(echo "$print" | grep -oP '(?<="print_duration": )[^,]*')
+#### Progress ####
+progress=$(echo "$print" | grep -oP '(?<="progress": )[^,]*')
+#### Print_state ####
+print_state_read1=$(echo "$print" | grep -oP '(?<="state": ")[^"]*')
+#### Extruder Temps ####
+extruder=$(echo "$print" | grep -oP '(?<="extruder": {)[^}]*')
+extruder_target=$(echo "$extruder" | grep -oP '(?<="target": )[^,]*')
+extruder_temp1=$(echo "$extruder" | grep -oP '(?<="temperature": )[^,]*')
+extruder_temp=$(printf %.2f $extruder_temp1)
+#### Heater_Bed Temps ####
+heater_bed=$(echo "$print" | grep -oP '(?<="heater_bed": {)[^}]*')
+bed_target=$(echo "$heater_bed" | grep -oP '(?<="target": )[^,]*')
+bed_temp1=$(echo "$heater_bed" | grep -oP '(?<="temperature": )[^,]*')
+bed_temp=$(printf %.2f $bed_temp1)
 
-print_filename=$(grep -oP '(?<="filename": ")[^"]*' $DIR_TEL/telegram_stats.txt)
-print_duration=$(grep -oP '(?<="print_duration": )[^,]*' $DIR_TEL/telegram_stats.txt)
-progress=$(grep -oP '(?<="progress": )[^,]*' $DIR_TEL/display_status.txt)
-print_state_read1=$(grep -oP '(?<="state": ")[^"]*' $DIR_TEL/websocket_state.txt)
 
 #### Remaining to H M S ####
 if [ "$print_duration" = "0.0" ]; then
