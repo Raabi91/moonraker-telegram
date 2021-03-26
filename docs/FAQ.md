@@ -149,4 +149,5 @@ pause - Pause current Print.  A confirmation is required
 resume - resume current Print.
 cancel - Aborts the currently running print. A confirmation is required
 help - show list of commands.
+print - Will open a file dialog showing the files stored in moonraker. You can select a file to print it.
 ```

@@ -29,11 +29,13 @@ def on_chat_message(msg):
             os.system(f'sh {DIR}/scripts/telegram.sh 6')
         elif command == '/state':
             os.system(f'sh {DIR}/scripts/telegram.sh 5')
+        elif command == '/print':
+            os.system(f'bash {DIR}/scripts/list_files.sh')
         elif command == '/pause':
             content_type, chat_type, chat_id = telepot.glance(msg)
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                [InlineKeyboardButton(text='yes', callback_data='yes_pause')],
-                [InlineKeyboardButton(text='no', callback_data='no')],
+                [InlineKeyboardButton(text='yes', callback_data='yes_pause'),
+                InlineKeyboardButton(text='no', callback_data='no')],
                 ])
             bot.sendMessage(chat_id, 'do you really want to pause', reply_markup=keyboard)
         elif command == '/resume':
@@ -48,7 +50,7 @@ def on_chat_message(msg):
             bot.sendMessage(chat_id, 'do you really want to abort', reply_markup=keyboard)
             
 def on_callback_query(msg):
-    query_id, from_id, query_data = telepot.glance(msg, flavor='callback_query')
+    query_id, from_id, query_data, = telepot.glance(msg, flavor='callback_query')
     print('Callback Query:', query_id, from_id, query_data)
     if query_data == 'yes_cancel':
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/cancel')
@@ -58,6 +60,22 @@ def on_callback_query(msg):
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/pause')
         print(x.text)
         bot.sendMessage(from_id, 'Got it')
+    elif "p:" in query_data:
+        a, gcode = query_data.split()
+        print (a)
+        print (gcode)
+        if gcode == 'filename_too_long':
+         bot.sendMessage(from_id, 'the original filename has too many characters to use it with the telegram bot. (max 60 characters)')
+        else:
+            keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text='yes', callback_data='yes_print %s' % gcode),
+                InlineKeyboardButton(text='no', callback_data='no')],
+                ])
+            bot.sendMessage(from_id, 'do you really want to start printing of %s' % gcode, reply_markup=keyboard)
+    elif "yes_print" in query_data:
+        a, gcode = query_data.split()
+        x = requests.post(f'http://127.0.0.1:{port}/printer/print/start?filename={gcode}')
+        print(x.text)
     elif query_data == 'no':
         bot.sendMessage(from_id, 'Okay, i do nothing')
 
