@@ -1,1 +1,0 @@
-{"jsonrpc": "2.0", "result": {"status": {"print_stats": {"state": "standby"}}, "eventtime": 137702.444526116}, "id": "5"}
