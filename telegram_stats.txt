@@ -1,1 +1,0 @@
-{"result": {"status": {"print_stats": {"print_duration": 0.0, "total_duration": 0.0, "filament_used": 0.0, "filename": "", "state": "standby", "message": ""}}, "eventtime": 183.81072545}}
