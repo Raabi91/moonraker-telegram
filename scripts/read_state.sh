@@ -8,6 +8,7 @@ DIR_STATE="`cd $MYDIR_STATE/../; pwd`"
 
 method=$(grep -oP '(?<="method": ")[^"]*' $DIR_STATE/websocket_state.txt)
 print_state_read=$(grep -oP '(?<="state": ")[^"]*' $DIR_STATE/websocket_state.txt)
+shutdown="$1"
 
 if [ "$method" = "notify_status_update" ]; then
 	if [ "$print_state_read" = "printing" ]; then
@@ -55,6 +56,11 @@ if [ "$method" = "notify_status_update" ]; then
 	    sed -i "s/print_state=.*$/print_state="0"/g" $DIR_STATE/scripts/state_config.txt
         sed -i "s/time_msg=.*$/time_msg="0"/g" $DIR_STATE/scripts/time_config.txt
         sed -i "s/time_pause=.*$/time_pause="0"/g" $DIR_STATE/scripts/time_config.txt
+
+    elif [ "$shutdown" = "1" ]; then
+	    sed -i "s/print_state=.*$/print_state="0"/g" $DIR_STATE/scripts/state_config.txt
+        sed -i "s/time_msg=.*$/time_msg="0"/g" $DIR_STATE/scripts/time_config.txt
+        sed -i "s/time_pause=.*$/time_pause="0"/g" $DIR_STATE/scripts/time_config.txt 
     fi
 fi
 exit 1

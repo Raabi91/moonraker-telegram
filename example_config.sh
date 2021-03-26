@@ -2,17 +2,13 @@
 # Edit only the variables between the ""
 # Port from moonraker
 port="7125"
-# Your telegram bot tocken
+# Your telegram bot token
 token="your_token"
 # Your chat ID
 chatid="your_chatid"
 #
 # messages for the states
-### Variables for messeges
-### $print_filename     = Filname
-### $print_progress     = Progress in %
-### $print_current      = Current Time in H M S
-### $print_remaining    = Remaining Time in H M S 
+### for the placeholders in the messages look at https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Variables.md
 #
 # Start message
 msg_start="Started printing $print_filename"

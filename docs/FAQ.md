@@ -70,7 +70,7 @@ After Edit the Config do a Reboot
 first of all you need to install the shell plugin for klipper.
 does this best per kiauh. you find it at the Advanced section.
 
-the you musst add the shell comand to your printer.cfg like this
+then you musst add the shell comand to your printer.cfg like this
 
 ```
 [gcode_shell_command telegram]
@@ -149,4 +149,5 @@ pause - Pause current Print.  A confirmation is required
 resume - resume current Print.
 cancel - Aborts the currently running print. A confirmation is required
 help - show list of commands.
+print - Will open a file dialog showing the files stored in moonraker. You can select a file to print it.
 ```
