@@ -88,7 +88,8 @@ elif [ "$state_msg" = "6" ]; then
     /state
     /pause
     /resume
-    /cancel"
+    /cancel
+    /print"
 
        curl -s -X POST \
      ${tokenurl}/sendMessage \
