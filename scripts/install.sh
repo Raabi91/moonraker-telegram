@@ -35,7 +35,10 @@ install_packages()
         echo -e "\n# Delay for the Pause Message" >> $config_dir/telegram_config.sh
         echo 'delay_pause_msg="0"' >> $config_dir/telegram_config.sh
     fi
-
+    if ! grep -q "test_update" $config_dir/telegram_config.sh
+        then 
+        echo 'testupdate' >> $config_dir/telegram_config.sh
+    fi
     sudo chmod 777 $config_dir/telegram_config.sh
 
     ############################################
