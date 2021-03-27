@@ -7,7 +7,7 @@ install_packages()
 {
     echo "========= moonraker-telegram - Installation Script ==========="
 
-    sudo apt-get install bc python3 python3-pip python3-setuptools
+    sudo apt-get install --yes bc python3 python3-pip python3-setuptools
     pip3 install wheel websocket_client requests telepot
 
     echo "update for  telegram-config.sh"
