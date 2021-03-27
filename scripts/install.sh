@@ -10,6 +10,37 @@ install_packages()
     sudo apt-get install bc python3 python3-pip python3-setuptools
     pip3 install wheel websocket_client requests telepot
 
+    echo "update for  telegram-config.sh"
+    ####### updates for the config ############
+    
+    . $DIR/multi_config.sh
+
+    if ! grep -q "bot_disable=" $config_dir/telegram_config.sh
+        then 
+        echo -e "\n# Make all commands Disable with 1" >> $config_dir/telegram_config.sh
+        echo 'bot_disable="0"' >> $config_dir/telegram_config.sh
+    fi
+    if ! grep -q "delay_start_msg=" $config_dir/telegram_config.sh
+        then 
+        echo -e "\n# delay for the Print start Message" >> $config_dir/telegram_config.sh
+        echo 'delay_start_msg="0"' >> $config_dir/telegram_config.sh
+    fi
+    if ! grep -q "delay_end_msg=" $config_dir/telegram_config.sh
+        then 
+        echo -e "\n# delay for the Print end Message" >> $config_dir/telegram_config.sh
+        echo 'delay_end_msg="0"' >> $config_dir/telegram_config.sh
+    fi
+    if ! grep -q "delay_pause_msg=" $config_dir/telegram_config.sh
+        then 
+        echo -e "\n# Delay for the Pause Message" >> $config_dir/telegram_config.sh
+        echo 'delay_pause_msg="0"' >> $config_dir/telegram_config.sh
+    fi
+
+    sudo chmod 777 $config_dir/telegram_config.sh
+
+    ############################################
+    echo "update finished"
+
 }
 
 install_config()
