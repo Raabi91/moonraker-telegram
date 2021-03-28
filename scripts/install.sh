@@ -101,6 +101,7 @@ sudo systemctl start $multi_instanz
 }
 
 install_packages
+create_virtualenv
 install_config
 install_systemd_service
 start_moonraker-telegram

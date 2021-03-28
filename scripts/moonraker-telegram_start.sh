@@ -26,7 +26,6 @@ then
     echo -e "\n# Delay for the Pause Message" >> $config_dir/telegram_config.sh
     echo 'delay_pause_msg="0"' >> $config_dir/telegram_config.sh
 fi
-echo 'testupdate' >> $config_dir/telegram_config.sh
 
 chmod 777 $config_dir/telegram_config.sh
 ################################################
