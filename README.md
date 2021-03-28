@@ -6,7 +6,7 @@ A Script/Programm to send the printer State before, during and after a print via
 
 ## switching to virtualenv
 
-i am switch python to virtualenv so you have to adjust now once the moonraker updatet manager because something has changed
+i am switch python to virtualenv (for better support at moonraker update manager) so you have to adjust now once the moonraker updatet manager because something has changed
 
 https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#how-to-set-up-updatet-manager-from-moonraker
 
