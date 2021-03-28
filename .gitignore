@@ -2,4 +2,3 @@ multi_config.sh
 state_config.txt
 time_config.txt
 websocket_state.txt
-update.sh
