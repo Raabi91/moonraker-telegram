@@ -2,16 +2,25 @@
 
 MYDIR=`dirname $0`
 DIR="`cd $MYDIR/../; pwd`"
+MTENV="${HOME}/.moonraker-telegram-env"
 
 install_packages()
 {
     echo "========= moonraker-telegram - Installation Script ==========="
     
-    PKGLIST="bc python3 python3-pip python3-setuptools"
+    PKGLIST="bc python3 python3-pip python3-setuptools python3-virtualenv"
     
     sudo apt-get install --yes ${PKGLIST}
-    
+
     pip3 install wheel websocket_client requests telepot
+}
+
+create_virtualenv()
+{
+    echo "Creating virtual environment"
+    [ ! -d ${MTENV} ] && virtualenv -p /usr/bin/python3 ${MTENV}
+
+    ${MTENV}/bin/pip install -r $DIR/scripts/moonraker-telegram-requirements.txt
 }
 
 install_config()
