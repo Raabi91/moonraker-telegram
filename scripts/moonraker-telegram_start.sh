@@ -4,34 +4,39 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
 
 . $DIR_START/multi_config.sh
 
+####### updates for the config if update.sh in the script folder############
 
- ####### updates for the config ############
+if [ -e $DIR_START/scripts/update.sh ]
+    then
+        #sudo apt-get install bc python3 python3-pip python3-setuptools
+        #pip3 install wheel websocket_client requests telepot
 
-if ! grep -q "bot_disable=" $config_dir/telegram_config.sh
-    then 
-    echo -e "\n# Make all commands Disable with 1" >> $config_dir/telegram_config.sh
-    echo 'bot_disable="0"' >> $config_dir/telegram_config.sh
-fi
-if ! grep -q "delay_start_msg=" $config_dir/telegram_config.sh
-    then 
-    echo -e "\n# delay for the Print start Message" >> $config_dir/telegram_config.sh
-    echo 'delay_start_msg="0"' >> $config_dir/telegram_config.sh
-fi
-if ! grep -q "delay_end_msg=" $config_dir/telegram_config.sh
-    then 
-    echo -e "\n# delay for the Print end Message" >> $config_dir/telegram_config.sh
-    echo 'delay_end_msg="0"' >> $config_dir/telegram_config.sh
-fi
-if ! grep -q "delay_pause_msg=" $config_dir/telegram_config.sh
-    then 
-    echo -e "\n# Delay for the Pause Message" >> $config_dir/telegram_config.sh
-    echo 'delay_pause_msg="0"' >> $config_dir/telegram_config.sh
-fi
+        if ! grep -q "bot_disable=" $config_dir/telegram_config.sh
+            then 
+            echo -e "\n# Make all commands Disable with 1" >> $config_dir/telegram_config.sh
+            echo 'bot_disable="0"' >> $config_dir/telegram_config.sh
+        fi
+        if ! grep -q "delay_start_msg=" $config_dir/telegram_config.sh
+        then 
+            echo -e "\n# delay for the Print start Message" >> $config_dir/telegram_config.sh
+            echo 'delay_start_msg="0"' >> $config_dir/telegram_config.sh
+        fi
+        if ! grep -q "delay_end_msg=" $config_dir/telegram_config.sh
+        then 
+            echo -e "\n# delay for the Print end Message" >> $config_dir/telegram_config.sh
+            echo 'delay_end_msg="0"' >> $config_dir/telegram_config.sh
+        fi
+        if ! grep -q "delay_pause_msg=" $config_dir/telegram_config.sh
+        then 
+            echo -e "\n# Delay for the Pause Message" >> $config_dir/telegram_config.sh
+            echo 'delay_pause_msg="0"' >> $config_dir/telegram_config.sh
+        fi
+        echo 'testupdate' >> $config_dir/telegram_config.sh
 
-sudo chmod 777 $config_dir/telegram_config.sh
-
+chmod 777 $config_dir/telegram_config.sh
+rm $DIR_START/scripts/update.sh
+fi
 ################################################
-
 
 . $config_dir/telegram_config.sh
 
