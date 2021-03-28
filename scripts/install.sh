@@ -8,8 +8,9 @@ install_packages()
 {
     echo "========= moonraker-telegram - Installation Script ==========="
     
-    PKGLIST="bc python3 python3-pip python3-setuptools python3-virtualenv"
-    
+    PKGLIST="python3 python3-pip python3-setuptools python3-virtualenv"
+    PKGLIST="${PKGLIST} bc"
+        
     sudo apt-get install --yes ${PKGLIST}
 
     pip3 install wheel websocket_client requests telepot
