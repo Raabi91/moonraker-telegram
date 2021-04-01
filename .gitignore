@@ -2,4 +2,5 @@ multi_config.sh
 state_config.txt
 time_config.txt
 websocket_state.txt
-cam_new.jpg
+picture/
+!picture/read.md
