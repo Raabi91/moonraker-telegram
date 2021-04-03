@@ -4,24 +4,15 @@ A Script/Programm to send the printer State before, during and after a print via
 
 ---
 
-## Update_Mangager now Suppoertet
+## switching to virtualenv
 
-if you wan´t to use the updatet manager from moonraker for update moonraker-telegram, then you need to reinstall moonraker telegram
+i am switch python to virtualenv (for better support at moonraker update manager) so you have to adjust now once the moonraker updatet manager because something has changed
 
-here is the how to:
+https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#how-to-set-up-updatet-manager-from-moonraker
 
-1.  save your telegram_config.sh on your pc (copy & paste)
-2.  Go into ssh an remove the moonraker-telegram folder
-    ´´´
-    rm -rf moonraker-telegram
-    ´´´
-3.  do a new [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md)
-4.  Add the the update manager config to your moonraker config you will find it in the [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md)
-5.  restore your telegram_config.sh
-6.  restart moonraker-telegram
-    ´´´
-    sudo systemctl restart moonraker-telegram
-    ´´´
+and you have to run the install.sh script once or do an update via ssh.
+
+https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#how-upgrade-the-script-in-ssh
 
 ---
 

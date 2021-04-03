@@ -9,12 +9,30 @@ add this
 type: git_repo
 path: /home/pi/moonraker-telegram
 origin: https://github.com/Raabi91/moonraker-telegram.git
-env: /usr/lib/python3/
+env: /home/pi/.moonraker-telegram-env/bin/python
 requirements: scripts/moonraker-telegram-requirements.txt
 install_script: scripts/install.sh
 ```
 
 too your moonraker config
+
+## Update_Mangager shows drity or false
+
+if the update manager shows an error you have to do the following
+
+here is the how to:
+
+1.  save your telegram_config.sh on your pc (copy & paste)
+2.  Go into ssh an remove the moonraker-telegram folder
+    ´´´
+    rm -rf moonraker-telegram
+    ´´´
+3.  do a new [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md)
+4.  restore your telegram_config.sh when is not correct
+5.  restart moonraker-telegram
+    ´´´
+    sudo systemctl restart moonraker-telegram
+    ´´´
 
 ## How Upgrade the script in SSH
 
