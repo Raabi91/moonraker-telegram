@@ -1,4 +1,8 @@
-26.03.2021
+01.04.2021
+
+- switch python to to virtualenv
+
+  26.03.2021
 
 - add /print command
 - add placeholders for extruder temperature
