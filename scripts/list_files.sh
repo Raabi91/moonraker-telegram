@@ -35,10 +35,10 @@ for f in ${strarr[@]}; do
             f="filename_too_long"
         fi
         if [ "$place" = "1" ]; then
-            keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"p: $f\"}]"
+            keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"p:,$f\"}]"
             place=2
         elif [ "$place" = "2" ]; then
-            keyboard="$keyboard{\"text\":\"$f\",\"callback_data\":\"p: $f\"}]"
+            keyboard="$keyboard{\"text\":\"$f\",\"callback_data\":\"p:,$f\"}]"
             place=1
         fi
         files=$(echo "$files+1" | bc -l)
@@ -48,10 +48,10 @@ for f in ${strarr[@]}; do
         fi
         if [ $send = $files ]; then
             if [ "$place" = "1" ]; then
-                keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"p: $f\"}]"
+                keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"p:,$f\"}]"
                 place=2
             elif [ "$place" = "2" ]; then
-                keyboard="$keyboard{\"text\":\"$f\",\"callback_data\":\"p: $f\"}]"
+                keyboard="$keyboard{\"text\":\"$f\",\"callback_data\":\"p:,$f\"}]"
                 place=1
             fi
             files=$(echo "$files+1" | bc -l)
@@ -64,10 +64,10 @@ for f in ${strarr[@]}; do
             keyboard=""   
         else
             if [ "$place" = "1" ]; then
-                keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"p: $f\"},"
+                keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"p:,$f\"},"
                 place=2
             elif [ "$place" = "2" ]; then
-                keyboard="$keyboard{\"text\":\"$f\",\"callback_data\":\"p: $f\"}],"
+                keyboard="$keyboard{\"text\":\"$f\",\"callback_data\":\"p:,$f\"}],"
                 place=1
             fi
             files=$(echo "$files+1" | bc -l)

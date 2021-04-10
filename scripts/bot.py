@@ -60,20 +60,22 @@ def on_callback_query(msg):
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/pause')
         print(x.text)
         bot.sendMessage(from_id, 'Got it')
-    elif "p:" in query_data:
-        a, gcode = query_data.split()
+    elif "p:," in query_data:
+        a, gcode = query_data.split(":,")
         print (a)
         print (gcode)
         if gcode == 'filename_too_long':
          bot.sendMessage(from_id, 'the original filename has too many characters to use it with the telegram bot. (max 60 characters)')
         else:
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                [InlineKeyboardButton(text='yes', callback_data='yes_print %s' % gcode),
+                [InlineKeyboardButton(text='yes', callback_data='p,:%s' % gcode),
                 InlineKeyboardButton(text='no', callback_data='no')],
                 ])
             bot.sendMessage(from_id, 'do you really want to start printing of %s' % gcode, reply_markup=keyboard)
-    elif "yes_print" in query_data:
-        a, gcode = query_data.split()
+    elif "p,:" in query_data:
+        a, gcode = query_data.split(",:")
+        print (a)
+        print (gcode)
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/start?filename={gcode}')
         print(x.text)
     elif query_data == 'no':

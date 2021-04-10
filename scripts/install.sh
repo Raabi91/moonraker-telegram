@@ -12,8 +12,6 @@ install_packages()
     PKGLIST="${PKGLIST} bc"
         
     sudo apt-get install --yes ${PKGLIST}
-
-    pip3 install wheel websocket_client requests telepot
 }
 
 create_virtualenv()
