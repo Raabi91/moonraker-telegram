@@ -24,7 +24,7 @@ msg_state="Printing $print_filename at $print_progress. Current Time $print_curr
 # time in seconds to get an State update. to disable set it to 0
 time="0"
 # with picture = 1, without picture = 0  
-picture="1"
+picture="0"
 # your webcam snapshot link
 webcam="http://127.0.0.1:8080/?action=snapshot"
 #rotate the pic bevor sending, use degrease 0-360
