@@ -1,8 +1,8 @@
 # FAQ
 
-## How to set up updatet manager from moonraker
+## How to set up Moonraker's update_manager for moonraker-telegram.
 
-add this
+Add this to your Moonraker config;
 
 ```
 [update_manager client moonraker-telegram]
@@ -14,37 +14,33 @@ requirements: scripts/moonraker-telegram-requirements.txt
 install_script: scripts/install.sh
 ```
 
-too your moonraker config
+## Update_Manager shows invalid or false
 
-## Update_Mangager shows drity or false
+If the update manager shows an error you must perform the following;
 
-if the update manager shows an error you have to do the following
-
-here is the how to:
-
-1.  save your telegram_config.sh on your pc (copy & paste)
-2.  Go into ssh an remove the moonraker-telegram folder
+1.  Save your telegram_config.sh on your computer.
+2.  Login to the terminal and remove the moonraker-telegram folder.
     ´´´
     rm -rf moonraker-telegram
     ´´´
-3.  do a new [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md)
-4.  restore your telegram_config.sh when is not correct
-5.  restart moonraker-telegram
+3.  Perform a new [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md).
+4.  Restore your telegram_config.sh after reinstallation.
+5.  Restart moonraker-telegram.
     ´´´
     sudo systemctl restart moonraker-telegram
     ´´´
 
-## How Upgrade the script in SSH
+## How to upgrade moonraker-telegram via terminal
 
-if you use multiple bots. you must first go in the folder you created
+If you use multiple bots you must first enter into each specific folder you created for those bots;
 
 ```
 cd Your_folder_name
 ```
 
-then perform the update with the difference that the service name must be adapted to the instance. (sudo systemctl restart moonraker-telegramxxxx)
+Then perform the update with the difference that the service name must be adapted to the instance. (sudo systemctl restart moonraker-telegramxxxx)
 
-execute the code wenn you will ask to overwrite your telegram_config.sh say no
+Execute the code. When you are asked to overwrite your telegram_config.sh say no.
 
 ```
 cd moonraker-telegram
@@ -52,43 +48,43 @@ git pull
 ./scripts/install.sh
 ```
 
-then restart moonraker-telegram
+Then restart moonraker-telegram
 
 ```
 sudo systemctl restart moonraker-telegram
 ```
 
-if you have
+If you have
 
 ```
 # moonraker config path
 config_dir=/home/pi/klipper_config
 ```
 
-in telegram_config.sh you musst del it manuel at the moment. the text afer config_dir= can be any
+in telegram_config.sh you must delete it manually for the moment. The text afer config_dir= can be anything.
 
-## How Edit my config with mainsail
+## How to edit the config with Mainsail
 
-got to Mainsail -> Settings -> Maschine
+Go to Mainsail -> Settings -> Machine
 
-and go into the config folder than you can edit the telegram_config.sh
+and go into the config folder, then you can edit the telegram_config.sh.
 
-After Edit the Config do a Reboot
+After editing the config reboot your machine.
 
-## How Edit my config with fluidd
+## How to edit the config with fluidd
 
-got to Mainsail -> Printer -> config tab
+Go to Mainsail -> Printer -> Config tab
 
-now you can edit the telegram_config.sh
+Now you are able to edit the telegram_config.sh.
 
-After Edit the Config do a Reboot
+After editing the config reboot your machine.
 
-## How to send own messages via klipper shell plugin
+## How to send your own custom messages via Klipper shell plugin
 
-first of all you need to install the shell plugin for klipper.
-does this best per kiauh. you find it at the Advanced section.
+First of all you need to install the shell plugin for Klipper.
+This is best done via kiauh. You'll find this in the advanced section.
 
-then you musst add the shell comand to your printer.cfg like this
+Once you've installed the shell plugin you must add the shell comand to your printer.cfg like this;
 
 ```
 [gcode_shell_command telegram]
@@ -97,9 +93,9 @@ timeout: 2.
 verbose: false
 ```
 
-the message In the "" you can edit at your owne message. the second "" is for a picture with 0 it will send no picture.
+The first quotes "" are for the message your printer will send. The second quotes "" dictates whether a picture will be sent - 0 for no picture, 1 to include picture.
 
-here some examples for the command line:
+Here are some examples for the command line;
 
 ```
 Only Text:
@@ -112,19 +108,19 @@ Only picture:
 sh /home/pi/moonraker-telegram/scripts/telegram.sh "" "1"
 ```
 
-if you need more mesages the copy an paste your first message an edit the name like
+If you need more messages just copy and paste the first message and edit the name like this;
 
 ```
 [gcode_shell_command telegram1]
 ```
 
-to call the comand use
+To call the command use;
 
 ```
 RUN_SHELL_COMMAND CMD=telegram
 ```
 
-now you can add the call in a gcode macro. here is a example
+Now you can add the call in a gcode macro. An example is;
 
 ```
 [gcode_macro telegram]
@@ -132,32 +128,32 @@ gcode:
     RUN_SHELL_COMMAND CMD=telegram
 ```
 
-## How Too run multiple bots
+## How to run multiple bots
 
-### Too use this you musst use a second bot in telegram
+### To use this you must use a second bot in Telegram
 
-Create a Dir for a second bot like
+Create a directory for a second bot like;
 
 ```
 mkdir telegram1
 ```
 
-then go in to the folder
+Then go in to the folder;
 
 ```
 cd telegram1
 ```
 
-and now do a normal [installation](https://github.com/Raabi91/moonraker-telegram/blob/main/README.md)
-only with the difference that you have to enter a suitable string when asking for multi installations so that you can later distinguish between the 2 Telegram installations.
+Now perform a normal [installation](https://github.com/Raabi91/moonraker-telegram/blob/main/README.md)
+The only difference between these installs is that you have to enter a suitable string when asked for multi installation so that you can later distinguish between the 2 Telegram installations.
 
-this string ensures that your further instances get their own name, which is added after moonraker-telegram in systemd.
+This string ensures that your further instances get their own name, which is added after moonraker-telegram in systemd.
 
-if you have specified "1" in the mullti instance, the service for it is "moonraker-telegram1". if you have specified "\_voron", it is "moonraker-telegram_voron".
+If you have specified "1" in the mullti instance, the service for it is "moonraker-telegram1". if you have specified "\_voron", it is "moonraker-telegram_voron".
 
-these service names are needed for restarting
+These service names are needed for restarting the services later on.
 
-## How Too commands over button
+## How to use commands with buttons in Telegram
 
 Tell the botfather which commands are available. This enables Telegram to auto-complete commands to your bot. Send /setcommands to @botfather, select the bot and then send the lines in the box below (one message with multiple lines).
 
