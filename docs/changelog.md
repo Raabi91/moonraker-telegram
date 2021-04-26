@@ -1,4 +1,9 @@
-01.04.2021
+26.04.2021
+
+- add command /power
+- add command /gcode_macro
+
+  01.04.2021
 
 - switch python to to virtualenv
 
