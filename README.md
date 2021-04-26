@@ -4,18 +4,6 @@ A Script/Programm to send the printer State before, during and after a print via
 
 ---
 
-## switching to virtualenv
-
-i am switch python to virtualenv (for better support at moonraker update manager) so you have to adjust now once the moonraker updatet manager because something has changed
-
-https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#how-to-set-up-updatet-manager-from-moonraker
-
-and you have to run the install.sh script once or do an update via ssh.
-
-https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#how-upgrade-the-script-in-ssh
-
----
-
 ## [Changelog](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/changelog.md)
 
 ---
@@ -29,7 +17,7 @@ https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#how-upgrad
 - Print Paused
 - Print Failed
 - Send State timed
-- First Commands avaible (/state, /pause, /resume, /cancel, /help, /print)
+- First Commands avaible (/state, /pause, /resume, /cancel, /help, /print, /power, /gcode_macros)
 - You can deactivate the messages by not entering any text at the config
 - send own messages (with a picture) via klipper shell plugin an gcode macros (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
 - multiple bots for multiple moonraker setups (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
