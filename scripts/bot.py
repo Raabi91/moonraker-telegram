@@ -31,6 +31,10 @@ def on_chat_message(msg):
             os.system(f'sh {DIR}/scripts/telegram.sh 5')
         elif command == '/print':
             os.system(f'bash {DIR}/scripts/list_files.sh')
+        elif command == '/gcode_macro':
+            os.system(f'bash {DIR}/scripts/gcode.sh')
+        elif command == '/power':
+            os.system(f'bash {DIR}/scripts/power.sh')
         elif command == '/pause':
             content_type, chat_type, chat_id = telepot.glance(msg)
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
@@ -52,14 +56,17 @@ def on_chat_message(msg):
 def on_callback_query(msg):
     query_id, from_id, query_data, = telepot.glance(msg, flavor='callback_query')
     print('Callback Query:', query_id, from_id, query_data)
+    ##cancel
     if query_data == 'yes_cancel':
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/cancel')
         print(x.text)
         bot.sendMessage(from_id, 'Got it')
+    ##pause
     elif query_data == 'yes_pause':
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/pause')
         print(x.text)
         bot.sendMessage(from_id, 'Got it')
+    ##Print
     elif "p:," in query_data:
         a, gcode = query_data.split(":,")
         print (a)
@@ -78,6 +85,62 @@ def on_callback_query(msg):
         print (gcode)
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/start?filename={gcode}')
         print(x.text)
+    ##Gcode_macro
+    elif "g:," in query_data:
+        a, macro = query_data.split(":,")
+        if macro == 'gcode_macro_too_long':
+         bot.sendMessage(from_id, 'the original macro name has too many characters to use it with the telegram bot. (max 60 characters)')
+        else:
+            keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text='yes', callback_data='g,:%s' % macro),
+                InlineKeyboardButton(text='no', callback_data='no')],
+                ])
+            bot.sendMessage(from_id, 'do you really want to execute %s' % macro, reply_markup=keyboard)
+    elif "g,:" in query_data:
+        a, macro = query_data.split(",:")
+        x = requests.post(f'http://127.0.0.1:{port}/printer/gcode/script?script={macro}')
+        print(x.text)
+        bot.sendMessage(from_id, 'okay I have executed %s' % macro)
+    ##Power
+    elif "po:," in query_data:
+        a, device = query_data.split(":,")
+        if device == 'device_name_too_long':
+         bot.sendMessage(from_id, 'the original Device name has too many characters to use it with the telegram bot. (max 60 characters)')
+        else:
+            keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text='On', callback_data='on,:%s' % device),
+                InlineKeyboardButton(text='Off', callback_data='of,:%s' % device),
+                InlineKeyboardButton(text='Status', callback_data='st,:%s' % device)],
+                ])
+            bot.sendMessage(from_id, 'what do you want to do with %s' % device, reply_markup=keyboard)
+    elif "on,:" in query_data:
+        a, device = query_data.split(",:")
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text='yes', callback_data='on:,%s' % device),
+            InlineKeyboardButton(text='no', callback_data='no')],
+            ])
+        bot.sendMessage(from_id, 'do you really want to turn on %s' % device, reply_markup=keyboard)
+    elif "of,:" in query_data:
+        a, device = query_data.split(",:")
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text='yes', callback_data='of:,%s' % device),
+            InlineKeyboardButton(text='no', callback_data='no')],
+            ])
+        bot.sendMessage(from_id, 'do you really want to turn off %s' % device, reply_markup=keyboard)
+    elif "on:," in query_data:
+        a, device = query_data.split(":,")
+        x = requests.post(f'http://127.0.0.1:{port}/machine/device_power/on?{device}')
+        print(x.text)
+        bot.sendMessage(from_id, 'okay I have turned on %s' % device)
+    elif "of:," in query_data:
+        a, device = query_data.split(":,")
+        x = requests.post(f'http://127.0.0.1:{port}/machine/device_power/off?{device}')
+        print(x.text)
+        bot.sendMessage(from_id, 'okay I have turned on %s' % device)
+    elif "st,:" in query_data:
+        a, device = query_data.split(",:")
+        os.system(f'bash {DIR}/scripts/power_state.sh "{device}"')
+    ##no
     elif query_data == 'no':
         bot.sendMessage(from_id, 'Okay, i do nothing')
 
