@@ -1,6 +1,7 @@
-#!/bin/bash
+This document describes Moonraker-Telegram's full configuration.
+You can copy all the variables you need to change from here.
 
-# Edit only the variables between the ""
+´´´
 
 # Port from moonraker
 
@@ -14,13 +15,9 @@ token="your_token"
 
 chatid="your_chatid"
 
-#
-
 # messages for the states
 
 ### for the placeholders in the messages look at https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Variables.md
-
-#
 
 # Start message
 
@@ -58,8 +55,6 @@ msg_paused="hey, i'm on break, please take a look"
 
 msg_error="hey, i had a error. please look it up"
 
-#
-
 # time in seconds to get an State update. to disable set it to 0
 
 time="0"
@@ -71,10 +66,13 @@ picture="0"
 # your webcam snapshot link
 
 webcam="http://127.0.0.1:8080/?action=snapshot"
+
 #rotate the pic bevor sending, use degrease 0-360
 rotate="0"
+
 #flip the pic horizontally bevor sending, 1 = yes, 0 = No
 horizontally="0"
+
 #flip the pic vertically bevor sending, 1 = yes, 0 = No
 vertically="0"
 
@@ -93,3 +91,7 @@ delay_end_msg=="0"
 # Delay for the Pause Message
 
 delay_pause_msg=="0"
+
+```
+
+```
