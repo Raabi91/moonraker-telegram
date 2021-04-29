@@ -38,9 +38,9 @@ thanks to sugar0 for a link to an italian install quide: https://klipper-italia.
 
 Do you have more Question look at the [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md)
 
-## [Deinstallation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/deinstallation.md)
+## [Uninstallation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/deinstallation.md)
 
-you want to remove moonraker-telegram then look here: [Deinstallation.md](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/deinstallation.md)
+you want to remove moonraker-telegram then look here: [Uninstallation.md](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Uninstallation.md)
 
 do you wan
 
