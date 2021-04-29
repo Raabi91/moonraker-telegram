@@ -42,8 +42,6 @@ Do you have more Question look at the [FAQ](https://github.com/Raabi91/moonraker
 
 you want to remove moonraker-telegram then look here: [Uninstallation.md](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Uninstallation.md)
 
-do you wan
-
 ---
 
 **Klipper** by [KevinOConnor](https://github.com/KevinOConnor) :
