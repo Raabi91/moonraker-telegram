@@ -4,6 +4,7 @@ MYDIR_TEL=`dirname $0`
 DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 
 . $DIR_TEL/multi_config.sh
+. $DIR_TEL/example_config.sh
 . $config_dir/telegram_config.sh
 
 list_json=$(curl -s "http://127.0.0.1:$port/printer/objects/list")

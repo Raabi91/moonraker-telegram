@@ -4,6 +4,7 @@ MYDIR_TEL=`dirname $0`
 DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 
 . $DIR_TEL/multi_config.sh
+. $DIR_TEL/example_config.sh
 . $config_dir/telegram_config.sh
 
 print=$(curl -s "http://127.0.0.1:$port/printer/objects/query?print_stats&display_status&extruder=target,temperature&heater_bed=target,temperature")
@@ -74,13 +75,13 @@ elif [ "$state_msg" = "5" ]; then
     if [ "$print_state_read1" = "printing" ]; then    
         msg="$msg_state"
     elif [ "$print_state_read1" = "standby" ]; then    
-        msg="hey, i'm idling, please let me print something"
+        msg="$msg_standby"
     elif [ "$print_state_read1" = "complete" ]; then    
-        msg="hey, i finished the last print now i am idling"
+        msg="$msg_complete"
     elif [ "$print_state_read1" = "paused" ]; then    
-        msg="hey, i'm on break, please take a look"
+        msg="$msg_paused"
     elif [ "$print_state_read1" = "error" ]; then    
-        msg="hey, i had a error. please look it up"
+        msg="$msg_error"
      fi
 elif [ "$state_msg" = "6" ]; then
     msg="available commands are:

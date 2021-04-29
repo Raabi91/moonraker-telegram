@@ -6,6 +6,7 @@ MYDIR_TEL=`dirname $0`
 DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 
 . $DIR_TEL/multi_config.sh
+. $DIR_TEL/example_config.sh
 . $config_dir/telegram_config.sh
 
 

@@ -1,4 +1,11 @@
-26.04.2021
+29.04.2021
+
+- add deinstallation.md
+- new variables are no longer automatically added to telegram_config after an update
+- add Telegram_config.md
+- add standby message, complete message, paused message and error message as variable
+
+  26.04.2021
 
 - add command /power
 - add command /gcode_macro

@@ -20,6 +20,14 @@ msg_pause="printing of $print_filename Paused"
 msg_end="Finished printing $print_filename"
 # Time message
 msg_state="Printing $print_filename at $print_progress. Current Time $print_current. Remaining Time $print_remaining"
+# standby message
+msg_standby="hey, i'm idling, please let me print something"
+# complete message
+msg_complete="hey, i finished the last print now i am idling"
+# paused message
+msg_paused="hey, i'm on break, please take a look"
+# error message
+msg_error="hey, i had a error. please look it up"
 #
 # time in seconds to get an State update. to disable set it to 0
 time="0"

@@ -3,6 +3,7 @@ MYDIR_STATE=`dirname $0`
 DIR_STATE="`cd $MYDIR_STATE/../; pwd`"
 
 . $DIR_STATE/multi_config.sh
+. $DIR_STATE/example_config.sh
 . $config_dir/telegram_config.sh
 . $DIR_STATE/scripts/state_config.txt
 
