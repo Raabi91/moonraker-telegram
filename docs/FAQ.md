@@ -79,6 +79,10 @@ Now you are able to edit the telegram_config.sh.
 
 After editing the config reboot your machine.
 
+## New variables are not displayed in my config?
+
+this is normal because moonraker-telegram accesses a sample config in the background. if you want to change a variable just copy the appropriate variable from [telegram_config.md](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Telegram_config.md). Then copy it into your config and change the value.
+
 ## How to send your own custom messages via Klipper shell plugin
 
 First of all you need to install the shell plugin for Klipper.
