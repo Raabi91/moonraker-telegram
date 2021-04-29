@@ -1,6 +1,6 @@
 29.04.2021
 
-- add deinstallation.md
+- add uninstallation.md
 - new variables are no longer automatically added to telegram_config after an update
 - add Telegram_config.md
 - add standby message, complete message, paused message and error message as variable
