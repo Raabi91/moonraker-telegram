@@ -13,8 +13,7 @@ token="your_token"
 
 chatid="your_chatid"
 
-## messages for the states:
-### for the placeholders in the messages look at https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Variables.md
+## messages for the states: (for the placeholders in the messages look at https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Variables.md)
 
 ### Start message
 
