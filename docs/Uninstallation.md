@@ -1,4 +1,4 @@
-# Deinstallation
+# Uninstallation
 
 1. Remove this
 
