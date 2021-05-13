@@ -114,7 +114,8 @@ elif [ "$state_msg" = "6" ]; then
   /help - show list of commands.
   /print - Will open a file dialog showing the files stored in moonraker. You can select a file to print it.
   /power - Will open a file dialog showing the Power devices of moonraker. You can choose a device to interact with it
-  /gcode_macro - Will open a file dialog showing the custom Gcode_macros of the printer.cfg. You can choose a macro to execute it"
+  /gcode_macro - Will open a file dialog showing the custom Gcode_macros of the printer.cfg. You can choose a macro to execute it
+  /gif send a 5 second gif"
 
        curl -s -X POST \
      ${tokenurl}/sendMessage \

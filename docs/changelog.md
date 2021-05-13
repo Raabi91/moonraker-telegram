@@ -1,8 +1,9 @@
 # 13.05.2021
 
+- add /gif for 5 second gif
 - update /help
 - add gcode upload
-- add automatik led for picture
+- add automatic led for picture
 
 # 09.05.2021
 

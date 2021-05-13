@@ -17,7 +17,7 @@ A Script/Programm to send the printer State before, during and after a print via
 - Print Paused
 - Print Failed
 - Send State timed
-- First Commands avaible (/state, /pause, /resume, /cancel, /help, /print, /power, /gcode_macros)
+- First Commands avaible (/state, /pause, /resume, /cancel, /help, /print, /power, /gcode_macros, /gif)
 - You can deactivate the messages by not entering any text at the config
 - send own messages (with a picture) via klipper shell plugin an gcode macros (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
 - multiple bots for multiple moonraker setups (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
