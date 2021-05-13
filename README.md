@@ -28,7 +28,7 @@ for the placeholders in the messages look at https://github.com/Raabi91/moonrake
 
 ## Info / Contact / Help
 
-If you want to talk to other users of this plugin and maybe have some influence in the development of this plugin, you can join the [Moonraker-Telegram-Group](https://t.me/joinchat/HEI8MD3rG1qhl7tg)
+If you want to talk to other users of this plugin and maybe have some influence in the development of this plugin, you can join the [Moonraker-Telegram-Group](https://t.me/joinchat/HEI8MD3rG1qhl7tg) or the [Moonraker-Telegram-Discord](https://discord.gg/nHs9WjJjYz)
 
 ## [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md)
 
