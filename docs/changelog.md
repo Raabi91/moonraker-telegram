@@ -1,7 +1,7 @@
 13.05.2021
 
 - add gcode upload
-- add automatich led for picture
+- add automatik led for picture
 
   09.05.2021
 
