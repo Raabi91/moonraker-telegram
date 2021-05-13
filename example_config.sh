@@ -49,3 +49,11 @@ delay_start_msg=="0"
 delay_end_msg=="0"
 # Delay for the Pause Message
 delay_pause_msg=="0"
+#Led on link for picture
+led_on=""
+#Led on wait time before picture is taken (in seconds) 
+led_on_delay="0"
+#Led off link for picture
+led_off=""
+#Led off wait time after picture is taken (in seconds)
+led_off_delay="0"
