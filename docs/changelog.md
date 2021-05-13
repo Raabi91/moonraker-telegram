@@ -1,67 +1,69 @@
-13.05.2021
+# 13.05.2021
 
+- add /gif for 5 second gif
+- update /help
 - add gcode upload
-- add automatik led for picture
+- add automatic led for picture
 
-  09.05.2021
+# 09.05.2021
 
 - add funktions for groupchat
 
-  29.04.2021
+# 29.04.2021
 
 - add uninstallation.md
 - new variables are no longer automatically added to telegram_config after an update
 - add Telegram_config.md
 - add standby message, complete message, paused message and error message as variable
 
-  26.04.2021
+# 26.04.2021
 
 - add command /power
 - add command /gcode_macro
 
-  01.04.2021
+# 01.04.2021
 
 - switch python to to virtualenv
 
-  26.03.2021
+# 26.03.2021
 
 - add /print command
 - add placeholders for extruder temperature
 - add placeholders for bed temperature
 
-  17.03.2021
+# 17.03.2021
 
 - Spelling error corrected
 
-  16.03.2021 (v1.0.1)
+# 16.03.2021 (v1.0.1)
 
 - support for offical update manager
 
-  13.03.2021
+# 13.03.2021
 
 - Confirmations for cancel and pause commands
 - Delays for start, end and pause messages
 - bugfixing in install.sh
 
-  08.03.2021
+# 08.03.2021
 
 - fixing bugs
-- rework the telegram-config location
+- rework the telegram\*config location
 
-  06.03.2021
+# 06.03.2021
 
 - add function to send pictures over the custom command
 - move installation from readme to docs
 
-  22.02.2021
+# 22.02.2021
 
-- switch from crontab to systemd service (now you can restart moontaker-telegram without a reboot)
+- switch from crontab to systemd service (now you can restart moontaker\*telegram without a reboot)
 
-  17.02.2021
+# 17.02.2021
 
 - switch from http request to websocket connection at read state
 
-  03.02.2021
+# 03.02.2021
 
 - New install script
 - Add option to disable all commands in config (you will see this after you have execute the new install script)

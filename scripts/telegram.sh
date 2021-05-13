@@ -107,12 +107,15 @@ elif [ "$state_msg" = "5" ]; then
      fi
 elif [ "$state_msg" = "6" ]; then
     msg="available commands are:
-    /help
-    /state
-    /pause
-    /resume
-    /cancel
-    /print"
+  /state - Sends the current status including a current photo.
+  /pause - Pause current Print.  A confirmation is required
+  /resume - resume current Print.
+  /cancel - Aborts the currently running print. A confirmation is required
+  /help - show list of commands.
+  /print - Will open a file dialog showing the files stored in moonraker. You can select a file to print it.
+  /power - Will open a file dialog showing the Power devices of moonraker. You can choose a device to interact with it
+  /gcode_macro - Will open a file dialog showing the custom Gcode_macros of the printer.cfg. You can choose a macro to execute it
+  /gif send a 5 second gif"
 
        curl -s -X POST \
      ${tokenurl}/sendMessage \
