@@ -62,7 +62,7 @@ fi
 
 convert -resize 768x576 -delay 20 -loop 0 $DIR_TEL/picture/gif/*.jpg $DIR_TEL/picture/5sec.gif
 
-rm -r $DIR_TEL/picture/gif/* 
+rm -r $DIR_TEL/picture/gif/*.jpg 
 
 . $config_dir/telegram_config.sh
 
