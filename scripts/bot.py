@@ -42,6 +42,8 @@ def on_chat_message(msg):
                 print ('chat id are same')
                 if command == '/help':
                     os.system(f'sh {DIR}/scripts/telegram.sh 6')
+                if command == '/gif':
+                    os.system(f'{DIR}/scripts/gif.sh')
                 elif command == '/state':
                     os.system(f'sh {DIR}/scripts/telegram.sh 5')
                 elif command == '/print':
