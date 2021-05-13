@@ -9,15 +9,15 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 
 take_picture()
 {
-  curl -o $DIR_TEL/picture/gif/$picture.jpg $webcam
+  curl -o $DIR_TEL/picture/gif/$picture_gif.jpg $webcam
 
-  convert -rotate $rotate $DIR_TEL/picture/gif/$picture.jpg $DIR_TEL/picture/gif/$picture.jpg
+  convert -rotate $rotate $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
 
   if [ "$horizontally" = "1" ]; then
-    convert -flop $DIR_TEL/picture/gif/$picture.jpg $DIR_TEL/picture/gif/$picture.jpg
+    convert -flop $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
   fi
   if [ "$vertically" = "1" ]; then
-    convert -flip $DIR_TEL/picture/gif/$picture.jpg $DIR_TEL/picture/gif/$picture.jpg
+    convert -flip $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
   fi
 }
 
@@ -25,34 +25,34 @@ if [ -n "${led_on}" ]; then
     curl -H "Content-Type: application/json" -X POST $led_on
     sleep $led_on_delay
 fi
-picture=01
+picture_gif=01
 take_picture
 sleep 0.5
-picture=02
+picture_gif=02
 take_picture
 sleep 0.5
-picture=03
+picture_gif=03
 take_picture
 sleep 0.5
-picture=04
+picture_gif=04
 take_picture
 sleep 0.5
-picture=05
+picture_gif=05
 take_picture
 sleep 0.5
-picture=06
+picture_gif=06
 take_picture
 sleep 0.5
-picture=07
+picture_gif=07
 take_picture
 sleep 0.5
-picture=08
+picture_gif=08
 take_picture
 sleep 0.5
-picture=09
+picture_gif=09
 take_picture
 sleep 0.5
-picture=10
+picture_gif=10
 take_picture
 
 if [ -n "${led_off}" ]; then
@@ -71,7 +71,6 @@ tokenurl="https://api.telegram.org/bot$token"
 ## Send Gif
 
     msg=""
-    take_picture
     curl -s -X POST \
       ${tokenurl}/sendAnimation \
       -F chat_id=${chatid} \
