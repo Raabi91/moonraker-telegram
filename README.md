@@ -21,6 +21,8 @@ A Script/Programm to send the printer State before, during and after a print via
 - You can deactivate the messages by not entering any text at the config
 - send own messages (with a picture) via klipper shell plugin an gcode macros (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
 - multiple bots for multiple moonraker setups (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
+- .gcode uploads
+- automatic led on/off at picture for powermanager oder gcode macro
 
 for the placeholders in the messages look at https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Variables.md
 

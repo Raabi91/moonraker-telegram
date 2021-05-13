@@ -171,3 +171,75 @@ print - Will open a file dialog showing the files stored in moonraker. You can s
 power - Will open a file dialog showing the Power devices of moonraker. You can choose a device to interact with it
 gcode_macro - Will open a file dialog showing the custom Gcode_macros of the printer.cfg. You can choose a macro to execute it
 ```
+
+## How to use Automatic led for cam
+
+!!! written in advance the whole thing was designed at the moment only for the poweplugin of moonraker or gcode macros of klipper !!!
+
+if the led varibals are missing you only have to copy them from the [Telegram_config.md](https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Telegram_config.md) and paste them into your own.
+
+the setup is actually quite simple and we subdivide depending on the control
+
+### 1. Control of the leds via Power manager:
+
+simply set the variables to the appropriate command and add the <device> with your device name.
+if you have spaces in your device names, replace the spaces with %20
+
+```
+ON:
+http://127.0.0.1:$port/machine/device_power/on?<device>
+
+OFF:
+http://127.0.0.1:$port/machine/device_power/off?<device>
+```
+
+Example
+
+Moonraker.config
+
+```
+[power Tronxy X5SAPro]
+type: gpio
+pin: gpio4
+.......
+```
+
+it must then look like this
+
+```
+ON:
+http://127.0.0.1:$port/machine/device_power/on?Tronxy%20X5SAPro
+
+OFF:
+http://127.0.0.1:$port/machine/device_power/off?Tronxy%20X5SAPro
+```
+
+### 2. Control of the leds via Pgcode macro:
+
+simply set the variables to the appropriate command and add the <macro> with your macro name.
+
+```
+http://127.0.0.1:$port/printer/gcode/script?script=<macro>
+```
+
+Example
+
+printer.cfg
+
+```
+[gcode_macro led_on]
+gcode:
+....
+```
+
+it must then look like this
+
+```
+http://127.0.0.1:$port/printer/gcode/script?script=led_on
+```
+
+if you need some time after the power on command just set the delay variables there you can set a delay in seconds
+
+## Gcode upload not work
+
+Make sure your gcode is ending at .gcode an you have set [octoprint_compat] in the moonraker.config

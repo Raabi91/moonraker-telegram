@@ -1,4 +1,13 @@
-29.04.2021
+13.05.2021
+
+- add gcode upload
+- add automatich led for picture
+
+  09.05.2021
+
+- add funktions for groupchat
+
+  29.04.2021
 
 - add uninstallation.md
 - new variables are no longer automatically added to telegram_config after an update
