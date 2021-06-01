@@ -12,20 +12,27 @@ take_picture()
   if [ -n "${led_on}" ]; then
     curl -H "Content-Type: application/json" -X POST $led_on
     sleep $led_on_delay
-  fi  
-  curl -o $DIR_TEL/picture/cam_new.jpg $webcam
+  fi
+  
+  if curl --output /dev/null --silent --fail -r 0-0  "$webcam"; then
 
-  convert -rotate $rotate $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+   curl -m 20 -o $DIR_TEL/picture/cam_new.jpg $webcam
 
-  if [ "$horizontally" = "1" ]; then
+   convert -rotate $rotate $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+
+   if [ "$horizontally" = "1" ]; then
     convert -flop $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
-  fi
-  if [ "$vertically" = "1" ]; then
+   fi
+   if [ "$vertically" = "1" ]; then
     convert -flip $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
-  fi
-  if [ -n "${led_off}" ]; then
+   fi
+   if [ -n "${led_off}" ]; then
     sleep $led_off_delay
     curl -H "Content-Type: application/json" -X POST $led_off
+   fi
+   cam_link="$DIR_TEL/picture/cam_new.jpg"
+  else
+   cam_link="$DIR_TEL/picture/no_cam.jpg"
   fi
 }
 
@@ -84,7 +91,7 @@ if [ "$custom_picture" = "1" ]; then
     curl -s -X POST \
       ${tokenurl}/sendPhoto \
       -F chat_id=${chatid} \
-      -F photo="@$DIR_TEL/picture/cam_new.jpg" \
+      -F photo="@$cam_link" \
       -F caption="${msg}"
     msg=""
 else 

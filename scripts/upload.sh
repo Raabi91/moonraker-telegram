@@ -17,5 +17,5 @@ file_path=$(echo "$getFile" | grep -oP '(?<="file_path":")[^"]*')
 echo $file_path
 ## get File
 curl -o /tmp/$file_name "https://api.telegram.org/file/bot$token/$file_path"
-curl -k -H "X-Api-Key: dsdsda" -F "select=false" -F "print=false" -F "file=@/tmp/$file_name" "http://127.0.0.1:$port/api/files/local"
+curl -k -H "X-Api-Key: dsdsda" -F "select=false" -F "print=false" -F "file=@/tmp/$file_name" "http://127.0.0.1:$port/server/files/upload"
 rm /tmp/$file_name

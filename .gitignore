@@ -5,4 +5,5 @@ websocket_state.txt
 *.jpg
 *.gif
 !picture/read.md
+!picture/no_cam.jpg
 !picture/gif/read.md
