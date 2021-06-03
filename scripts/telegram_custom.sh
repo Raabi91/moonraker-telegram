@@ -26,14 +26,12 @@ if [ "$custom_picture" = "1" ]; then
       -F chat_id=${chatid} \
       -F photo="@$cam_link" \
       -F caption="${msg}"
-    msg=""
 else 
     msg="$state_msg"
     curl -s -X POST \
     ${tokenurl}/sendMessage \
     -d text="${msg}" \
     -d chat_id=${chatid}
-    msg=""
 fi
 echo "$(date) : Send MSG = "$msg" >> $log
 
