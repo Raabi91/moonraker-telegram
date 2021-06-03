@@ -38,7 +38,7 @@ take_picture()
       echo "$(date) : LED off" >> $log
     fi
   else
-   echo "$(date) : Cam link has an error" >> $log
+   echo "$(date) : Webcam link has an error" >> $log
    cam_link="$DIR_TEL/picture/no_cam.jpg"
   fi
 }
