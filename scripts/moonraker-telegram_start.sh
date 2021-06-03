@@ -6,6 +6,9 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
 . $DIR_START/example_config.sh
 . $config_dir/telegram_config.sh
 
+log=/tmp/$multi_instanz.log
+echo "$(date) : Start $multi_instanz" >> $log
+
 if [ "$bot_disable" = "0" ]; then
 ${HOME}/.moonraker-telegram-env/bin/python $DIR_START/scripts/bot.py "$token" "$port" "$DIR_START" "$chatid" &
 fi
