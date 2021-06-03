@@ -8,7 +8,7 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . $config_dir/telegram_config.sh
 
 list_json=$(curl -s "http://127.0.0.1:$port/server/files/list")
-list_clean=$(echo "$list_json" | grep -oP '(?<="filename": ")[^,]*')
+list_clean=$(echo "$list_json" | grep -oP '(?<="path": ")[^,]*')
 echo $list_clean > /tmp/list_clean.txt
 sed -i 's/" /|/g' /tmp/list_clean.txt
 sed -i 's/"//g' /tmp/list_clean.txt
