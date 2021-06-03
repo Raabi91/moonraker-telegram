@@ -33,6 +33,6 @@ else
     -d text="${msg}" \
     -d chat_id=${chatid}
 fi
-echo "$(date) : Send MSG = "$msg" >> $log
+echo "$(date) : Send MSG = $msg" >> $log
 
 exit 0
