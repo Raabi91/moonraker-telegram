@@ -87,7 +87,7 @@ if [ -n "${msg}" ]; then
      -d chat_id=${chatid}
 
  fi
- echo "$(date) : Send MSG = "$msg" >> $log
+ echo "$(date) : Send MSG = $msg" >> $log
 fi
 
 
