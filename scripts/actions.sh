@@ -18,13 +18,13 @@ take_picture()
     if identify -format '%f' $DIR_TEL/picture/cam_new.jpg; then
       echo "$(date) : Jpeg file is okay" >> $log
   
-     convert -rotate $rotate $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+     convert -quiet -rotate $rotate $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
 
       if [ "$horizontally" = "1" ]; then
-        convert -flop $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+        convert -quiet -flop $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
       fi
       if [ "$vertically" = "1" ]; then
-        convert -flip $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+        convert -quiet -flip $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
       fi
         cam_link="$DIR_TEL/picture/cam_new.jpg"
     else

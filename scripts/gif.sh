@@ -11,18 +11,16 @@ take_picture()
 {
   curl -o $DIR_TEL/picture/gif/$picture_gif.jpg $webcam
 
-  convert -rotate $rotate $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
+  convert -quiet -rotate $rotate $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
 
   if [ "$horizontally" = "1" ]; then
-    convert -flop $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
+    convert -quiet -flop $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
   fi
   if [ "$vertically" = "1" ]; then
-    convert -flip $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
+    convert -quiet -flip $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
   fi
 }
 
-
-if curl --output /dev/null --silent --fail -r 0-0  "$webcam"; then
  if [ -n "${led_on}" ]; then
     curl -H "Content-Type: application/json" -X POST $led_on
     sleep $led_on_delay
@@ -61,10 +59,8 @@ take_picture
     sleep $led_off_delay
     curl -H "Content-Type: application/json" -X POST $led_off
  fi
-else
- exit 0
-fi
-convert -resize 768x576 -delay 20 -loop 0 $DIR_TEL/picture/gif/*.jpg $DIR_TEL/picture/5sec.gif
+
+convert -quiet -resize 768x576 -delay 20 -loop 0 $DIR_TEL/picture/gif/*.jpg $DIR_TEL/picture/5sec.gif
 
 rm -r $DIR_TEL/picture/gif/*.jpg 
 
