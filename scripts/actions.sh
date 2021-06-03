@@ -32,11 +32,13 @@ take_picture()
       cam_link="$DIR_TEL/picture/cam_error.jpg"
     fi
   
+   if [ "$gif_enable" = "0" ]; then
     if [ -n "${led_off}" ]; then
       sleep $led_off_delay
       curl -H "Content-Type: application/json" -X POST $led_off
       echo "$(date) : LED off" >> $log
     fi
+   fi
   else
    echo "$(date) : Webcam link has an error" >> $log
    cam_link="$DIR_TEL/picture/no_cam.jpg"

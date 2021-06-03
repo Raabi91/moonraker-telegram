@@ -21,10 +21,12 @@ take_picture()
   fi
 }
 
-if [ -n "${led_on}" ]; then
+
+if curl --output /dev/null --silent --fail -r 0-0  "$webcam"; then
+ if [ -n "${led_on}" ]; then
     curl -H "Content-Type: application/json" -X POST $led_on
     sleep $led_on_delay
-fi
+ fi
 picture_gif=01
 take_picture
 sleep 0.5
@@ -55,11 +57,13 @@ sleep 0.5
 picture_gif=10
 take_picture
 
-if [ -n "${led_off}" ]; then
+ if [ -n "${led_off}" ]; then
     sleep $led_off_delay
     curl -H "Content-Type: application/json" -X POST $led_off
+ fi
+else
+ exit 0
 fi
-
 convert -resize 768x576 -delay 20 -loop 0 $DIR_TEL/picture/gif/*.jpg $DIR_TEL/picture/5sec.gif
 
 rm -r $DIR_TEL/picture/gif/*.jpg 
