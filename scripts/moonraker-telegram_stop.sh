@@ -8,6 +8,9 @@ DIR_STOP="`cd $MYDIR_STOP/../; pwd`"
 
 log=/tmp/$multi_instanz.log
 echo "$(date) : Stop $multi_instanz" >> $log
+echo "" >> $log
+echo "" >> $log
+
 
 ps aux | grep -ie $DIR_STOP | awk '{print $2}' | xargs kill -9
 exit 1
