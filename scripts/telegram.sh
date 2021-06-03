@@ -6,35 +6,48 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . $DIR_TEL/multi_config.sh
 . $DIR_TEL/example_config.sh
 . $config_dir/telegram_config.sh
+log=/tmp/$multi_instanz.log
+date >> $log
 
 take_picture()
 {
-  if [ -n "${led_on}" ]; then
-    curl -H "Content-Type: application/json" -X POST $led_on
-    sleep $led_on_delay
-  fi
-  
+
   if curl --output /dev/null --silent --fail -r 0-0  "$webcam"; then
 
-   curl -m 20 -o $DIR_TEL/picture/cam_new.jpg $webcam
+    if [ -n "${led_on}" ]; then
+      curl -H "Content-Type: application/json" -X POST $led_on >> $log
+      sleep $led_on_delay
+    fi
 
-   convert -rotate $rotate $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+   rm $DIR_TEL/picture/cam_new.jpg
+   curl -m 20 -o $DIR_TEL/picture/cam_new.jpg $webcam >> $log
 
-   if [ "$horizontally" = "1" ]; then
-    convert -flop $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
-   fi
-   if [ "$vertically" = "1" ]; then
-    convert -flip $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
-   fi
-   if [ -n "${led_off}" ]; then
-    sleep $led_off_delay
-    curl -H "Content-Type: application/json" -X POST $led_off
-   fi
-   cam_link="$DIR_TEL/picture/cam_new.jpg"
+    if identify -format '%f' $DIR_TEL/picture/cam_new.jpg; then
+  
+     convert -rotate $rotate $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+
+      if [ "$horizontally" = "1" ]; then
+        convert -flop $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+      fi
+      if [ "$vertically" = "1" ]; then
+        convert -flip $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
+      fi
+        cam_link="$DIR_TEL/picture/cam_new.jpg"
+    else
+      echo Picture has an error >> $log
+      cam_link="$DIR_TEL/picture/cam_error.jpg"
+    fi
+  
+    if [ -n "${led_off}" ]; then
+      sleep $led_off_delay
+      curl -H "Content-Type: application/json" -X POST $led_off
+    fi
   else
+   echo Cam has an error >> $log
    cam_link="$DIR_TEL/picture/no_cam.jpg"
   fi
 }
+
 
 print=$(curl -s "http://127.0.0.1:$port/printer/objects/query?print_stats&display_status&extruder=target,temperature&heater_bed=target,temperature")
 #### Filename ####
