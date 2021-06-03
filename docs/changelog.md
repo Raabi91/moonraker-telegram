@@ -1,3 +1,11 @@
+# 03.06.2021
+
+- add gif="0" to config for additional Gif at printig state
+- add first stepps for .log
+- custom comands has been changed so that the klipper shell plugin is no longer needed
+- camera and jpeg monitoring added when error present comes an image with error message
+- actions improved
+
 # 13.05.2021
 
 - add /gif for 5 second gif
