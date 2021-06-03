@@ -7,8 +7,7 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . $DIR_TEL/example_config.sh
 . $config_dir/telegram_config.sh
 log=/tmp/$multi_instanz.log
-date >> $log
-echo "telegram.sh" >> $log
+echo "$(date) : telegram" >> $log >> $log
 
 take_picture()
 {
