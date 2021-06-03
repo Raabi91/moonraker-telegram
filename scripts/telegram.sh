@@ -17,6 +17,7 @@ create_varibales
 tokenurl="https://api.telegram.org/bot$token"
 state_msg="$1"
 custom_picture="$2"
+gif_enable=0
 
 if [ "$state_msg" = "1" ]; then
     msg="$msg_start"
@@ -36,6 +37,9 @@ elif [ "$state_msg" = "4" ]; then
 elif [ "$state_msg" = "5" ]; then
     if [ "$print_state_read1" = "printing" ]; then    
         msg="$msg_state"
+          if [ "$gif" = "1" ]; then
+            gif_enable="1"
+          fi
     elif [ "$print_state_read1" = "standby" ]; then    
         msg="$msg_standby"
     elif [ "$print_state_read1" = "complete" ]; then    
@@ -105,6 +109,10 @@ if [ -n "${msg}" ]; then
 
  fi
  echo "$(date) : Send MSG = $msg" >> $log
+  if [ "$gif_enable" = "1" ]; then
+    $DIR_TEL/scripts/gif.sh
+  fi
+
 fi
 
 

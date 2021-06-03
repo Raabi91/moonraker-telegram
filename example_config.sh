@@ -33,6 +33,8 @@ msg_error="hey, i had a error. please look it up"
 time="0"
 # with picture = 1, without picture = 0  
 picture="0"
+# with 5sec gif at state message = 1, without gif = 0  
+gif="0"
 # your webcam snapshot link
 webcam="http://127.0.0.1:8080/?action=snapshot"
 #rotate the pic bevor sending, use degrease 0-360
