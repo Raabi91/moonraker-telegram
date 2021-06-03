@@ -83,54 +83,44 @@ After editing the config reboot your machine.
 
 this is normal because moonraker-telegram accesses a sample config in the background. if you want to change a variable just copy the appropriate variable from [telegram_config.md](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Telegram_config.md). Then copy it into your config and change the value.
 
-## How to send your own custom messages via Klipper shell plugin
+## How to send your own custom messages via Klipper
 
-First of all you need to install the shell plugin for Klipper.
-This is best done via kiauh. You'll find this in the advanced section.
-
-Once you've installed the shell plugin you must add the shell comand to your printer.cfg like this;
+set up a custom gcode macro like
 
 ```
-[gcode_shell_command telegram]
-command: sh /home/pi/moonraker-telegram/scripts/telegram.sh "this is a message from your printer" "0"
-timeout: 2.
-verbose: false
+[gcode_macro telegram_MSG]
+gcode:
+    RESPOND PREFIX=telegram: MSG="your message"
 ```
 
-The first quotes "" are for the message your printer will send. The second quotes "" dictates whether a picture will be sent - 0 for no picture, 1 to include picture.
+the prefix is used to specify whether you only want a message or also an image
 
-Here are some examples for the command line;
+PREFIX=telegram: is for messages only
+
+PREFIX=telegram_picture: is for messages with picture
+
+so you need only a picture see the examples
+
+Examples:
 
 ```
 Only Text:
-sh /home/pi/moonraker-telegram/scripts/telegram.sh "this is a message from your printer" "0"
+[gcode_macro telegram_MSG]
+gcode:
+    RESPOND PREFIX=telegram: MSG="your message"
 
 Text and picture:
-sh /home/pi/moonraker-telegram/scripts/telegram.sh "this is a message from your printer" "1"
+[gcode_macro telegram_MSG+picture]
+gcode:
+    RESPOND PREFIX=telegram_picture: MSG="your message"
 
 Only picture:
-sh /home/pi/moonraker-telegram/scripts/telegram.sh "" "1"
-```
-
-If you need more messages just copy and paste the first message and edit the name like this;
-
-```
-[gcode_shell_command telegram1]
-```
-
-To call the command use;
-
-```
-RUN_SHELL_COMMAND CMD=telegram
-```
-
-Now you can add the call in a gcode macro. An example is;
-
-```
-[gcode_macro telegram]
+[gcode_macro telegram_picture]
 gcode:
-    RUN_SHELL_COMMAND CMD=telegram
+    RESPOND PREFIX=telegram_picture: MSG=""
 ```
+
+If you need more messages just copy and paste the first macro and edit it
 
 ## How to run multiple bots
 

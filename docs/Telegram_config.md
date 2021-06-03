@@ -88,6 +88,12 @@ time="0"
 picture="0"
 ```
 
+### with 5sec gif at state message = 1, without gif = 0
+
+```
+gif="0"
+```
+
 ### your webcam snapshot link
 
 ```
