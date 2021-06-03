@@ -67,7 +67,6 @@ elif [ "$state_msg" = "6" ]; then
      -d chat_id=${chatid}
      msg=""
 else
-  #sh /home/pi/moonraker-telegram/scripts/telegram_custom.sh "$state_msg" "$custom_picture"
   if [ "$custom_picture" = "1" ]; then
     msg="$state_msg"
     take_picture
@@ -86,8 +85,6 @@ else
   echo "$(date) : Send MSG = $msg" >> $log
   exit 0
 fi
-
-create_varibales
 
 if [ -n "${msg}" ]; then
  if [ "$picture" = "1" ]; then
@@ -110,7 +107,7 @@ if [ -n "${msg}" ]; then
  fi
  echo "$(date) : Send MSG = $msg" >> $log
   if [ "$gif_enable" = "1" ]; then
-    $DIR_TEL/scripts/gif.sh
+    bash $DIR_TEL/scripts/gif.sh
   fi
 
 fi
