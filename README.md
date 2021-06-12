@@ -16,7 +16,7 @@ A Script/Programm to send the printer State before, during and after a print via
 - Print Complete
 - Print Paused
 - Print Failed
-- Send State timed
+- Send State timed, processed and at high
 - First Commands avaible (/state, /pause, /resume, /cancel, /help, /print, /power, /gcode_macros, /gif)
 - You can deactivate the messages by not entering any text at the config
 - send own messages (with a picture) via klipper shell plugin an gcode macros (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
@@ -28,7 +28,7 @@ for the placeholders in the messages look at https://github.com/Raabi91/moonrake
 
 ## Info / Contact / Help
 
-If you want to talk to other users of this plugin and maybe have some influence in the development of this plugin, you can join the [Moonraker-Telegram-Group](https://t.me/joinchat/HEI8MD3rG1qhl7tg) or the [Moonraker-Telegram-Discord](https://discord.gg/nHs9WjJjYz)
+If you want to talk to other users of this plugin and maybe have some influence in the development of this plugin, you can join the [Moonraker-Telegram-Group](https://t.me/joinchat/HEI8MD3rG1qhl7tg)
 
 ## [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md)
 
