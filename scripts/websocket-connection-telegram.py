@@ -21,6 +21,7 @@ prog_message1 = 0
 z_message1 = 0
 z_message1 = float(z_message1)
 prog_message1 = float(prog_message1)
+last_z = 0
 
 
 def read_variables():
@@ -57,6 +58,7 @@ def on_message(ws, message):
     global printer
     global z_message
     global progress_z
+    global last_z
     if "telegram:" in message:
         print(message)
         a, telegram = message.split("telegram: ")
@@ -106,11 +108,15 @@ def on_message(ws, message):
             python_json_obj = json.loads(message)
             json_gcode = float(
                 python_json_obj["params"][0]["gcode_move"]["gcode_position"][2])
-            if json_gcode >= float(z_message):
-                read_variables()
-                if int(z_message1) != 0:
-                    z_message = z_message + z_message1
-                    os.system(f'sh {DIR1}/scripts/telegram.sh 5')
+            if abs(json_gcode - (last_z or 0.0)) >= 1.0:
+                last_z = json_gcode
+            else:
+                if json_gcode >= float(z_message):
+                    read_variables()
+                    if int(z_message1) != 0:
+                        z_message = z_message + z_message1
+                        last_z = json_gcode
+                        os.system(f'sh {DIR1}/scripts/telegram.sh 5')
 
 
 def on_error(ws, error):
