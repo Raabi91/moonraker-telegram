@@ -1,3 +1,8 @@
+# 12.06.2021
+
+- message added at z height
+- message added at Process in %
+
 # 03.06.2021
 
 - add gif="0" to config for additional Gif at printig state
