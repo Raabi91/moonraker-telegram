@@ -109,8 +109,7 @@ def on_message(ws, message):
         if "gcode_position" in message and printer == 1 and progress_z > float(0):
             print(message)
             python_json_obj = json.loads(message)
-            json_gcode = float(
-                python_json_obj["params"][0]["gcode_move"]["gcode_position"][2])
+            json_gcode = float(python_json_obj["params"][0]["gcode_move"]["gcode_position"][2])
             if json_gcode <= float(0.8) and json_gcode >= float(0):
                 high_msg = 1
             if high_msg == 1:
@@ -122,7 +121,7 @@ def on_message(ws, message):
                         if int(z_message1) != 0:
                             z_message = z_message + z_message1
                             last_z = json_gcode
-                        o   s.system(f'sh {DIR1}/scripts/telegram.sh 5')
+                            os.system(f'sh {DIR1}/scripts/telegram.sh 5')
 
 
 def on_error(ws, error):
