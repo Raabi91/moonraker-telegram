@@ -109,20 +109,20 @@ def on_message(ws, message):
             json_prog1 = python_json_obj["params"][0]["display_status"]["progress"]
             json_prog = json_prog1*100
             progress_z = json_prog
-            if json_prog >= float(prog_message)
-            read_variables()
-            if int(prog_message1) != 0:
-                prog_message = prog_message + prog_message1
-                os.system(f'sh {DIR1}/scripts/telegram.sh 5')
+            if json_prog >= float(prog_message):
+                read_variables()
+                if int(prog_message1) != 0:
+                    prog_message = prog_message + prog_message1
+                    os.system(f'sh {DIR1}/scripts/telegram.sh 5')
         if "gcode_position" in message and printer == 1 and progress_z > float(0):
             python_json_obj = json.loads(message)
             json_gcode = float(
                 python_json_obj["params"][0]["gcode_move"]["gcode_position"][2])
-            if json_gcode >= float(z_message)
-            read_variables()
-            if int(z_message1) != 0:
-                z_message = z_message + z_message1
-                os.system(f'sh {DIR1}/scripts/telegram.sh 5')
+            if json_gcode >= float(z_message):
+                read_variables()
+                if int(z_message1) != 0:
+                    z_message = z_message + z_message1
+                    os.system(f'sh {DIR1}/scripts/telegram.sh 5')
 
 
 def on_error(ws, error):
