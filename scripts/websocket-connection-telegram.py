@@ -63,12 +63,11 @@ def on_message(ws, message):
             f.write(message)
             f.close()
             os.system(f'sh {DIR1}/scripts/read_state.sh "0"')
-        if "printing" in message:
-            if printer == 0:
-                prog_message = prog_message1
-                z_message = z_message1
-                printer = 1
-                progress_z = 0
+        if "printing" in message and printer == 0:
+            prog_message = prog_message1
+            z_message = z_message1
+            printer = 1
+            progress_z = 0
         if "complete" in message or "standby" in message or "error" in message:
             printer = 0
             prog_message = 0
@@ -76,7 +75,7 @@ def on_message(ws, message):
             progress_z = 0
     if "Klipper state: Shutdown" in message:
         os.system(f'sh {DIR1}/scripts/read_state.sh "1"')
-    if "params" in message:
+    if "notify_status_update" in message:
         if "progress" in message and printer == 1:
             python_json_obj = json.loads(message)
             json_prog1 = python_json_obj["params"][0]["display_status"]["progress"]
@@ -84,14 +83,14 @@ def on_message(ws, message):
             progress_z = json_prog
             if json_prog >= float(prog_message) and int(prog_message1) != 0:
                 prog_message = prog_message + prog_message1
-                os.system(f'sh {DIR}/scripts/telegram.sh 5')
+                os.system(f'sh {DIR1}/scripts/telegram.sh 5')
         if "gcode_position" in message and printer == 1 and progress_z > float(0):
             python_json_obj = json.loads(message)
             json_gcode = float(
                 python_json_obj["params"][0]["gcode_move"]["gcode_position"][2])
             if json_gcode >= float(z_message) and int(z_message1) != 0:
                 z_message = z_message + z_message1
-                os.system(f'sh {DIR}/scripts/telegram.sh 5')
+                os.system(f'sh {DIR1}/scripts/telegram.sh 5')
 
 
 def on_error(ws, error):
