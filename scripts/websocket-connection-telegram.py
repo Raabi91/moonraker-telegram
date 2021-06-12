@@ -19,9 +19,11 @@ prog_message = 0
 printer = 0
 z_message = 0
 progress_z = 0
+data = ""
 
 
 def subscribe():
+    global data
     data = {
         "jsonrpc": "2.0",
         "method": "printer.objects.subscribe",
@@ -34,7 +36,6 @@ def subscribe():
         },
         "id": "5434"
     }
-    ws.send(json.dumps(data))
 
 
 def on_message(ws, message):
@@ -54,6 +55,7 @@ def on_message(ws, message):
         os.system(f'sh {DIR1}/scripts/telegram.sh "{telegram_msg}" "1"')
     elif "Klipper state: Ready" in message:
         subscribe()
+        ws.send(json.dumps(data))
     elif "print_stats" in message:
         if "state" in message:
             print(message)
@@ -109,6 +111,7 @@ def on_open(ws):
             start = 1
             time.sleep(1)
             subscribe()
+            ws.send(json.dumps(data))
         time.sleep(5)
         start = 0
     thread.start_new_thread(run, ())
