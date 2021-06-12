@@ -31,6 +31,10 @@ msg_error="hey, i had a error. please look it up"
 #
 # time in seconds to get an State update. to disable set it to 0
 time="0"
+# Progress in % to get an State update. to disable set it to 0
+progress="0"
+# Z Hight in mm to get an State update. to disable set it to 0
+z_high="0"
 # with picture = 1, without picture = 0  
 picture="0"
 # with 5sec gif at state message = 1, without gif = 0  

@@ -8,11 +8,59 @@ except ImportError:
     import _thread as thread
 import time
 
-port1 = sys.argv[1]
+DIR = sys.argv[3]
 DIR1 = sys.argv[2]
+port1 = sys.argv[1]
+
+prog_message = 0
+printer = 0
+z_message = 0
+progress_z = 0
+data = ""
+prog_message1 = 0
+z_message1 = 0
+z_message1 = float(z_message1)
+prog_message1 = float(prog_message1)
+last_z = 0
+high_msg = 0
+
+
+def read_variables():
+    global prog_message1
+    global z_message1
+    datei = open(f'{DIR}/telegram_config.sh', 'r')
+    for zeile in datei:
+        if "z_high=" in zeile:
+            x, z_message1, y = zeile.split('"')
+            z_message1 = float(z_message1)
+        if "progress=" in zeile:
+            x, prog_message1, y = zeile.split('"')
+            prog_message1 = float(prog_message1)
+
+
+def subscribe():
+    global data
+    data = {
+        "jsonrpc": "2.0",
+        "method": "printer.objects.subscribe",
+        "params": {
+            "objects": {
+                "print_stats": ["state"],
+                "display_status": ["progress"],
+                "gcode_move": ["gcode_position"],
+            }
+        },
+        "id": "5434"
+    }
 
 
 def on_message(ws, message):
+    global prog_message
+    global printer
+    global z_message
+    global progress_z
+    global last_z
+    global high_msg
     if "telegram:" in message:
         print(message)
         a, telegram = message.split("telegram: ")
@@ -24,12 +72,7 @@ def on_message(ws, message):
         telegram_msg, b = telegram.split('"')
         os.system(f'sh {DIR1}/scripts/telegram.sh "{telegram_msg}" "1"')
     if "Klipper state: Ready" in message:
-        data = {
-            "jsonrpc": "2.0",
-            "method": "printer.objects.subscribe",
-            "params": {"objects": {"print_stats": ["state", ]}},
-            "id": "5"
-        }
+        subscribe()
         ws.send(json.dumps(data))
     if "print_stats" in message:
         if "state" in message:
@@ -38,8 +81,48 @@ def on_message(ws, message):
             f.write(message)
             f.close()
             os.system(f'sh {DIR1}/scripts/read_state.sh "0"')
+        if "printing" in message and printer == 0:
+            read_variables()
+            prog_message = prog_message1
+            z_message = z_message1
+            printer = 1
+            progress_z = 0
+            high_msg = 0
+        if "complete" in message or "standby" in message or "error" in message:
+            printer = 0
+            prog_message = 0
+            z_message = 0
+            progress_z = 0
+            high_msg = 0
     if "Klipper state: Shutdown" in message:
         os.system(f'sh {DIR1}/scripts/read_state.sh "1"')
+    if "notify_status_update" in message:
+        if "progress" in message and printer == 1:
+            python_json_obj = json.loads(message)
+            json_prog1 = python_json_obj["params"][0]["display_status"]["progress"]
+            json_prog = json_prog1*100
+            progress_z = json_prog
+            if json_prog >= float(prog_message):
+                read_variables()
+                if int(prog_message1) != 0:
+                    prog_message = prog_message + prog_message1
+                    os.system(f'sh {DIR1}/scripts/telegram.sh 5')
+        if "gcode_position" in message and printer == 1 and progress_z > float(0):
+            print(message)
+            python_json_obj = json.loads(message)
+            json_gcode = float(python_json_obj["params"][0]["gcode_move"]["gcode_position"][2])
+            if json_gcode <= float(0.8) and json_gcode >= float(0):
+                high_msg = 1
+            if high_msg == 1:
+                if abs(json_gcode - (last_z or 0.0)) >= 1.0:
+                    last_z = json_gcode
+                else:
+                    if json_gcode >= float(z_message):
+                        read_variables()
+                        if int(z_message1) != 0:
+                            z_message = z_message + z_message1
+                            last_z = json_gcode
+                            os.system(f'sh {DIR1}/scripts/telegram.sh 5')
 
 
 def on_error(ws, error):
@@ -58,12 +141,7 @@ def on_open(ws):
         for i in range(1):
             start = 1
             time.sleep(1)
-            data = {
-                "jsonrpc": "2.0",
-                "method": "printer.objects.subscribe",
-                "params": {"objects": {"print_stats": ["state", ]}},
-                "id": "5"
-            }
+            subscribe()
             ws.send(json.dumps(data))
         time.sleep(5)
         start = 0
