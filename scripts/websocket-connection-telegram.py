@@ -48,15 +48,15 @@ def on_message(ws, message):
         a, telegram = message.split("telegram: ")
         telegram_msg, b = telegram.split('"')
         os.system(f'sh {DIR1}/scripts/telegram.sh "{telegram_msg}" "0"')
-    elif "telegram_picture:" in message:
+    if "telegram_picture:" in message:
         print(message)
         a, telegram = message.split("telegram_picture: ")
         telegram_msg, b = telegram.split('"')
         os.system(f'sh {DIR1}/scripts/telegram.sh "{telegram_msg}" "1"')
-    elif "Klipper state: Ready" in message:
+    if "Klipper state: Ready" in message:
         subscribe()
         ws.send(json.dumps(data))
-    elif "print_stats" in message:
+    if "print_stats" in message:
         if "state" in message:
             print(message)
             f = open(f'{DIR1}/websocket_state.txt', 'w')
@@ -74,9 +74,9 @@ def on_message(ws, message):
             prog_message = 0
             z_message = 0
             progress_z = 0
-    elif "Klipper state: Shutdown" in message:
+    if "Klipper state: Shutdown" in message:
         os.system(f'sh {DIR1}/scripts/read_state.sh "1"')
-    elif "params" in message:
+    if "params" in message:
         if "progress" in message and printer == 1:
             python_json_obj = json.loads(message)
             json_prog1 = python_json_obj["params"][0]["display_status"]["progress"]
