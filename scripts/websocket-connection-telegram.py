@@ -22,6 +22,7 @@ z_message1 = 0
 z_message1 = float(z_message1)
 prog_message1 = float(prog_message1)
 last_z = 0
+high_msg = 0
 
 
 def read_variables():
@@ -59,6 +60,7 @@ def on_message(ws, message):
     global z_message
     global progress_z
     global last_z
+    global high_msg
     if "telegram:" in message:
         print(message)
         a, telegram = message.split("telegram: ")
@@ -90,6 +92,7 @@ def on_message(ws, message):
             prog_message = 0
             z_message = 0
             progress_z = 0
+            high_msg = 0
     if "Klipper state: Shutdown" in message:
         os.system(f'sh {DIR1}/scripts/read_state.sh "1"')
     if "notify_status_update" in message:
@@ -108,15 +111,18 @@ def on_message(ws, message):
             python_json_obj = json.loads(message)
             json_gcode = float(
                 python_json_obj["params"][0]["gcode_move"]["gcode_position"][2])
-            if abs(json_gcode - (last_z or 0.0)) >= 1.0:
-                last_z = json_gcode
-            else:
-                if json_gcode >= float(z_message):
-                    read_variables()
-                    if int(z_message1) != 0:
-                        z_message = z_message + z_message1
-                        last_z = json_gcode
-                        os.system(f'sh {DIR1}/scripts/telegram.sh 5')
+            if json_gcode <= float(0.8) and json_gcode >= float(0):
+                high_msg = 1
+            if high_msg == 1:
+                if abs(json_gcode - (last_z or 0.0)) >= 1.0:
+                    last_z = json_gcode
+                else:
+                    if json_gcode >= float(z_message):
+                        read_variables()
+                        if int(z_message1) != 0:
+                            z_message = z_message + z_message1
+                            last_z = json_gcode
+                        o   s.system(f'sh {DIR1}/scripts/telegram.sh 5')
 
 
 def on_error(ws, error):
