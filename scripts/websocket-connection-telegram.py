@@ -87,6 +87,7 @@ def on_message(ws, message):
             z_message = z_message1
             printer = 1
             progress_z = 0
+            high_msg = 0
         if "complete" in message or "standby" in message or "error" in message:
             printer = 0
             prog_message = 0
