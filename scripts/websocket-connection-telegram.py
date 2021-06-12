@@ -19,33 +19,20 @@ progress_z = 0
 data = ""
 prog_message1 = 0
 z_message1 = 0
+z_message1 = float(z_message1)
+prog_message1 = float(prog_message1)
 
 
 def read_variables():
     global prog_message1
     global z_message1
-    datei = open(f'{DIR1}/example_config.sh', 'r')
-    for zeile in datei:
-        if "z_high=" in zeile:
-            x, z_message1, y = zeile.split('"')
-            print(z_message1)
-            z_message1 = float(z_message1)
-        if "progress=" in zeile:
-            x, prog_message1, y = zeile.split('"')
-            print(prog_message1)
-            prog_message1 = float(prog_message1)
-
     datei = open(f'{DIR}/telegram_config.sh', 'r')
     for zeile in datei:
         if "z_high=" in zeile:
-            print("Inhalt aus Datei: ")
             x, z_message1, y = zeile.split('"')
-            print(z_message1)
             z_message1 = float(z_message1)
         if "progress=" in zeile:
-            print("Inhalt aus Datei:")
             x, prog_message1, y = zeile.split('"')
-            print(prog_message1)
             prog_message1 = float(prog_message1)
 
 
@@ -115,6 +102,7 @@ def on_message(ws, message):
                     prog_message = prog_message + prog_message1
                     os.system(f'sh {DIR1}/scripts/telegram.sh 5')
         if "gcode_position" in message and printer == 1 and progress_z > float(0):
+            print(message)
             python_json_obj = json.loads(message)
             json_gcode = float(
                 python_json_obj["params"][0]["gcode_move"]["gcode_position"][2])
