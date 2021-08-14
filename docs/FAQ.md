@@ -30,6 +30,21 @@ If the update manager shows an error you must perform the following;
     sudo systemctl restart moonraker-telegram
     ´´´
 
+## Use the bot in Groups
+
+if you want to use your bot in a group you have to do the following for your bot
+
+first set the privacy of the bot to disable
+
+```
+Got to @botfather chat and call comand
+
+/setprivacy -> Select the correct bot -> Disable
+```
+
+then invite the bot to the group and give him admin rights
+
+
 ## How to upgrade moonraker-telegram via terminal
 
 If you use multiple bots you must first enter into each specific folder you created for those bots;
@@ -85,7 +100,9 @@ this is normal because moonraker-telegram accesses a sample config in the backgr
 
 ## How to send your own custom messages via Klipper
 
-set up a custom gcode macro like
+first of all check if [respond] is present in your printer config if not add it. 
+
+then set up a custom gcode macro like
 
 ```
 [gcode_macro telegram_MSG]
@@ -205,7 +222,7 @@ OFF:
 http://127.0.0.1:$port/machine/device_power/off?Tronxy%20X5SAPro
 ```
 
-### 2. Control of the leds via Pgcode macro:
+### 2. Control of the leds via gcode macro:
 
 simply set the variables to the appropriate command and add the <macro> with your macro name.
 

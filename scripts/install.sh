@@ -33,8 +33,12 @@ echo -e "\n========= Check for config ==========="
         echo -e "please enter your moonraker config path"
         echo -e "and press enter (like /home/pi/klipper_config):"
         read CONFIG 
+        if [ -z "$CONFIG" ]
+        then
+        CONFIG="/home/pi/klipper_config"
+        fi
         echo "# moonraker config path" >> $DIR/multi_config.sh
-        echo "config_dir=$CONFIG" >> $DIR/multi_config.sh
+        echo "config_dir=\"$CONFIG\"" >> $DIR/multi_config.sh
     fi
     if ! grep -q "multi_instanz=" $DIR/multi_config.sh
     then 
@@ -42,7 +46,7 @@ echo -e "\n========= Check for config ==========="
         echo "If you only use it once per hardware, simply press enter."
         read INSTANZ 
         echo "# if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service." >> $DIR/multi_config.sh
-        echo "multi_instanz="moonraker-telegram$INSTANZ"" >> $DIR/multi_config.sh      
+        echo "multi_instanz=\"moonraker-telegram$INSTANZ\"" >> $DIR/multi_config.sh      
     fi
 
     . $DIR/multi_config.sh
