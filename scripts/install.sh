@@ -38,7 +38,7 @@ echo -e "\n========= Check for config ==========="
         CONFIG="/home/pi/klipper_config"
         fi
         echo "moonraker config path" >> $DIR/multi_config.sh
-        echo "config_dir="\"$CONFIG\"" >> $DIR/multi_config.sh
+        echo "config_dir=\"$CONFIG\"" >> $DIR/multi_config.sh
     fi
     if ! grep -q "multi_instanz=" $DIR/multi_config.sh
     then 
