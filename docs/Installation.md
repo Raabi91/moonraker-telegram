@@ -30,6 +30,11 @@ For a description of the Bot API, see this page: https://core.telegram.org/bots/
 
 ## Get your Telegram chat ID
 
+if you want to use your bot in a group you have to do the following for your bot
+
+https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#use-the-bot-in-groups
+
+
 1. Paste the following link in your browser. Replace <API-access-token> with the API access token that you identified or created in the previous section:
 
 ```

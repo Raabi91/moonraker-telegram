@@ -33,6 +33,10 @@ echo -e "\n========= Check for config ==========="
         echo -e "please enter your moonraker config path"
         echo -e "and press enter (like /home/pi/klipper_config):"
         read CONFIG 
+        if [ -z "$var" ]
+        then
+        CONFIG="/home/pi/klipper_config"
+        fi
         echo "# moonraker config path" >> $DIR/multi_config.sh
         echo "config_dir=$CONFIG" >> $DIR/multi_config.sh
     fi
