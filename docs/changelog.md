@@ -1,3 +1,8 @@
+#
+
+- add support for force login
+- add comand for reboot and shutdown for the host system
+
 # 12.06.2021
 
 - message added at z height

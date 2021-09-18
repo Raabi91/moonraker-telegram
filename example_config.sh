@@ -7,6 +7,8 @@ token="your_token"
 # Your chat ID
 chatid="your_chatid"
 #
+#Your moonraker API-Key when u use force login true
+api_key=""
 # messages for the states
 ### for the placeholders in the messages look at https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Variables.md
 #
@@ -63,5 +65,3 @@ led_on_delay="0"
 led_off=""
 #Led off wait time after picture is taken (in seconds)
 led_off_delay="0"
-#Your moonraker API-Key when u use force login true
-api_key=""

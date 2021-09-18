@@ -57,6 +57,14 @@ def on_chat_message(msg):
                     os.system(f'bash {DIR}/scripts/gcode.sh')
                 elif command == '/power':
                     os.system(f'bash {DIR}/scripts/power.sh')
+                elif command == '/host':
+                    content_type, chat_type, chat_id = telepot.glance(msg)
+                    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                        [InlineKeyboardButton(text='Shutdown', callback_data='pi_sh'),
+                         InlineKeyboardButton(text='reboot', callback_data='pi_re')],
+                    ])
+                    bot.sendMessage(
+                        chat_id, 'what do you want to do with your pi', reply_markup=keyboard)
                 elif command == '/pause':
                     content_type, chat_type, chat_id = telepot.glance(msg)
                     keyboard = InlineKeyboardMarkup(inline_keyboard=[
@@ -94,6 +102,29 @@ def on_callback_query(msg):
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/pause', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
         bot.sendMessage(chatid_mt, 'Got it')
+    # Pi
+    elif "pi_sh" in query_data:
+            keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text='yes', callback_data='pi_sy'),
+                 InlineKeyboardButton(text='no', callback_data='no')],
+            ])
+            bot.sendMessage(
+                chatid_mt, 'do you really want to shoutdown your pi', reply_markup=keyboard)
+    elif "pi_re" in query_data:
+            keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text='yes', callback_data='pi_ry'),
+                 InlineKeyboardButton(text='no', callback_data='no')],
+            ])
+            bot.sendMessage(
+                chatid_mt, 'do you really want to reboot your pi', reply_markup=keyboard)
+    elif "pi_sy" in query_data:
+        x = requests.post(
+            f'http://127.0.0.1:{port}/machine/shutdown', headers={"X-Api-Key":f'{api_key}'})
+        print(x.text)
+    elif "pi_ry" in query_data:
+        x = requests.post(
+            f'http://127.0.0.1:{port}/machine/reboot', headers={"X-Api-Key":f'{api_key}'})
+        print(x.text)
     # Print
     elif "p:," in query_data:
         a, gcode = query_data.split(":,")

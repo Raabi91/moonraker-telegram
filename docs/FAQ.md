@@ -44,6 +44,10 @@ Got to @botfather chat and call comand
 
 then invite the bot to the group and give him admin rights
 
+## Use the bot with force_logins: true
+
+ if you want to use your bot with force_logins: true then you just have to enter the [API KEY](https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Telegram_config.md#Your-moonraker-API-Key-when-u-use-force-login-true) in your telegram_config.sh
+
 
 ## How to upgrade moonraker-telegram via terminal
 
@@ -178,6 +182,7 @@ print - Will open a file dialog showing the files stored in moonraker. You can s
 power - Will open a file dialog showing the Power devices of moonraker. You can choose a device to interact with it
 gcode_macro - Will open a file dialog showing the custom Gcode_macros of the printer.cfg. You can choose a macro to execute it
 gif - send a 5 second gif
+host - Will open a file dialog to reboot or shutdown your host
 ```
 
 ## How to use Automatic led for cam
