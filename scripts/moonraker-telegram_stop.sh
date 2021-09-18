@@ -7,7 +7,8 @@ DIR_STOP="`cd $MYDIR_STOP/../; pwd`"
 . $config_dir/telegram_config.sh
 
 log=/tmp/$multi_instanz.log
-echo "$(date) : Stop $multi_instanz" >> $log
+echo "$(date)" >> $log
+echo "Stop $multi_instanz" >> $log
 echo "" >> $log
 echo "" >> $log
 

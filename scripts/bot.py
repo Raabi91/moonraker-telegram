@@ -11,6 +11,8 @@ token = sys.argv[1]
 port = sys.argv[2]
 DIR = sys.argv[3]
 chatid_mt = sys.argv[4]
+api_key = sys.argv[5]
+log = sys.argv[6]
 
 
 def on_chat_message(msg):
@@ -55,6 +57,14 @@ def on_chat_message(msg):
                     os.system(f'bash {DIR}/scripts/gcode.sh')
                 elif command == '/power':
                     os.system(f'bash {DIR}/scripts/power.sh')
+                elif command == '/host':
+                    content_type, chat_type, chat_id = telepot.glance(msg)
+                    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                        [InlineKeyboardButton(text='shutdown', callback_data='pi_sh'),
+                         InlineKeyboardButton(text='reboot', callback_data='pi_re')],
+                    ])
+                    bot.sendMessage(
+                        chat_id, 'what do you want to do with your pi', reply_markup=keyboard)
                 elif command == '/pause':
                     content_type, chat_type, chat_id = telepot.glance(msg)
                     keyboard = InlineKeyboardMarkup(inline_keyboard=[
@@ -65,7 +75,7 @@ def on_chat_message(msg):
                         chat_id, 'do you really want to pause', reply_markup=keyboard)
                 elif command == '/resume':
                     x = requests.post(
-                        f'http://127.0.0.1:{port}/printer/print/resume')
+                        f'http://127.0.0.1:{port}/printer/print/resume', headers={"X-Api-Key":f'{api_key}'})
                     print(x.text)
                 elif command == '/cancel':
                     content_type, chat_type, chat_id = telepot.glance(msg)
@@ -84,14 +94,39 @@ def on_callback_query(msg):
     print('Callback Query:', query_id, from_id, query_data,)
     # cancel
     if query_data == 'yes_cancel':
-        x = requests.post(f'http://127.0.0.1:{port}/printer/print/cancel')
+        x = requests.post(f'http://127.0.0.1:{port}/printer/print/cancel', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
         bot.sendMessage(chatid_mt, 'Got it')
     # pause
     elif query_data == 'yes_pause':
-        x = requests.post(f'http://127.0.0.1:{port}/printer/print/pause')
+        x = requests.post(f'http://127.0.0.1:{port}/printer/print/pause', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
         bot.sendMessage(chatid_mt, 'Got it')
+    # Pi
+    elif "pi_sh" in query_data:
+            keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text='yes', callback_data='pi_sy'),
+                 InlineKeyboardButton(text='no', callback_data='no')],
+            ])
+            bot.sendMessage(
+                chatid_mt, 'do you really want to shoutdown your pi', reply_markup=keyboard)
+    elif "pi_re" in query_data:
+            keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text='yes', callback_data='pi_ry'),
+                 InlineKeyboardButton(text='no', callback_data='no')],
+            ])
+            bot.sendMessage(
+                chatid_mt, 'do you really want to reboot your pi', reply_markup=keyboard)
+    elif "pi_sy" in query_data:
+        bot.sendMessage(chatid_mt, 'Got it')
+        x = requests.post(
+            f'http://127.0.0.1:{port}/machine/shutdown', headers={"X-Api-Key":f'{api_key}'})
+        print(x.text)
+    elif "pi_ry" in query_data:
+        bot.sendMessage(chatid_mt, 'Got it')
+        x = requests.post(
+            f'http://127.0.0.1:{port}/machine/reboot', headers={"X-Api-Key":f'{api_key}'})
+        print(x.text)
     # Print
     elif "p:," in query_data:
         a, gcode = query_data.split(":,")
@@ -112,7 +147,7 @@ def on_callback_query(msg):
         print(a)
         print(gcode)
         x = requests.post(
-            f'http://127.0.0.1:{port}/printer/print/start?filename={gcode}')
+            f'http://127.0.0.1:{port}/printer/print/start?filename={gcode}', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
     # Gcode_macro
     elif "g:," in query_data:
@@ -130,7 +165,7 @@ def on_callback_query(msg):
     elif "g,:" in query_data:
         a, macro = query_data.split(",:")
         x = requests.post(
-            f'http://127.0.0.1:{port}/printer/gcode/script?script={macro}')
+            f'http://127.0.0.1:{port}/printer/gcode/script?script={macro}', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
         bot.sendMessage(chatid_mt, 'okay I have executed %s' % macro)
     # Power
@@ -167,13 +202,13 @@ def on_callback_query(msg):
     elif "on:," in query_data:
         a, device = query_data.split(":,")
         x = requests.post(
-            f'http://127.0.0.1:{port}/machine/device_power/on?{device}')
+            f'http://127.0.0.1:{port}/machine/device_power/on?{device}', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
         bot.sendMessage(chatid_mt, 'okay I have turned on %s' % device)
     elif "of:," in query_data:
         a, device = query_data.split(":,")
         x = requests.post(
-            f'http://127.0.0.1:{port}/machine/device_power/off?{device}')
+            f'http://127.0.0.1:{port}/machine/device_power/off?{device}', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
         bot.sendMessage(chatid_mt, 'okay I have turned off %s' % device)
     elif "st,:" in query_data:

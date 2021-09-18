@@ -7,6 +7,8 @@ token="your_token"
 # Your chat ID
 chatid="your_chatid"
 #
+#Your moonraker API-Key when u use force login true
+api_key=""
 # messages for the states
 ### for the placeholders in the messages look at https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Variables.md
 #

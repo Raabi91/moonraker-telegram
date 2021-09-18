@@ -8,7 +8,7 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . $config_dir/telegram_config.sh
 . $DIR_TEL/scripts/actions.sh
 log=/tmp/$multi_instanz.log
-echo "$(date) : telegram.sh" >> $log
+echo "telegram.sh" >> $log
 
 create_varibales
 
@@ -82,7 +82,7 @@ else
       -d text="${msg}" \
       -d chat_id=${chatid}
   fi
-  echo "$(date) : Send MSG = $msg" >> $log
+  echo "Send MSG = $msg" >> $log
   exit 0
 fi
 
@@ -105,7 +105,7 @@ if [ -n "${msg}" ]; then
      -d chat_id=${chatid}
 
  fi
- echo "$(date) : Send MSG = $msg" >> $log
+ echo "Send MSG = $msg" >> $log
   if [ "$gif_enable" = "1" ]; then
     bash $DIR_TEL/scripts/gif.sh
   fi

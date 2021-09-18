@@ -10,7 +10,7 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . $config_dir/telegram_config.sh
 
 
-list_json=$(curl -s -G "http://127.0.0.1:$port/machine/device_power/status?"  --data-urlencode "$device")
+list_json=$(curl -H "X-Api-Key: $api_key" -s -G "http://127.0.0.1:$port/machine/device_power/status?"  --data-urlencode "$device")
 echo $list_json
 device_state=$(echo "$list_json" | grep -oP '(?<=": ")[^"]*')
 echo $device_state

@@ -7,7 +7,7 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . $DIR_TEL/example_config.sh
 . $config_dir/telegram_config.sh
 
-list_json=$(curl -s "http://127.0.0.1:$port/machine/device_power/devices")
+list_json=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/machine/device_power/devices")
 list_clean=$(echo "$list_json" | grep -oP '(?<="device": ")[^,]*')
 echo $list_clean > /tmp/list_clean.txt
 sed -i 's/" /|/g' /tmp/list_clean.txt
