@@ -47,7 +47,7 @@ take_picture()
 
 create_varibales()
 {
-print=$(curl -s "http://127.0.0.1:$port/printer/objects/query?print_stats&display_status&extruder=target,temperature&heater_bed=target,temperature")
+print=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/query?print_stats&display_status&extruder=target,temperature&heater_bed=target,temperature")
 #### Filename ####
 print_filename=$(echo "$print" | grep -oP '(?<="filename": ")[^"]*')
 #### Print Duration ####

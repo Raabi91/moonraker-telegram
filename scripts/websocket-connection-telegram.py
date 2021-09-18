@@ -152,7 +152,7 @@ def on_open(ws):
 def connect_websocket():
     #    websocket.enableTrace(True)
     ws = websocket.WebSocketApp(f'ws://127.0.0.1:{port1}/websocket',
-                                header={f'"X-Api-Key":"{api_key}"'},
+                                header={"X-Api-Key":f'{api_key}'},
                                 on_message=on_message,
                                 on_error=on_error,
                                 on_close=on_close)

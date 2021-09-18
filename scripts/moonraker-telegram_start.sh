@@ -10,7 +10,7 @@ log=/tmp/$multi_instanz.log
 echo "$(date) : Start $multi_instanz" >> $log
 
 if [ "$bot_disable" = "0" ]; then
-${HOME}/.moonraker-telegram-env/bin/python $DIR_START/scripts/bot.py "$token" "$port" "$DIR_START" "$chatid" &
+${HOME}/.moonraker-telegram-env/bin/python $DIR_START/scripts/bot.py "$token" "$port" "$DIR_START" "$chatid" "$api_key" &
 fi
 
 echo "time_msg=0" > $DIR_START/scripts/time_config.txt
