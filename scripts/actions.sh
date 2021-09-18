@@ -4,10 +4,10 @@ take_picture()
 {
 
   if curl --output /dev/null --silent --fail -r 0-0  "$webcam"; then
-    echo "$(date) : Webcam link is working" >> $log
+    echo "Webcam link is working" >> $log
 
     if [ -n "${led_on}" ]; then
-      echo "$(date) : Led on" >> $log
+      echo "Led on" >> $log
       curl -H "Content-Type: application/json" -X POST $led_on
       sleep $led_on_delay
     fi
@@ -16,7 +16,7 @@ take_picture()
    curl -m 20 -o $DIR_TEL/picture/cam_new.jpg $webcam
 
     if identify -format '%f' $DIR_TEL/picture/cam_new.jpg; then
-      echo "$(date) : Jpeg file is okay" >> $log
+      echo "Jpeg file is okay" >> $log
   
      convert -quiet -rotate $rotate $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
 
@@ -28,7 +28,7 @@ take_picture()
       fi
         cam_link="$DIR_TEL/picture/cam_new.jpg"
     else
-      echo "$(date) : JPEG picture has an error" >> $log
+      echo "JPEG picture has an error" >> $log
       cam_link="$DIR_TEL/picture/cam_error.jpg"
     fi
   
@@ -36,11 +36,11 @@ take_picture()
     if [ -n "${led_off}" ]; then
       sleep $led_off_delay
       curl -H "Content-Type: application/json" -X POST $led_off
-      echo "$(date) : LED off" >> $log
+      echo "LED off" >> $log
     fi
    fi
   else
-   echo "$(date) : Webcam link has an error" >> $log
+   echo "Webcam link has an error" >> $log
    cam_link="$DIR_TEL/picture/no_cam.jpg"
   fi
 }

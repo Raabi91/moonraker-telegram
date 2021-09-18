@@ -12,6 +12,7 @@ DIR = sys.argv[3]
 DIR1 = sys.argv[2]
 port1 = sys.argv[1]
 api_key = sys.argv[4]
+log = sys.argv[5]
 
 prog_message = 0
 printer = 0
@@ -128,6 +129,9 @@ def on_message(ws, message):
 
 def on_error(ws, error):
     print(error)
+    with open(f'{log}', 'a') as f:
+        print("Websocket:", file=f)
+        print(error, file=f)
 
 
 def on_close(ws):

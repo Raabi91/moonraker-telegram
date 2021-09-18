@@ -12,6 +12,7 @@ port = sys.argv[2]
 DIR = sys.argv[3]
 chatid_mt = sys.argv[4]
 api_key = sys.argv[5]
+log = sys.argv[6]
 
 
 def on_chat_message(msg):
