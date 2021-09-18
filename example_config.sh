@@ -63,3 +63,5 @@ led_on_delay="0"
 led_off=""
 #Led off wait time after picture is taken (in seconds)
 led_off_delay="0"
+#Your moonraker API-Key when u use force login true
+api_key=""

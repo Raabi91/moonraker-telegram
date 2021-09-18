@@ -11,6 +11,7 @@ import time
 DIR = sys.argv[3]
 DIR1 = sys.argv[2]
 port1 = sys.argv[1]
+api_key = sys.argv[4]
 
 prog_message = 0
 printer = 0
@@ -151,6 +152,7 @@ def on_open(ws):
 def connect_websocket():
     #    websocket.enableTrace(True)
     ws = websocket.WebSocketApp(f'ws://127.0.0.1:{port1}/websocket',
+                                header={f'"X-Api-Key":"{api_key}"'},
                                 on_message=on_message,
                                 on_error=on_error,
                                 on_close=on_close)
