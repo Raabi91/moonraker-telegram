@@ -60,7 +60,7 @@ def on_chat_message(msg):
                 elif command == '/host':
                     content_type, chat_type, chat_id = telepot.glance(msg)
                     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                        [InlineKeyboardButton(text='Shutdown', callback_data='pi_sh'),
+                        [InlineKeyboardButton(text='shutdown', callback_data='pi_sh'),
                          InlineKeyboardButton(text='reboot', callback_data='pi_re')],
                     ])
                     bot.sendMessage(
@@ -118,10 +118,12 @@ def on_callback_query(msg):
             bot.sendMessage(
                 chatid_mt, 'do you really want to reboot your pi', reply_markup=keyboard)
     elif "pi_sy" in query_data:
+        bot.sendMessage(chatid_mt, 'Got it')
         x = requests.post(
             f'http://127.0.0.1:{port}/machine/shutdown', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
     elif "pi_ry" in query_data:
+        bot.sendMessage(chatid_mt, 'Got it')
         x = requests.post(
             f'http://127.0.0.1:{port}/machine/reboot', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
