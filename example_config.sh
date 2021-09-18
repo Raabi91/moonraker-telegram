@@ -50,11 +50,11 @@ vertically="0"
 # Make all commands Disable with 1
 bot_disable="0"
 # delay for the Print start Message
-delay_start_msg=="0"
+delay_start_msg="0"
 # delay for the Print end Message
-delay_end_msg=="0"
+delay_end_msg="0"
 # Delay for the Pause Message
-delay_pause_msg=="0"
+delay_pause_msg="0"
 #Led on link for picture
 led_on=""
 #Led on wait time before picture is taken (in seconds) 
