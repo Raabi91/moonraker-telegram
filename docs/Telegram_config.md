@@ -139,19 +139,19 @@ bot_disable="0"
 ### delay for the Print start Message
 
 ```
-delay_start_msg=="0"
+delay_start_msg="0"
 ```
 
 ### delay for the Print end Message
 
 ```
-delay_end_msg=="0"
+delay_end_msg="0"
 ```
 
 ### Delay for the Pause Message
 
 ```
-delay_pause_msg=="0"
+delay_pause_msg="0"
 ```
 
 ## LED Control for Cam ([more detailed description](https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#How-to-use-automatic-led-for-cam))
