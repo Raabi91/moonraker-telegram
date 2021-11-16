@@ -30,20 +30,6 @@ If the update manager shows an error you must perform the following;
     sudo systemctl restart moonraker-telegram
     ´´´
 
-## Use the bot in Groups
-
-if you want to use your bot in a group you have to do the following for your bot
-
-first set the privacy of the bot to disable
-
-```
-Got to @botfather chat and call comand
-
-/setprivacy -> Select the correct bot -> Disable
-```
-
-then invite the bot to the group and give him admin rights
-
 ## Use the bot with force_logins: true
 
  if you want to use your bot with force_logins: true then you just have to enter the [API KEY](https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Telegram_config.md#Your-moonraker-API-Key-when-u-use-force-login-true) in your telegram_config.sh
