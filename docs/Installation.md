@@ -12,7 +12,7 @@ Note that this is not your bot’s Telegram @username. You will create the usern
 ```
 
 5. Send your bot’s username to @BotFather. BotFather will respond:
-6. Begin a conversation with your bot. Click on the t.me/<bot-username> link in @BotFather’s response and click Start at the bottom of your Telegram application. Your newly-created bot will appear in the chat list on the left side of the application.
+6. Begin a conversation with your bot by Click on the t.me/<bot-username> link in @BotFather’s response or add the bot to a groupe with @<bot-username>. Then click Start at the bottom of your Telegram application or type /start if your bot is in a Groupe. Your newly-created bot will appear in the chat list on the left side of the application.
 
 ## Get a Telegram API access token
 
@@ -30,10 +30,6 @@ For a description of the Bot API, see this page: https://core.telegram.org/bots/
 
 ## Get your Telegram chat ID
 
-if you want to use your bot in a group you have to do the following for your bot
-
-https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#use-the-bot-in-groups
-
 
 1. Paste the following link in your browser. Replace <API-access-token> with the API access token that you identified or created in the previous section:
 
@@ -41,7 +37,7 @@ https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#use-the-bo
 https://api.telegram.org/bot<API-access-token>/getUpdates?offset=0
 ```
 
-2. Send a message to your bot in the Telegram application. The message text can be anything. Your chat history must include at least one message to get your chat ID.
+2. Send a message to your bot in the Telegram application. The message text can be anything (if youre bot is in a groupe then send a comand like /state). Your chat history must include at least one message to get your chat ID.
 3. Refresh your browser.
 
 4. Identify the numerical chat ID by finding the id inside the chat JSON object. In the example below, the chat ID is 123456789.
