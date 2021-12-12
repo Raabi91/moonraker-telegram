@@ -67,12 +67,12 @@ def on_message(ws, message):
         print(message)
         a, telegram = message.split("telegram: ")
         telegram_msg, b = telegram.split('"')
-        os.system(f'sh {DIR1}/scripts/telegram.sh "{telegram_msg}" "0"')
+        os.system(f'bash {DIR1}/scripts/telegram.sh "{telegram_msg}" "0"')
     if "telegram_picture:" in message:
         print(message)
         a, telegram = message.split("telegram_picture: ")
         telegram_msg, b = telegram.split('"')
-        os.system(f'sh {DIR1}/scripts/telegram.sh "{telegram_msg}" "1"')
+        os.system(f'bash {DIR1}/scripts/telegram.sh "{telegram_msg}" "1"')
     if "Klipper state: Ready" in message:
         subscribe()
         ws.send(json.dumps(data))
@@ -82,7 +82,7 @@ def on_message(ws, message):
             f = open(f'{DIR1}/websocket_state.txt', 'w')
             f.write(message)
             f.close()
-            os.system(f'sh {DIR1}/scripts/read_state.sh "0"')
+            os.system(f'bash {DIR1}/scripts/read_state.sh "0"')
         if "printing" in message and printer == 0:
             read_variables()
             prog_message = prog_message1
@@ -97,7 +97,7 @@ def on_message(ws, message):
             progress_z = 0
             high_msg = 0
     if "Klipper state: Shutdown" in message:
-        os.system(f'sh {DIR1}/scripts/read_state.sh "1"')
+        os.system(f'bash {DIR1}/scripts/read_state.sh "1"')
     if "notify_status_update" in message:
         if "progress" in message and printer == 1:
             python_json_obj = json.loads(message)
@@ -108,7 +108,7 @@ def on_message(ws, message):
                 read_variables()
                 if int(prog_message1) != 0:
                     prog_message = prog_message + prog_message1
-                    os.system(f'sh {DIR1}/scripts/telegram.sh 5')
+                    os.system(f'bash {DIR1}/scripts/telegram.sh 5')
         if "gcode_position" in message and printer == 1 and progress_z > float(0):
             print(message)
             python_json_obj = json.loads(message)
@@ -124,7 +124,7 @@ def on_message(ws, message):
                         if int(z_message1) != 0:
                             z_message = z_message + z_message1
                             last_z = json_gcode
-                            os.system(f'sh {DIR1}/scripts/telegram.sh 5')
+                            os.system(f'bash {DIR1}/scripts/telegram.sh 5')
 
 
 def on_error(ws, error):

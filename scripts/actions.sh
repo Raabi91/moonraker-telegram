@@ -51,7 +51,7 @@ print=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects
 #### Filename ####
 print_filename=$(echo "$print" | grep -oP '(?<="filename": ")[^"]*')
 filename="${print_filename// /%20}"
-file=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:&port/server/files/metadata?filename=$filename")
+file=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/server/files/metadata?filename=$filename")
 #### Print Duration ####
 print_duration=$(echo "$print" | grep -oP '(?<="print_duration": )[^,]*')
 #### Progress ####
