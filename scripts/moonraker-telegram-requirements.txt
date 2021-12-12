@@ -2,4 +2,4 @@
 wheel==0.32.3
 websocket_client==0.58.0
 requests==2.21.0
-telepot==12.8
+git+git://github.com/Raabi91/telepot.git#egg=telepot
