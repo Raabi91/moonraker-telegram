@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 take_picture()
 {
@@ -47,9 +47,15 @@ take_picture()
 
 create_varibales()
 {
-print=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/query?print_stats&display_status&extruder=target,temperature&heater_bed=target,temperature")
+print=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/query?print_stats&display_status&gcode_move&extruder=target,temperature&heater_bed=target,temperature")
 #### Filename ####
 print_filename=$(echo "$print" | grep -oP '(?<="filename": ")[^"]*')
+filename="${print_filename// /%20}"
+if [ -z "$filename" ]; then
+ file=""
+else
+ file=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/server/files/metadata?filename=$filename")
+fi
 #### Print Duration ####
 print_duration=$(echo "$print" | grep -oP '(?<="print_duration": )[^,]*')
 #### Progress ####
@@ -67,6 +73,33 @@ bed_target=$(echo "$heater_bed" | grep -oP '(?<="target": )[^,]*')
 bed_temp1=$(echo "$heater_bed" | grep -oP '(?<="temperature": )[^,]*')
 bed_temp=$(printf %.2f $bed_temp1)
 
+if [ -z "$file" ]; then
+ echo "file is empty"
+else
+ layer_height=$(echo "$file" | grep -oP '(?<="layer_height": )[^,]*')
+ first_layer_height=$(echo "$file" | grep -oP '(?<="first_layer_height": )[^,]*')
+ object_height=$(echo "$file" | grep -oP '(?<="object_height": )[^,]*')
+ gcode_position=$(echo "$print" | grep -oP '(?<="gcode_position": )[^"]*')
+ gcode_position="${gcode_position// /}"
+ IFS=',' read -r -a array <<< "$gcode_position"
+ z_current=$(echo "${array[2]}")
+
+ echo $z_current
+ echo $first_layer_height
+
+ if (( $(echo "$z_current > $first_layer_height" | bc -l) )); then
+  layer1=$(echo "scale=0; $z_current-$first_layer_height" | bc -l)
+  layer2=$(echo "scale=0; $layer1/$layer_height" | bc -l)
+  current_layer=$(echo "scale=0; $layer2+1" | bc -l)
+ else
+  current_layer=1
+ fi
+
+
+ layer1=$(echo "scale=0; $object_height-$first_layer_height" | bc -l)
+ layer2=$(echo "scale=0; $layer1/$layer_height" | bc -l)
+ layers=$(echo "scale=0; $layer2+1" | bc -l)
+fi
 
 #### Remaining to H M S ####
 if [ "$print_duration" = "0.0" ]; then

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 MYDIR_TEL=`dirname $0`
 DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
