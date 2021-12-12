@@ -47,9 +47,11 @@ take_picture()
 
 create_varibales()
 {
-print=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/query?print_stats&display_status&extruder=target,temperature&heater_bed=target,temperature")
+print=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/query?print_stats&display_status&gcode_move&extruder=target,temperature&heater_bed=target,temperature")
 #### Filename ####
 print_filename=$(echo "$print" | grep -oP '(?<="filename": ")[^"]*')
+filename="${print_filename// /%20}"
+file=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:&port/server/files/metadata?filename=$filename")
 #### Print Duration ####
 print_duration=$(echo "$print" | grep -oP '(?<="print_duration": )[^,]*')
 #### Progress ####
@@ -66,6 +68,26 @@ heater_bed=$(echo "$print" | grep -oP '(?<="heater_bed": {)[^}]*')
 bed_target=$(echo "$heater_bed" | grep -oP '(?<="target": )[^,]*')
 bed_temp1=$(echo "$heater_bed" | grep -oP '(?<="temperature": )[^,]*')
 bed_temp=$(printf %.2f $bed_temp1)
+
+layer_height=$(echo "$file" | grep -oP '(?<="layer_height": )[^,]*')
+first_layer_height=$(echo "$file" | grep -oP '(?<="first_layer_height": )[^,]*')
+object_height=$(echo "$file" | grep -oP '(?<="object_height": )[^,]*')
+gcode_position=$(echo "$print" | grep -oP '(?<="gcode_position": )[^"]*')
+gcode_position="${gcode_position// /}"
+IFS=',' read -r -a array <<< "$gcode_position"
+z_current=$(echo "${array[2]}")
+
+if (( $(echo "$z_current > $first_layer_height" | bc -l) )); then
+ layer1=$(echo "scale=0; $z_current-$first_layer_height" | bc -l)
+ layer2=$(echo "scale=0; $layer1/$layer_height" | bc -l)
+ current_layer=$(echo "scale=0; $layer2+1" | bc -l)
+else
+ current_layer=1
+fi
+
+layer1=$(echo "scale=0; $object_height-$first_layer_height" | bc -l)
+layer2=$(echo "scale=0; $layer1/$layer_height" | bc -l)
+layers=$(echo "scale=0; $layer2+1" | bc -l)
 
 
 #### Remaining to H M S ####

@@ -10,3 +10,7 @@ this is an overview of the placeholders for the messages
 | $bed_temp        | Actual Temperature from the bed      |
 | $extruder_target | Target Temperature from the extruder |
 | $extruder_temp   | Actual Temperature from the extruder |
+| $object_height   | Object Height                        |
+| $z_current       | Current Z Position                   |
+| $layers          | Total Layers                         |
+| $current_layer   | Current Layer                        |
