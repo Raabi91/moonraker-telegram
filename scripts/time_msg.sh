@@ -24,7 +24,7 @@ done
 
 	if [ "$time_msg" = "1" ]; then
         if [ "$time_pause" = "0" ]; then
-        sh $DIR_TIME/scripts/telegram.sh "5"
+        bash $DIR_TIME/scripts/telegram.sh "5"
         SECONDS=0
         fi
     fi
