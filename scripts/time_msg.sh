@@ -16,7 +16,8 @@ while [ $SEC -lt $time ]; do
        exit 0 
     fi
     while [ "$time_pause" = "1" ]; do
-    . $DIR_TIME/scripts/time_config.txt
+      sleep 1
+      . $DIR_TIME/scripts/time_config.txt
     done
     sleep 1
     SEC=$(echo "$SEC + 1" | bc -l)
