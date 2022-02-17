@@ -15,7 +15,7 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
     fi
     if [ -e $config_dir/telegram_config.sh ]
     then
-        cp -n $config_dir/telegram_config.sh $config_dir/telegram_config.conf
+        cp $config_dir/telegram_config.sh $config_dir/telegram_config.conf
         rm $DIR/telegram_config.sh
         chmod 777 $config_dir/telegram_config.conf
     fi

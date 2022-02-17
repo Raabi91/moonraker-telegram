@@ -63,20 +63,20 @@ echo -e "\n========= Check for config ==========="
         IFS=': '
         read -a log_path <<< "$log_moonraker"
         echo "log=\"${log_path[1]}/$multi_instanz.log\"" >> $DIR/multi_config.sh
-        . $DIR/multi_config.shgrep
+        . $DIR/multi_config.sh
         echo -e "Your log file will be created in ${log_path[1]} with the name of $multi_instanz.log"
         echo -e ""
     fi
     if ! [ -e $config_dir/telegram_config.conf ]
     then
-        cp -n $DIR/example_config.sh $config_dir/telegram_config.conf
+        cp $DIR/example_config.sh $config_dir/telegram_config.conf
         chmod 777 $config_dir/telegram_config.conf
     fi
 
     if [ -L $config_dir/telegram_config.sh ]
     then
         rm $config_dir/telegram_config.sh
-        cp -n $DIR/telegram_config.sh $config_dir/telegram_config.conf
+        cp $DIR/telegram_config.sh $config_dir/telegram_config.conf
         rm $DIR/telegram_config.sh
         chmod 777 $config_dir/telegram_config.conf
     fi
