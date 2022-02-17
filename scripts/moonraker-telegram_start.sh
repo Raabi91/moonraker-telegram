@@ -17,10 +17,13 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
     if ! grep -q "log=" $DIR_START/multi_config.sh
     then
         log_moonraker=$(grep log_path: $config_dir/moonraker.conf)
-        IFS=': '
-        read -a log_path <<< "$log_moonraker"
-        echo "log=\"${log_path[1]}/$multi_instanz.log\"" >> $DIR_START/multi_config.sh
+        echo $var2 > /tmp/log.txt
+        sed -i "s#~#${HOME}#g" /tmp/log.txt
+        log_path_fine=$(grep -m1 "" /tmp/log.txt)
+        echo "log=\"$log_path_fine/$multi_instanz.log\"" >> $DIR/multi_config.sh
+        rm -rf /tmp/log.txt
     fi
+
 
 . $DIR_START/multi_config.sh
 
