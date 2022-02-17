@@ -39,6 +39,7 @@ echo -e "\n========= Check for config ==========="
         fi
         echo "# moonraker config path" >> $DIR/multi_config.sh
         echo "config_dir=\"$CONFIG\"" >> $DIR/multi_config.sh
+        echo -e "Your config file will be moved to $CONFIG"
     fi
     if ! grep -q "multi_instanz=" $DIR/multi_config.sh
     then 
@@ -46,23 +47,34 @@ echo -e "\n========= Check for config ==========="
         echo "If you only use it once per hardware, simply press enter."
         read INSTANZ 
         echo "# if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service." >> $DIR/multi_config.sh
-        echo "multi_instanz=\"moonraker-telegram$INSTANZ\"" >> $DIR/multi_config.sh      
+        echo "multi_instanz=\"moonraker-telegram$INSTANZ\"" >> $DIR/multi_config.sh
+        echo -e "this installation is managed under the following name: moonraker-telegram$INSTANZ"      
     fi
+    if ! grep -q "log=" $DIR/multi_config.sh
+    then
+        echo -e "get log_path from the moonraker config"
+        log_moonraker=$(grep log_path: /home/pi/klipper_config/moonraker.conf)
+        IFS=': '
+        read -a log_path <<< "$log_moonraker"
+        echo "log=\"${log_path[1]}/$multi_instanz.log\"" >> $DIR/multi_config.sh
+        echo -e "Your log file will be created in ${log_path[1]} with the name of $multi_instanz.log"
+    fi
+
 
     . $DIR/multi_config.sh
 
     if ! [ -e $config_dir/telegram_config.sh ]
     then
-        sudo cp $DIR/example_config.sh $config_dir/telegram_config.sh
-        sudo chmod 777 $config_dir/telegram_config.sh
+        cp $DIR/example_config.sh $config_dir/telegram_config.sh
+        chmod 777 $config_dir/telegram_config.sh
     fi
 
     if [ -L $config_dir/telegram_config.sh ]
     then
-        sudo rm $config_dir/telegram_config.sh
-        sudo cp $DIR/telegram_config.sh $config_dir/telegram_config.sh
-        sudo rm $DIR/telegram_config.sh
-        sudo chmod 777 $config_dir/telegram_config.sh
+        rm $config_dir/telegram_config.sh
+        cp $DIR/telegram_config.sh $config_dir/telegram_config.sh
+        rm $DIR/telegram_config.sh
+        chmod 777 $config_dir/telegram_config.sh
     fi
 
     . $config_dir/telegram_config.sh

@@ -6,7 +6,16 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
 . $DIR_START/example_config.sh
 . $config_dir/telegram_config.sh
 
-log=/tmp/$multi_instanz.log
+    if ! grep -q "log=" $DIR/multi_config.sh
+    then
+        log_moonraker=$(grep log_path: /home/pi/klipper_config/moonraker.conf)
+        IFS=': '
+        read -a log_path <<< "$log_moonraker"
+        echo "log=\"${log_path[1]}/$multi_instanz.log\"" >> $DIR/multi_config.sh
+    fi
+
+. $DIR_START/multi_config.sh
+
 echo "$(date)" >> $log
 echo "Start $multi_instanz" >> $log
 
