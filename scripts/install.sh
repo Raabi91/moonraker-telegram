@@ -27,6 +27,10 @@ install_config()
 {
 echo -e "\n========= Check for config ==========="
 
+    if ! test -f "$DIR/multi_config.sh"
+        then 
+        test $DIR/multi_config.sh 
+    fi
     if ! grep -q "config_dir=" $DIR/multi_config.sh
         then
         echo -e "========= pleas input your settings description on github ==========="
@@ -57,12 +61,9 @@ echo -e "\n========= Check for config ==========="
         IFS=': '
         read -a log_path <<< "$log_moonraker"
         echo "log=\"${log_path[1]}/$multi_instanz.log\"" >> $DIR/multi_config.sh
+        . $DIR/multi_config.shgrep
         echo -e "Your log file will be created in ${log_path[1]} with the name of $multi_instanz.log"
     fi
-
-
-    . $DIR/multi_config.sh
-
     if ! [ -e $config_dir/telegram_config.sh ]
     then
         cp $DIR/example_config.sh $config_dir/telegram_config.sh
