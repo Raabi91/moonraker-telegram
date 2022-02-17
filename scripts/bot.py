@@ -75,6 +75,15 @@ def on_chat_message(msg):
                     ])
                     bot.sendMessage(
                         chat_id, 'do you really want to pause', reply_markup=keyboard)
+                elif '/set' in command:
+                    command, heater, temp = query_data.split("")
+                    content_type, chat_type, chat_id = telepot.glance(msg)
+                    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                        [InlineKeyboardButton(text='yes', callback_data='yestemp:%s:%s' % (heater, temp)),
+                         InlineKeyboardButton(text='no', callback_data='no')],
+                    ])
+                    bot.sendMessage(
+                        chat_id, 'do you really want to set %s to %s°?' % (heater, temp), reply_markup=keyboard)
                 elif command == '/resume':
                     x = requests.post(
                         f'http://127.0.0.1:{port}/printer/print/resume', headers={"X-Api-Key":f'{api_key}'})
@@ -173,6 +182,12 @@ def on_callback_query(msg):
         print(gcode)
         x = requests.post(
             f'http://127.0.0.1:{port}/printer/print/start?filename={gcode}', headers={"X-Api-Key":f'{api_key}'})
+        print(x.text)
+    #Temps
+    elif "yestemp:" in query_data:
+        a, heater, temp = query_data.split(":")
+        x = requests.post(
+            f'http://127.0.0.1:{port}/printer/gcode/script?script=SET_HEATER_TEMPERATURE%20HEATER={heater}%20TARGET={temp}', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
     # Gcode_macro
     elif "g:," in query_data:
