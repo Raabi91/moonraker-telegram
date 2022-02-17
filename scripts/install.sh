@@ -68,7 +68,7 @@ echo -e "\n========= Check for config ==========="
         IFS=': '
         read -a log_path <<< "$log_moonraker"
         Log_path_moonraker="${log_path[1]}"
-        log_path_fine=$(echo "${Log_path_moonraker/~/"${HOME"}")
+        log_path_fine=$(echo "${Log_path_moonraker/~/"$HOME"}")
         echo "log=\"$log_path_fine/$multi_instanz.log\"" >> $DIR/multi_config.sh
         echo -e "Your log file will be created in ${log_path[1]} with the name of $multi_instanz.log"
         echo -e ""
