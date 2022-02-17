@@ -184,11 +184,13 @@ def on_callback_query(msg):
             f'http://127.0.0.1:{port}/printer/print/start?filename={gcode}', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
     #Temps
-    elif "yestemp:" in query_data:
+    elif "heat:" in query_data:
         a, heater, temp = query_data.split(":")
         x = requests.post(
             f'http://127.0.0.1:{port}/printer/gcode/script?script=SET_HEATER_TEMPERATURE%20HEATER={heater}%20TARGET={temp}', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
+        bot.sendMessage(
+            chatid_mt, 'Okay, i set %s to %s°' % (heater, temp))
     # Gcode_macro
     elif "g:," in query_data:
         a, macro = query_data.split(":,")
