@@ -61,7 +61,7 @@ def on_chat_message(msg):
                     content_type, chat_type, chat_id = telepot.glance(msg)
                     keyboard = InlineKeyboardMarkup(inline_keyboard=[
                         [InlineKeyboardButton(text='Firmware Restart', callback_data='fi_re'),
-                         InlineKeyboardButton(text='Klipper Restart', callback_data='ki_re')]
+                         InlineKeyboardButton(text='Klipper Restart', callback_data='ki_re')],
                         [InlineKeyboardButton(text='reboot Host', callback_data='pi_re'),
                          InlineKeyboardButton(text='shutdown Host', callback_data='pi_sh')],
                     ])
