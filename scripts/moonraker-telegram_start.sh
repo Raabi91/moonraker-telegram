@@ -18,6 +18,10 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
     then
         STR=$(grep log_path: $config_dir/moonraker.conf)
         var2=${STR#*: }
+        if [ -z "$var2" ]
+            then
+            var2="~/klipper_logs"
+        fi
         echo $var2 > /tmp/log.txt
         sed -i "s#~#${HOME}#g" /tmp/log.txt
         log_path_fine=$(grep -m1 "" /tmp/log.txt)

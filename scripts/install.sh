@@ -61,13 +61,17 @@ echo -e "\n========= Check for config ==========="
 
     if ! grep -q "log=" $DIR/multi_config.sh
     then
-        echo -e "get log_path from the moonraker config"
+        echo -e "get log_path from the moonraker config if its empty set to defult (~/klipper_logs)"
         echo -e ""
         . $DIR/multi_config.sh
         log_moonraker=$(grep log_path: $config_dir/moonraker.conf)
         IFS=': '
         read -a log_path <<< "$log_moonraker"
         log_path_moonraker=$(echo ${log_path[1]})
+        if [ -z "$log_path_moonraker" ]
+            then
+            log_path_moonraker="~/klipper_logs"
+        fi
         find="~"
         replace="${HOME}"
         log_path_fine=$(sed "s+${find}+${replace}+g" <<<"$log_path_moonraker")
