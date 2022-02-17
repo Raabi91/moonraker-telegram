@@ -75,9 +75,9 @@ def on_chat_message(msg):
                     ])
                     bot.sendMessage(
                         chat_id, 'do you really want to pause', reply_markup=keyboard)
-                elif '/set' or '/Set' in command:
-                    a, heater, temp = command.split(":")
+                elif "/set" in command:
                     content_type, chat_type, chat_id = telepot.glance(msg)
+                    a, heater, temp = command.split(":")
                     keyboard = InlineKeyboardMarkup(inline_keyboard=[
                         [InlineKeyboardButton(text='yes', callback_data='heat:%s:%s' % (heater, temp)),
                          InlineKeyboardButton(text='no', callback_data='no')],
