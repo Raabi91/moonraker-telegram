@@ -31,6 +31,7 @@ echo -e "\n========= Check for config ==========="
         then
         touch $DIR/multi_config.sh 
     fi
+
     if ! grep -q "config_dir=" $DIR/multi_config.sh
         then
         echo -e "========= pleas input your settings description on github ==========="
@@ -46,6 +47,7 @@ echo -e "\n========= Check for config ==========="
         echo -e "Your config file will be moved to $CONFIG"
         echo -e ""
     fi
+
     if ! grep -q "multi_instanz=" $DIR/multi_config.sh
     then 
         echo "if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service"
@@ -56,32 +58,26 @@ echo -e "\n========= Check for config ==========="
         echo -e "this installation is managed under the following name: moonraker-telegram$INSTANZ"
         echo -e ""      
     fi
+
     if ! grep -q "log=" $DIR/multi_config.sh
     then
         echo -e "get log_path from the moonraker config"
         echo -e ""
-        log_moonraker=$(grep log_path: /home/pi/klipper_config/moonraker.conf)
+        . $DIR/multi_config.sh
+        log_moonraker=$(grep log_path: $config_dir/moonraker.conf)
         IFS=': '
         read -a log_path <<< "$log_moonraker"
         echo "log=\"${log_path[1]}/$multi_instanz.log\"" >> $DIR/multi_config.sh
-        . $DIR/multi_config.sh
         echo -e "Your log file will be created in ${log_path[1]} with the name of $multi_instanz.log"
         echo -e ""
     fi
+
     if ! [ -e $config_dir/telegram_config.conf ]
     then
         cp $DIR/example_config.sh $config_dir/telegram_config.conf
         chmod 777 $config_dir/telegram_config.conf
     fi
-
-    if [ -L $config_dir/telegram_config.sh ]
-    then
-        rm $config_dir/telegram_config.sh
-        cp $DIR/telegram_config.sh $config_dir/telegram_config.conf
-        rm $DIR/telegram_config.sh
-        chmod 777 $config_dir/telegram_config.conf
-    fi
-
+    
     . $config_dir/telegram_config.conf
     
     echo -e "\n========= set permissions ==========="

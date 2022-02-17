@@ -14,12 +14,12 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
 
 . $config_dir/telegram_config.conf
 
-    if ! grep -q "log=" $DIR/multi_config.sh
+    if ! grep -q "log=" $DIR_START/multi_config.sh
     then
-        log_moonraker=$(grep log_path: /home/pi/klipper_config/moonraker.conf)
+        log_moonraker=$(grep log_path: $config_dir/moonraker.conf)
         IFS=': '
         read -a log_path <<< "$log_moonraker"
-        echo "log=\"${log_path[1]}/$multi_instanz.log\"" >> $DIR/multi_config.sh
+        echo "log=\"${log_path[1]}/$multi_instanz.log\"" >> $DIR_START/multi_config.sh
     fi
 
 . $DIR_START/multi_config.sh
