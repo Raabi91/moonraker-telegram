@@ -4,7 +4,15 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
 
 . $DIR_START/multi_config.sh
 . $DIR_START/example_config.sh
-. $config_dir/telegram_config.sh
+
+    if [ -e $config_dir/telegram_config.sh ]
+    then
+        cp $config_dir/telegram_config.sh $config_dir/telegram_config.conf
+        rm $DIR/telegram_config.sh
+        chmod 777 $config_dir/telegram_config.conf
+    fi
+
+. $config_dir/telegram_config.conf
 
     if ! grep -q "log=" $DIR/multi_config.sh
     then
@@ -12,12 +20,6 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
         IFS=': '
         read -a log_path <<< "$log_moonraker"
         echo "log=\"${log_path[1]}/$multi_instanz.log\"" >> $DIR/multi_config.sh
-    fi
-    if [ -e $config_dir/telegram_config.sh ]
-    then
-        cp $config_dir/telegram_config.sh $config_dir/telegram_config.conf
-        rm $DIR/telegram_config.sh
-        chmod 777 $config_dir/telegram_config.conf
     fi
 
 . $DIR_START/multi_config.sh

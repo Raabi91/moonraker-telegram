@@ -5,7 +5,7 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 
 . $DIR_TEL/multi_config.sh
 . $DIR_TEL/example_config.sh
-. $config_dir/telegram_config.sh
+. $config_dir/telegram_config.conf
 
 list_json=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/list")
 echo $list_json

@@ -5,7 +5,7 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 
 . $DIR_TEL/multi_config.sh
 . $DIR_TEL/example_config.sh
-. $config_dir/telegram_config.sh
+. $config_dir/telegram_config.conf
 
 take_picture()
 {
@@ -64,7 +64,7 @@ convert -quiet -resize 768x576 -delay 20 -loop 0 $DIR_TEL/picture/gif/*.jpg $DIR
 
 rm -r $DIR_TEL/picture/gif/*.jpg 
 
-. $config_dir/telegram_config.sh
+. $config_dir/telegram_config.conf
 
 tokenurl="https://api.telegram.org/bot$token"
 

@@ -59,6 +59,7 @@ echo -e "\n========= Check for config ==========="
     if ! grep -q "log=" $DIR/multi_config.sh
     then
         echo -e "get log_path from the moonraker config"
+        echo -e ""
         log_moonraker=$(grep log_path: /home/pi/klipper_config/moonraker.conf)
         IFS=': '
         read -a log_path <<< "$log_moonraker"
@@ -104,12 +105,6 @@ install_systemd_service()
     echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/null
     sudo systemctl daemon-reload
     sudo systemctl enable $multi_instanz
-
-    if crontab -l | grep -i /home/pi; then
-        crontab -u pi -l | grep -v "$DIR"  | crontab -u pi -
-        sleep 1
-        (crontab -u pi -l ; echo "") | crontab -u pi -
-    fi
 }
 
 start_moonraker-telegram() {
