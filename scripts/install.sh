@@ -44,7 +44,7 @@ echo -e "\n========= Check for config ==========="
         echo "# moonraker config path" >> $DIR/multi_config.sh
         echo "config_dir=\"$CONFIG\"" >> $DIR/multi_config.sh
         echo -e "Your config file will be moved to $CONFIG"
-        echo -e "/n"
+        echo -e ""
     fi
     if ! grep -q "multi_instanz=" $DIR/multi_config.sh
     then 
@@ -54,7 +54,7 @@ echo -e "\n========= Check for config ==========="
         echo "# if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service." >> $DIR/multi_config.sh
         echo "multi_instanz=\"moonraker-telegram$INSTANZ\"" >> $DIR/multi_config.sh
         echo -e "this installation is managed under the following name: moonraker-telegram$INSTANZ"
-        echo -e "/n"      
+        echo -e ""      
     fi
     if ! grep -q "log=" $DIR/multi_config.sh
     then
@@ -65,27 +65,27 @@ echo -e "\n========= Check for config ==========="
         echo "log=\"${log_path[1]}/$multi_instanz.log\"" >> $DIR/multi_config.sh
         . $DIR/multi_config.shgrep
         echo -e "Your log file will be created in ${log_path[1]} with the name of $multi_instanz.log"
-        echo -e "/n"
+        echo -e ""
     fi
-    if ! [ -e $config_dir/telegram_config.sh ]
+    if ! [ -e $config_dir/telegram_config.conf ]
     then
-        cp -n $DIR/example_config.sh $config_dir/telegram_config.sh
-        chmod 777 $config_dir/telegram_config.sh
+        cp -n $DIR/example_config.sh $config_dir/telegram_config.conf
+        chmod 777 $config_dir/telegram_config.conf
     fi
 
     if [ -L $config_dir/telegram_config.sh ]
     then
         rm $config_dir/telegram_config.sh
-        cp -n $DIR/telegram_config.sh $config_dir/telegram_config.sh
+        cp -n $DIR/telegram_config.sh $config_dir/telegram_config.conf
         rm $DIR/telegram_config.sh
-        chmod 777 $config_dir/telegram_config.sh
+        chmod 777 $config_dir/telegram_config.conf
     fi
 
-    . $config_dir/telegram_config.sh
+    . $config_dir/telegram_config.conf
     
     echo -e "\n========= set permissions ==========="
     sleep 1
-    chmod 777 $config_dir/telegram_config.sh
+    chmod 777 $config_dir/telegram_config.conf
 }
 
 install_systemd_service()
@@ -128,6 +128,6 @@ start_moonraker-telegram
 
 echo -e "\n========= installation end ==========="
 echo "========= open and edit your config with ==========="
-echo "========= mainsail or fluidd and edit the telegram_config.sh ==========="
+echo "========= mainsail or fluidd and edit the telegram_config.conf ==========="
 
 exit 1

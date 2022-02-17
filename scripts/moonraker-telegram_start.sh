@@ -13,6 +13,12 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
         read -a log_path <<< "$log_moonraker"
         echo "log=\"${log_path[1]}/$multi_instanz.log\"" >> $DIR/multi_config.sh
     fi
+    if [ -e $config_dir/telegram_config.sh ]
+    then
+        cp -n $config_dir/telegram_config.sh $config_dir/telegram_config.conf
+        rm $DIR/telegram_config.sh
+        chmod 777 $config_dir/telegram_config.conf
+    fi
 
 . $DIR_START/multi_config.sh
 
