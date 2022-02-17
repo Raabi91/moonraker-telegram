@@ -75,7 +75,7 @@ echo -e "\n========= Check for config ==========="
         find="~"
         replace="${HOME}"
         log_path_fine=$(sed "s+${find}+${replace}+g" <<<"$log_path_moonraker")
-        echo "## Log File ##" >> $DIR_START/multi_config.sh
+        echo "## Log File ##" >> $DIR/multi_config.sh
         echo "log=\"$log_path_fine/$multi_instanz.log\"" >> $DIR/multi_config.sh
         echo -e "Your log file will be created in $log_path_fine with the name of $multi_instanz.log"
         echo -e ""
