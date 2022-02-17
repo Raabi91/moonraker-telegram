@@ -79,7 +79,7 @@ def on_chat_message(msg):
                     a, heater, temp = command.split("_")
                     content_type, chat_type, chat_id = telepot.glance(msg)
                     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                        [InlineKeyboardButton(text='', callback_data='heat:%s:%s' % (heater, temp)),
+                        [InlineKeyboardButton(text='yes', callback_data='heat:%s:%s' % (heater, temp)),
                          InlineKeyboardButton(text='no', callback_data='no')],
                     ])
                     bot.sendMessage(
