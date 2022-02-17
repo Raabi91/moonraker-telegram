@@ -20,7 +20,7 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
         echo $var2 > /tmp/log.txt
         sed -i "s#~#${HOME}#g" /tmp/log.txt
         log_path_fine=$(grep -m1 "" /tmp/log.txt)
-        echo "log=\"$log_path_fine/$multi_instanz.log\"" >> $DIR/multi_config.sh
+        echo "log=\"$log_path_fine/$multi_instanz.log\"" >> $config_dir/multi_config.sh
         rm -rf /tmp/log.txt
     fi
 
