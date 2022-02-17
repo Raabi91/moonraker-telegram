@@ -24,6 +24,11 @@ DIR_START="`cd $MYDIR_START/../; pwd`"
 
 . $DIR_START/multi_config.sh
 
+    if ! [ -e $log ]
+    then
+     touch $log
+    fi
+
 echo "$(date)" >> $log
 echo "Start $multi_instanz" >> $log
 
