@@ -14,6 +14,22 @@ requirements: scripts/moonraker-telegram-requirements.txt
 install_script: scripts/install.sh
 ```
 
+## How to use the /set comand:
+
+the /set command cannot be called from the / submenu because it needs variables atm
+
+it is structured as follows /set:xxx:yy
+
+where the xx stands for your extruder or heat bed name
+and yy for the temperature you want to change
+
+Exampel's
+
+```
+/set:extruder:230
+/set:heater_bed:60
+```
+
 ## Update_Manager shows invalid or false
 
 If the update manager shows an error you must perform the following;
