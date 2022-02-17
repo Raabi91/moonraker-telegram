@@ -4,7 +4,7 @@ DIR_STOP="`cd $MYDIR_STOP/../; pwd`"
 
 . $DIR_STOP/multi_config.sh
 . $DIR_STOP/example_config.sh
-. $config_dir/telegram_config.sh
+. $config_dir/telegram_config.conf
 
 log=/tmp/$multi_instanz.log
 echo "$(date)" >> $log

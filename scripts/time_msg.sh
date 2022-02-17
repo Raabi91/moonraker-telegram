@@ -7,7 +7,7 @@ while true
 do
 . $DIR_TIME/multi_config.sh
 . $DIR_TIME/example_config.sh
-. $config_dir/telegram_config.sh
+. $config_dir/telegram_config.conf
 SEC=0
 
 while [ $SEC -lt $time ]; do

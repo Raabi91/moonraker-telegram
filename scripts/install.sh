@@ -27,6 +27,11 @@ install_config()
 {
 echo -e "\n========= Check for config ==========="
 
+    if ! test -f "$DIR/multi_config.sh"
+        then
+        touch $DIR/multi_config.sh 
+    fi
+
     if ! grep -q "config_dir=" $DIR/multi_config.sh
         then
         echo -e "========= pleas input your settings description on github ==========="
@@ -39,37 +44,54 @@ echo -e "\n========= Check for config ==========="
         fi
         echo "# moonraker config path" >> $DIR/multi_config.sh
         echo "config_dir=\"$CONFIG\"" >> $DIR/multi_config.sh
+        echo -e "Your config file will be moved to $CONFIG"
+        echo -e ""
     fi
+
     if ! grep -q "multi_instanz=" $DIR/multi_config.sh
     then 
         echo "if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service"
         echo "If you only use it once per hardware, simply press enter."
         read INSTANZ 
         echo "# if you want to use multiple instances on one pi, enter an identifier here. this is needed to create the sytemd service." >> $DIR/multi_config.sh
-        echo "multi_instanz=\"moonraker-telegram$INSTANZ\"" >> $DIR/multi_config.sh      
+        echo "multi_instanz=\"moonraker-telegram$INSTANZ\"" >> $DIR/multi_config.sh
+        echo -e "this installation is managed under the following name: moonraker-telegram$INSTANZ"
+        echo -e ""      
     fi
 
-    . $DIR/multi_config.sh
-
-    if ! [ -e $config_dir/telegram_config.sh ]
+    if ! grep -q "log=" $DIR/multi_config.sh
     then
-        sudo cp $DIR/example_config.sh $config_dir/telegram_config.sh
-        sudo chmod 777 $config_dir/telegram_config.sh
+        echo -e "get log_path from the moonraker config if its empty set to defult (~/klipper_logs)"
+        echo -e ""
+        . $DIR/multi_config.sh
+        log_moonraker=$(grep log_path: $config_dir/moonraker.conf)
+        IFS=': '
+        read -a log_path <<< "$log_moonraker"
+        log_path_moonraker=$(echo ${log_path[1]})
+        if [ -z "$log_path_moonraker" ]
+            then
+            log_path_moonraker="~/klipper_logs"
+        fi
+        find="~"
+        replace="${HOME}"
+        log_path_fine=$(sed "s+${find}+${replace}+g" <<<"$log_path_moonraker")
+        echo "## Log File ##" >> $DIR/multi_config.sh
+        echo "log=\"$log_path_fine/$multi_instanz.log\"" >> $DIR/multi_config.sh
+        echo -e "Your log file will be created in $log_path_fine with the name of $multi_instanz.log"
+        echo -e ""
     fi
 
-    if [ -L $config_dir/telegram_config.sh ]
+    if ! [ -e $config_dir/telegram_config.conf ]
     then
-        sudo rm $config_dir/telegram_config.sh
-        sudo cp $DIR/telegram_config.sh $config_dir/telegram_config.sh
-        sudo rm $DIR/telegram_config.sh
-        sudo chmod 777 $config_dir/telegram_config.sh
+        cp $DIR/example_config.sh $config_dir/telegram_config.conf
+        chmod 777 $config_dir/telegram_config.conf
     fi
 
-    . $config_dir/telegram_config.sh
+    . $config_dir/telegram_config.conf
     
     echo -e "\n========= set permissions ==========="
     sleep 1
-    chmod 777 $config_dir/telegram_config.sh
+    chmod 777 $config_dir/telegram_config.conf
 }
 
 install_systemd_service()
@@ -88,12 +110,6 @@ install_systemd_service()
     echo "$SERVICE" | sudo tee /etc/systemd/system/$multi_instanz.service > /dev/null
     sudo systemctl daemon-reload
     sudo systemctl enable $multi_instanz
-
-    if crontab -l | grep -i /home/pi; then
-        crontab -u pi -l | grep -v "$DIR"  | crontab -u pi -
-        sleep 1
-        (crontab -u pi -l ; echo "") | crontab -u pi -
-    fi
 }
 
 start_moonraker-telegram() {
@@ -112,6 +128,6 @@ start_moonraker-telegram
 
 echo -e "\n========= installation end ==========="
 echo "========= open and edit your config with ==========="
-echo "========= mainsail or fluidd and edit the telegram_config.sh ==========="
+echo "========= mainsail or fluidd and edit the telegram_config.conf ==========="
 
 exit 1

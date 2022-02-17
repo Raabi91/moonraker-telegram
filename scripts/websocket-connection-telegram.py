@@ -30,7 +30,7 @@ high_msg = 0
 def read_variables():
     global prog_message1
     global z_message1
-    datei = open(f'{DIR}/telegram_config.sh', 'r')
+    datei = open(f'{DIR}/telegram_config.conf', 'r')
     for zeile in datei:
         if "z_high=" in zeile:
             x, z_message1, y = zeile.split('"')
