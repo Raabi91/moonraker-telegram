@@ -28,8 +28,8 @@ install_config()
 echo -e "\n========= Check for config ==========="
 
     if ! test -f "$DIR/multi_config.sh"
-        then 
-        test $DIR/multi_config.sh 
+        then
+        touch $DIR/multi_config.sh 
     fi
     if ! grep -q "config_dir=" $DIR/multi_config.sh
         then
