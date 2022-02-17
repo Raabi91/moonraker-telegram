@@ -67,10 +67,12 @@ echo -e "\n========= Check for config ==========="
         log_moonraker=$(grep log_path: $config_dir/moonraker.conf)
         IFS=': '
         read -a log_path <<< "$log_moonraker"
-        Log_path_moonraker=${log_path[1]}
-        log_path_fine=$(echo "${Log_path_moonraker//+([~])/${HOME}}")
-        echo "log=\"$log_path_fine/$multi_instanz.log\"" >> $DIR/multi_config.sh
-        echo -e "Your log file will be created in $log_path_fine with the name of $multi_instanz.log"
+        log_path_moonraker=$(echo ${log_path[1]})
+        find="~"
+        replace="${HOME}"
+        sed "s+${find}+${replace}+g" <<<"$log_path_moonraker"
+        echo "log=\"$log_path_moonraker/$multi_instanz.log\"" >> $DIR/multi_config.sh
+        echo -e "Your log file will be created in $log_path_moonraker with the name of $multi_instanz.log"
         echo -e ""
     fi
 
