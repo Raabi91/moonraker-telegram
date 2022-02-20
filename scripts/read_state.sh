@@ -6,6 +6,7 @@ DIR_STATE="`cd $MYDIR_STATE/../; pwd`"
 . $DIR_STATE/example_config.sh
 . $config_dir/telegram_config.conf
 . $DIR_STATE/scripts/state_config.txt
+. $DIR_TEL/scripts/actions.sh
 
 method=$(grep -oP '(?<="method": ")[^"]*' $DIR_STATE/websocket_state.txt)
 print_state_read=$(grep -oP '(?<="state": ")[^"]*' $DIR_STATE/websocket_state.txt)
@@ -39,9 +40,16 @@ if [ "$method" = "notify_status_update" ]; then
     elif [ "$print_state_read" = "paused" ]; then
         if [ "$print_state" = "1" ]; then
             if [ "$pause" = "0" ]; then
-            sed -i "s/pause=.*$/pause="1"/g" $DIR_STATE/scripts/state_config.txt
-            sed -i "s/time_pause=.*$/time_pause="1"/g" $DIR_STATE/scripts/time_config.txt
-            bash $DIR_STATE/scripts/telegram.sh "3"
+                sleep 5
+                timelapse_pause_check
+                if [ "$timelapse_pause"= "true" ]; then
+                  echo "Timelaps called pause funktion" >> $log
+                  exit 1
+                else
+                  sed -i "s/pause=.*$/pause="1"/g" $DIR_STATE/scripts/state_config.txt
+                  sed -i "s/time_pause=.*$/time_pause="1"/g" $DIR_STATE/scripts/time_config.txt
+                  bash $DIR_STATE/scripts/telegram.sh "3"
+                fi
             fi
         fi     
     

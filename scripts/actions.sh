@@ -122,3 +122,11 @@ print_current=$(printf '%02d:%02d:%02d\n' $(($current/3600)) $(($current%3600/60
 print_progress1=$(echo "scale=1; $progress*100" | bc )
 print_progress=$(printf "%.1f" $print_progress1)%
 }
+
+timelapse_pause_check()
+{
+timelapse="$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/query?gcode_macro%20TIMELAPSE_TAKE_FRAME")"
+echo $timelapse
+timelapse_pause=$(grep -oP '"is_paused": \K[^,]+'  <<< "$timelapse")
+echo $timelapse_pause
+}
