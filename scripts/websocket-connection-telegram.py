@@ -78,11 +78,15 @@ def on_message(ws, message):
         ws.send(json.dumps(data))
     if "print_stats" in message:
         if "state" in message:
-            print(message)
-            f = open(f'{DIR1}/websocket_state.txt', 'w')
-            f.write(message)
-            f.close()
-            os.system(f'bash {DIR1}/scripts/read_state.sh "0"')
+            timelapse = requests.get(f'http://127.0.0.1:{port}/printer/objects/query?gcode_macro%20TIMELAPSE_TAKE_FRAME', headers={"X-Api-Key":f'{api_key}'}).json()
+            obj = json.dumps(timelapse)
+            obj1 = json.loads(obj)
+            if obj1["result"]["status"]["gcode_macro TIMELAPSE_TAKE_FRAME"]["is_paused"] == False :
+                print(message)
+                f = open(f'{DIR1}/websocket_state.txt', 'w')
+                f.write(message)
+                f.close()
+                os.system(f'bash {DIR1}/scripts/read_state.sh "0"')
         if "printing" in message and printer == 0:
             read_variables()
             prog_message = prog_message1
