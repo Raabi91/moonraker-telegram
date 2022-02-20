@@ -105,10 +105,14 @@ fi
 if [ "$print_duration" = "0.0" ]; then
  math2="0"
 else
- math1=$(echo "scale=0; $print_duration/$progress" | bc -l)
- math2=$(echo "scale=0; $math1-$print_duration" | bc -l)
- echo $math1
- echo $math2
+ if [ "$progress" = "0.0" ]; then
+  math2="0"
+ else
+  math1=$(echo "scale=0; $print_duration/$progress" | bc -l)
+  math2=$(echo "scale=0; $math1-$print_duration" | bc -l)
+  echo $math1
+  echo $math2
+ fi
 fi
 
 remaining=$(printf "%.0f" $math2)
