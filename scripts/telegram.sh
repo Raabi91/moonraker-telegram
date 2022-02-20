@@ -7,7 +7,6 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . $DIR_TEL/example_config.sh
 . $config_dir/telegram_config.conf
 . $DIR_TEL/scripts/actions.sh
-log=/tmp/$multi_instanz.log
 echo "telegram.sh" >> $log
 
 create_varibales

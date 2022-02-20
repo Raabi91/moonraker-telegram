@@ -1,7 +1,7 @@
 # 17.02.2022
  - move log file to path from moonraker.conf
  - rename telegram_conf.sh to telegram_conf.conf
- - add firmware restart and restart to /hostcomand
+ - add firmware restart and restart to /host command
  - add /set:xxx:xx comand
 
 # 12.08.2021

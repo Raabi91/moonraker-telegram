@@ -39,9 +39,15 @@ if [ "$method" = "notify_status_update" ]; then
     elif [ "$print_state_read" = "paused" ]; then
         if [ "$print_state" = "1" ]; then
             if [ "$pause" = "0" ]; then
-            sed -i "s/pause=.*$/pause="1"/g" $DIR_STATE/scripts/state_config.txt
-            sed -i "s/time_pause=.*$/time_pause="1"/g" $DIR_STATE/scripts/time_config.txt
-            bash $DIR_STATE/scripts/telegram.sh "3"
+                timelapse="$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/query?gcode_macro%20TIMELAPSE_TAKE_FRAME")"
+                timelapse_pause=$(grep -oP '"is_paused": \K[^,]+'  <<< "$timelapse")
+                if [ $timelapse_pause = "true" ]; then
+                  exit 1
+                else
+                  sed -i "s/pause=.*$/pause="1"/g" $DIR_STATE/scripts/state_config.txt
+                  sed -i "s/time_pause=.*$/time_pause="1"/g" $DIR_STATE/scripts/time_config.txt
+                  bash $DIR_STATE/scripts/telegram.sh "3"
+                fi
             fi
         fi     
     
