@@ -2,6 +2,7 @@ import websocket
 import json
 import os
 import sys
+import requests
 try:
     import thread
 except ImportError:
@@ -78,7 +79,7 @@ def on_message(ws, message):
         ws.send(json.dumps(data))
     if "print_stats" in message:
         if "state" in message:
-            timelapse = requests.get(f'http://127.0.0.1:{port}/printer/objects/query?gcode_macro%20TIMELAPSE_TAKE_FRAME', headers={"X-Api-Key":f'{api_key}'}).json()
+            timelapse = requests.get(f'http://127.0.0.1:{port1}/printer/objects/query?gcode_macro%20TIMELAPSE_TAKE_FRAME', headers={"X-Api-Key":f'{api_key}'}).json()
             if "is_paused" in str(timelapse):
                 obj = json.dumps(timelapse)
                 obj1 = json.loads(obj)
