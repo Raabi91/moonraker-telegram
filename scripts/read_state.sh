@@ -43,8 +43,6 @@ if [ "$method" = "notify_status_update" ]; then
                 timelapse="$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/query?gcode_macro%20TIMELAPSE_TAKE_FRAME")"
                 timelapse_pause=$(grep -oP '"is_paused": \K[^,]+'  <<< "$timelapse")
                 if [ $timelapse_pause = "true" ]; then
-
-                  echo "Timelaps called pause funktion" >> $log
                   exit 1
                 else
                   sed -i "s/pause=.*$/pause="1"/g" $DIR_STATE/scripts/state_config.txt
