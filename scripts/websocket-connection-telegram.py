@@ -88,7 +88,7 @@ def on_message(ws, message):
                     f.write(message)
                     f.close()
                     os.system(f'bash {DIR1}/scripts/read_state.sh "0"')
-            else
+            else:
                 print(message)
                 f = open(f'{DIR1}/websocket_state.txt', 'w')
                 f.write(message)
