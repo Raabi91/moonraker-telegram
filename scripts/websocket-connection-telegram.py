@@ -24,6 +24,9 @@ z_message1 = 0
 z_message1 = float(z_message1)
 prog_message1 = float(prog_message1)
 last_z = 0
+last_heated_bed_temperature = 0.0
+target_bed_temperature = 0.0
+bed_cooldown_temperature = 0.0
 high_msg = 0
 
 
@@ -39,6 +42,16 @@ def read_variables():
             x, prog_message1, y = zeile.split('"')
             prog_message1 = float(prog_message1)
 
+def read_bed_cooldown_temperature():
+    global bed_cooldown_temperature
+    bed_cooldown_temperature = 0.0
+    datei = open(f'{DIR}/telegram_config.conf', 'r')
+    for zeile in datei:
+        if "bed_cooldown_temperature" in zeile:
+            _, cooldown_temperature, _ = zeile.split('"')
+            bed_cooldown_temperature = float(cooldown_temperature)
+    return bed_cooldown_temperature
+
 
 def subscribe():
     return {
@@ -49,6 +62,7 @@ def subscribe():
                 "print_stats": ["state"],
                 "display_status": ["progress"],
                 "gcode_move": ["gcode_position"],
+                "heater_bed": ["temperature", "target"],
             }
         },
         "id": "5434"
@@ -61,6 +75,8 @@ def parse_jsonrpc_status(json_obj, message):
     global z_message
     global progress_z
     global last_z
+    global last_heated_bed_temperature
+    global target_bed_temperature
     global high_msg
 
     if "print_stats" in json_obj:
@@ -119,6 +135,25 @@ def parse_jsonrpc_status(json_obj, message):
                         z_message = z_message + z_message1
                         last_z = json_gcode
                         os.system(f'bash {DIR1}/scripts/telegram.sh 5')
+    if "heater_bed" in json_obj:
+        heater_bed = json_obj["heater_bed"]
+        if "target" in heater_bed:
+            # used to indicate if heater bed in on when reading bed_temperature
+            target_bed_temperature = max(float(heater_bed["target"]), 0.0)
+
+        if "temperature" in heater_bed:
+            bed_temperature = max(float(heater_bed["temperature"]), 0.0)
+            # last_heated_bed_temperature represents the most recent temperature when the heater bed target was > 0
+            # last_heated_bed_temperature is also used as flag to represent that the notification has been sent
+            # after a notification is sent, last_heated_bed_temperature is reset to 0
+            if target_bed_temperature > 0:
+                last_heated_bed_temperature = bed_temperature
+            elif last_heated_bed_temperature > 0 and bed_temperature < bed_cooldown_temperature:
+                last_heated_bed_temperature = 0 # reset to prevent future notificatio0
+                # send notification
+                os.system(f'bash {DIR1}/scripts/telegram.sh 7')
+
+
 def on_message(ws, message):
     if "telegram:" in message:
         print(message)
@@ -136,6 +171,8 @@ def on_message(ws, message):
         os.system(f'bash {DIR1}/scripts/read_state.sh "1"')
     if "jsonrpc" in message:
         python_json_obj = json.loads(message)
+        if "result" in python_json_obj and "status" in python_json_obj["result"]:
+            parse_jsonrpc_status(python_json_obj["result"]["status"], message)
         if "method" in python_json_obj and python_json_obj['method'] == "notify_status_update":
             parse_jsonrpc_status(python_json_obj["params"][0], message)
 
@@ -155,6 +192,7 @@ def on_close(ws):
 
 
 def on_open(ws):
+    read_bed_cooldown_temperature()
     def run(*args):
         for i in range(1):
             time.sleep(1)

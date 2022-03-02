@@ -30,6 +30,8 @@ msg_complete="hey, i finished the last print now i am idling"
 msg_paused="hey, i'm on break, please take a look"
 # error message
 msg_error="hey, i had a error. please look it up"
+# bed cool down message
+msg_bed_cooldown="hey, my heater bed is cool"
 #
 # time in seconds to get an State update. to disable set it to 0
 time="0"
@@ -37,9 +39,11 @@ time="0"
 progress="0"
 # Z Hight in mm to get an State update. to disable set it to 0
 z_high="0"
-# with picture = 1, without picture = 0  
+# Send a cooldown message when a heated bed has cooled to this temperatur. to disable set it to 0
+bed_cooldown_temperature="0"
+# with picture = 1, without picture = 0
 picture="0"
-# with 5sec gif at state message = 1, without gif = 0  
+# with 5sec gif at state message = 1, without gif = 0
 gif="0"
 # your webcam snapshot link
 webcam="http://127.0.0.1:8080/?action=snapshot"
@@ -59,7 +63,7 @@ delay_end_msg="0"
 delay_pause_msg="0"
 #Led on link for picture
 led_on=""
-#Led on wait time before picture is taken (in seconds) 
+#Led on wait time before picture is taken (in seconds)
 led_on_delay="0"
 #Led off link for picture
 led_off=""
