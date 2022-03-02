@@ -55,27 +55,18 @@ def subscribe():
     }
 
 
-def on_message(ws, message):
+def parse_jsonrpc_status(json_obj, message):
     global prog_message
     global printer
     global z_message
     global progress_z
     global last_z
     global high_msg
-    if "telegram:" in message:
-        print(message)
-        a, telegram = message.split("telegram: ")
-        telegram_msg, b = telegram.split('"')
-        os.system(f'bash {DIR1}/scripts/telegram.sh "{telegram_msg}" "0"')
-    if "telegram_picture:" in message:
-        print(message)
-        a, telegram = message.split("telegram_picture: ")
-        telegram_msg, b = telegram.split('"')
-        os.system(f'bash {DIR1}/scripts/telegram.sh "{telegram_msg}" "1"')
-    if "Klipper state: Ready" in message:
-        ws.send(json.dumps(subscribe()))
-    if "print_stats" in message:
-        if "state" in message:
+
+    if "print_stats" in json_obj:
+        print_stats = json_obj["print_stats"]
+        if "state" in print_stats:
+            state = print_stats["state"]
             timelapse = requests.get(f'http://127.0.0.1:{port1}/printer/objects/query?gcode_macro%20TIMELAPSE_TAKE_FRAME', headers={"X-Api-Key":f'{api_key}'}).json()
             if "is_paused" in str(timelapse):
                 obj = json.dumps(timelapse)
@@ -92,48 +83,61 @@ def on_message(ws, message):
                 f.write(message)
                 f.close()
                 os.system(f'bash {DIR1}/scripts/read_state.sh "0"')
-        if "printing" in message and printer == 0:
+            if state == "printing" and printer == 0:
+                read_variables()
+                prog_message = prog_message1
+                z_message = z_message1
+                printer = 1
+                progress_z = 0
+                high_msg = 0
+            if state == "complete" or state == "standby" or state == "error":
+                printer = 0
+                prog_message = 0
+                z_message = 0
+                progress_z = 0
+                high_msg = 0
+    if "display_status" in json_obj and printer == 1:
+        json_prog1 = json_obj["display_status"]["progress"]
+        json_prog = json_prog1*100
+        progress_z = json_prog
+        if json_prog >= float(prog_message):
             read_variables()
-            prog_message = prog_message1
-            z_message = z_message1
-            printer = 1
-            progress_z = 0
-            high_msg = 0
-        if "complete" in message or "standby" in message or "error" in message:
-            printer = 0
-            prog_message = 0
-            z_message = 0
-            progress_z = 0
-            high_msg = 0
+            if int(prog_message1) != 0:
+                prog_message = prog_message + prog_message1
+                os.system(f'bash {DIR1}/scripts/telegram.sh 5')
+    if "gcode_move" in json_obj and printer == 1 and progress_z > float(0):
+        json_gcode = float(json_obj["gcode_move"]["gcode_position"][2])
+        if json_gcode <= float(0.8) and json_gcode >= float(0):
+            high_msg = 1
+        if high_msg == 1:
+            if abs(json_gcode - (last_z or 0.0)) >= 1.0:
+                last_z = json_gcode
+            else:
+                if json_gcode >= float(z_message):
+                    read_variables()
+                    if int(z_message1) != 0:
+                        z_message = z_message + z_message1
+                        last_z = json_gcode
+                        os.system(f'bash {DIR1}/scripts/telegram.sh 5')
+def on_message(ws, message):
+    if "telegram:" in message:
+        print(message)
+        a, telegram = message.split("telegram: ")
+        telegram_msg, b = telegram.split('"')
+        os.system(f'bash {DIR1}/scripts/telegram.sh "{telegram_msg}" "0"')
+    if "telegram_picture:" in message:
+        print(message)
+        a, telegram = message.split("telegram_picture: ")
+        telegram_msg, b = telegram.split('"')
+        os.system(f'bash {DIR1}/scripts/telegram.sh "{telegram_msg}" "1"')
+    if "Klipper state: Ready" in message:
+        ws.send(json.dumps(subscribe()))
     if "Klipper state: Shutdown" in message:
         os.system(f'bash {DIR1}/scripts/read_state.sh "1"')
-    if "notify_status_update" in message:
-        if "progress" in message and printer == 1:
-            python_json_obj = json.loads(message)
-            json_prog1 = python_json_obj["params"][0]["display_status"]["progress"]
-            json_prog = json_prog1*100
-            progress_z = json_prog
-            if json_prog >= float(prog_message):
-                read_variables()
-                if int(prog_message1) != 0:
-                    prog_message = prog_message + prog_message1
-                    os.system(f'bash {DIR1}/scripts/telegram.sh 5')
-        if "gcode_position" in message and printer == 1 and progress_z > float(0):
-            print(message)
-            python_json_obj = json.loads(message)
-            json_gcode = float(python_json_obj["params"][0]["gcode_move"]["gcode_position"][2])
-            if json_gcode <= float(0.8) and json_gcode >= float(0):
-                high_msg = 1
-            if high_msg == 1:
-                if abs(json_gcode - (last_z or 0.0)) >= 1.0:
-                    last_z = json_gcode
-                else:
-                    if json_gcode >= float(z_message):
-                        read_variables()
-                        if int(z_message1) != 0:
-                            z_message = z_message + z_message1
-                            last_z = json_gcode
-                            os.system(f'bash {DIR1}/scripts/telegram.sh 5')
+    if "jsonrpc" in message:
+        python_json_obj = json.loads(message)
+        if "method" in python_json_obj and python_json_obj['method'] == "notify_status_update":
+            parse_jsonrpc_status(python_json_obj["params"][0], message)
 
 
 def on_error(ws, error):
