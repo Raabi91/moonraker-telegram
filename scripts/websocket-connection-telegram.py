@@ -19,7 +19,6 @@ prog_message = 0
 printer = 0
 z_message = 0
 progress_z = 0
-data = ""
 prog_message1 = 0
 z_message1 = 0
 z_message1 = float(z_message1)
@@ -42,8 +41,7 @@ def read_variables():
 
 
 def subscribe():
-    global data
-    data = {
+    return {
         "jsonrpc": "2.0",
         "method": "printer.objects.subscribe",
         "params": {
@@ -75,8 +73,7 @@ def on_message(ws, message):
         telegram_msg, b = telegram.split('"')
         os.system(f'bash {DIR1}/scripts/telegram.sh "{telegram_msg}" "1"')
     if "Klipper state: Ready" in message:
-        subscribe()
-        ws.send(json.dumps(data))
+        ws.send(json.dumps(subscribe()))
     if "print_stats" in message:
         if "state" in message:
             timelapse = requests.get(f'http://127.0.0.1:{port1}/printer/objects/query?gcode_macro%20TIMELAPSE_TAKE_FRAME', headers={"X-Api-Key":f'{api_key}'}).json()
@@ -156,12 +153,9 @@ def on_close(ws):
 def on_open(ws):
     def run(*args):
         for i in range(1):
-            start = 1
             time.sleep(1)
-            subscribe()
-            ws.send(json.dumps(data))
+            ws.send(json.dumps(subscribe()))
         time.sleep(5)
-        start = 0
     thread.start_new_thread(run, ())
 
 
