@@ -82,6 +82,12 @@ msg_paused="hey, i'm on break, please take a look"
 msg_error="hey, i had a error. please look it up"
 ```
 
+### bed cool down message
+
+```
+msg_bed_cooldown="hey, my heater bed is cool"
+```
+
 ### time in seconds to get an State update. to disable set it to 0
 
 ```
@@ -98,6 +104,12 @@ progress="0"
 
 ```
 z_high="0"
+```
+
+### Send a cooldown message when a heated bed has cooled to this temperatur. to disable set it to 0
+
+```
+bed_cooldown_temperature="0"
 ```
 
 ### with picture = 1, without picture = 0
