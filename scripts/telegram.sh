@@ -65,6 +65,10 @@ elif [ "$state_msg" = "6" ]; then
      -d text="${msg}" \
      -d chat_id=${chatid}
      msg=""
+
+elif [ "$state_msg" = "7" ]; then
+    msg="$msg_bed_cooldown"
+
 else
   if [ "$custom_picture" = "1" ]; then
     msg="$state_msg"
