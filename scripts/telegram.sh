@@ -92,6 +92,7 @@ fi
 
 
 if [ -n "${msg}" ]; then
+ echo "msg vorhanden"
  if [ "$picture" = "1" ]; then
   
   light_on
