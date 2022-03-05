@@ -89,6 +89,8 @@ else
   exit 0
 fi
 
+echo "generate picture and send message"
+
 if [ -n "${msg}" ]; then
  if [ "$picture" = "1" ]; then
   
@@ -134,5 +136,6 @@ if [ -n "${msg}" ]; then
 
 fi
 
+echo "ende"
 
 exit 0

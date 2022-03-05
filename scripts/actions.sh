@@ -77,10 +77,10 @@ extruder_target=$(echo "$extruder" | grep -oP '(?<="target": )[^,]*')
 extruder_temp1=$(echo "$extruder" | grep -oP '(?<="temperature": )[^,]*')
 extruder_temp=$(printf %.2f $extruder_temp1)
 #### Heater_Bed Temps ####
-if [[ "$print" == *"heater_bed"* ]]; then
-  heater_bed=$(echo "$print" | grep -oP '(?<="heater_bed": {)[^}]*')
-  bed_target=$(echo "$heater_bed" | grep -oP '(?<="target": )[^,]*')
-  bed_temp1=$(echo "$heater_bed" | grep -oP '(?<="temperature": )[^,]*')
+heater_bed=$(echo "$print" | grep -oP '(?<="heater_bed": {)[^}]*')
+bed_target=$(echo "$heater_bed" | grep -oP '(?<="target": )[^,]*')
+bed_temp1=$(echo "$heater_bed" | grep -oP '(?<="temperature": )[^,]*')
+if [ "$bed_temp1" != "null" ]; then
   bed_temp=$(printf %.2f $bed_temp1)
 fi
 
