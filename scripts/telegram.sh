@@ -91,7 +91,7 @@ fi
 
  echo "sende telegram"
 
-if [ -n "${msg}" ]; then
+if [ ! -z "${msg}" ]; then
  echo "msg vorhanden"
  if [ "$picture" = "1" ]; then
   
