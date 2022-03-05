@@ -97,7 +97,7 @@ echo -e "\n========= Check for config ==========="
 install_systemd_service()
 {
     echo -e "\n========= install systemd ==========="
-
+    . $DIR/multi_config.sh
     SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
     MTPATH=$(sed 's/\/scripts//g' <<< $SCRIPTPATH)
 

@@ -112,10 +112,25 @@ z_high="0"
 bed_cooldown_temperature="0"
 ```
 
-### with picture = 1, without picture = 0
+### activates the images function with pictures = 1, without pictures = 0
 
 ```
 picture="0"
+```
+
+### with these variables you can disable images for individual messages. to disable set to 0
+
+```
+pic_start="1"
+pic_error="1"
+pic_pause="1"
+pic_end="1"
+pic_state="1"
+pic_standby="1"
+pic_complete="1"
+pic_paused="1"
+pic_error="1"
+pic_bed_cooldown="1"
 ```
 
 ### with 5sec gif at state message = 1, without gif = 0
@@ -124,11 +139,18 @@ picture="0"
 gif="0"
 ```
 
+### Select wich cam will genarate your gif. the first cam in the variable will be 1 second cam will be 2 .....
+
+```
+gif_cam="1"
+```
+
 ### your webcam snapshot link
 
 ```
 webcam="http://127.0.0.1:8080/?action=snapshot"
 ```
+for multicam support look at the faq
 
 ### rotate the pic bevor sending, use degrease 0-360
 
