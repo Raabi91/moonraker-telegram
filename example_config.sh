@@ -56,7 +56,7 @@ pic_error="1"
 pic_bed_cooldown="1"
 # with 5sec gif at state message = 1, without gif = 0
 gif="0"
-# whic cam will genarate your gif. the first cam in the variable will be 1 second cam will be 2 .....
+# Select wich cam will genarate your gif. the first cam in the variable will be 1 second cam will be 2 .....
 gif_cam="1"
 # your webcam snapshot link
 webcam="http://127.0.0.1:8080/?action=snapshot"

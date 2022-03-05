@@ -1,3 +1,9 @@
+# 05.03.2022
+- integrate Pull request Support notification based on cooldown of heater bed from @nknotts
+- add multicam support
+- add Ability to switch photo per action
+- switch start script to bash (no reinstall required)
+
 # 20.02.2022
 - no message for timelapse pause 
  

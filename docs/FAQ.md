@@ -30,6 +30,31 @@ Exampel's
 /set:heater_bed:60
 ```
 
+## How to use Multicams
+
+to use Multicams you need to extend 4 of your variables to generate a list and this varibalen must be bracketed:
+
+the variable what you need are
+- webcam
+- rotate
+- horizontally
+- vertically
+
+Exampel for 3 cams
+
+```
+webcam=("http://127.0.0.1:8080/?action=snapshot" "http://127.0.0.1:8083/?action=snapshot" "http://127.0.0.1:8082/?action=snapshot")
+rotate=("0" "180" "90")
+horizontally=("0" "0" "1")
+vertically=("0" "1" "0")
+```
+
+the relations among each other are linear to each other.
+
+that means related to the example the first value in rotate = 0 refers to the first webcam (http://127.0.0.1:8080/?action=snapshot). 
+the second value = 180 refers to the second webcam (http://127.0.0.1:8081/?action=snapshot).
+
+
 ## Update_Manager shows invalid or false
 
 If the update manager shows an error you must perform the following;
