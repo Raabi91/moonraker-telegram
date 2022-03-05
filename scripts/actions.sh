@@ -77,10 +77,12 @@ extruder_target=$(echo "$extruder" | grep -oP '(?<="target": )[^,]*')
 extruder_temp1=$(echo "$extruder" | grep -oP '(?<="temperature": )[^,]*')
 extruder_temp=$(printf %.2f $extruder_temp1)
 #### Heater_Bed Temps ####
-heater_bed=$(echo "$print" | grep -oP '(?<="heater_bed": {)[^}]*')
-bed_target=$(echo "$heater_bed" | grep -oP '(?<="target": )[^,]*')
-bed_temp1=$(echo "$heater_bed" | grep -oP '(?<="temperature": )[^,]*')
-bed_temp=$(printf %.2f $bed_temp1)
+if [[ "$print" == *"heater_bed"* ]]; then
+  heater_bed=$(echo "$print" | grep -oP '(?<="heater_bed": {)[^}]*')
+  bed_target=$(echo "$heater_bed" | grep -oP '(?<="target": )[^,]*')
+  bed_temp1=$(echo "$heater_bed" | grep -oP '(?<="temperature": )[^,]*')
+  bed_temp=$(printf %.2f $bed_temp1)
+fi
 
 if [ -z "$file" ]; then
  echo "file is empty"
