@@ -7,9 +7,11 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . $DIR_TEL/example_config.sh
 . $config_dir/telegram_config.conf
 
+cam_array=$((gif_cam-1))
+
 take_picture()
 {
-  curl -o $DIR_TEL/picture/gif/$picture_gif.jpg $webcam
+  curl -o $DIR_TEL/picture/gif/$picture_gif.jpg ${webcam[$cam_array]}
 
   convert -quiet -rotate $rotate $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
 
