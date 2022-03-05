@@ -89,29 +89,34 @@ else
   exit 0
 fi
 
-echo "generate picture and send message"
+
 
 if [ -n "${msg}" ]; then
  if [ "$picture" = "1" ]; then
   
   light_on
+  echo "light on"
   array=0
   echo "Array items:"
   for item in ${webcam[*]}
   do
+    echo "generate picture$array"
     take_picture
     array=$((array+1))
   done
+  echo "light_off"
   light_off
 
   picture_number=1
   for filename in $DIR_TEL/picture/cam_new*; do
     if [ "$picture_number" -gt "1" ]; then
+      echo "send picture$picture_number"
       curl -s -X POST \
         ${tokenurl}/sendPhoto \
         -F chat_id=${chatid} \
         -F photo="@$filename" \
     else
+      echo "send msg"
       curl -s -X POST \
         ${tokenurl}/sendPhoto \
         -F chat_id=${chatid} \
