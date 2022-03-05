@@ -131,7 +131,7 @@ fi
 
 if [[ -n "${msg}" ]]; then
  if [ "$picture" = "1" ]; then
-
+  rm $DIR_TEL/picture/cam_new*.jpg
   light_on
   array=0
   for item in ${webcam[*]}
