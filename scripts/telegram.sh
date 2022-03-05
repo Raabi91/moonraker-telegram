@@ -91,14 +91,33 @@ fi
 
 if [ -n "${msg}" ]; then
  if [ "$picture" = "1" ]; then
+  
+  light_on
+  array=0
+  echo "Array items:"
+  for item in ${webcam[*]}
+  do
+    take_picture
+    array=$((array+1))
+  done
+  light_off
 
-  take_picture
- 
-  curl -s -X POST \
-    ${tokenurl}/sendPhoto \
-    -F chat_id=${chatid} \
-    -F photo="@$cam_link" \
-    -F caption="${msg}"
+  picture_number=1
+  for filename in $DIR_TEL/picture/cam_new*; do
+    if [ "$picture_number" -gt "1" ]; then
+      curl -s -X POST \
+        ${tokenurl}/sendPhoto \
+        -F chat_id=${chatid} \
+        -F photo="@$filename" \
+    else
+      curl -s -X POST \
+        ${tokenurl}/sendPhoto \
+        -F chat_id=${chatid} \
+        -F photo="@$filename" \
+        -F caption="${msg}"
+    fi
+    picture_number=$((picture_number+1))
+  done
 
  elif [ "$picture" = "0" ]; then
 

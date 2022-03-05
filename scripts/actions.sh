@@ -1,47 +1,56 @@
 #!/bin/bash
 
-take_picture()
+light_on()
 {
-
-  if curl --output /dev/null --silent --fail -r 0-0  "$webcam"; then
-    echo "Webcam link is working" >> $log
-
     if [ -n "${led_on}" ]; then
       echo "Led on" >> $log
       curl -H "Content-Type: application/json" -X POST $led_on
       sleep $led_on_delay
     fi
+}
 
-   rm $DIR_TEL/picture/cam_new.jpg
-   curl -m 20 -o $DIR_TEL/picture/cam_new.jpg $webcam
-
-    if identify -format '%f' $DIR_TEL/picture/cam_new.jpg; then
-      echo "Jpeg file is okay" >> $log
-  
-     convert -quiet -rotate $rotate $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
-
-      if [ "$horizontally" = "1" ]; then
-        convert -quiet -flop $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
-      fi
-      if [ "$vertically" = "1" ]; then
-        convert -quiet -flip $DIR_TEL/picture/cam_new.jpg $DIR_TEL/picture/cam_new.jpg
-      fi
-        cam_link="$DIR_TEL/picture/cam_new.jpg"
-    else
-      echo "JPEG picture has an error" >> $log
-      cam_link="$DIR_TEL/picture/cam_error.jpg"
-    fi
-  
-   if [ "$gif_enable" = "0" ]; then
+light_off()
+{
+  if [ "$gif_enable" = "0" ]; then
     if [ -n "${led_off}" ]; then
       sleep $led_off_delay
       curl -H "Content-Type: application/json" -X POST $led_off
       echo "LED off" >> $log
     fi
-   fi
+  fi
+}
+
+take_picture()
+{
+  if curl --output /dev/null --silent --fail -r 0-0  "$item"; then
+    echo "Webcam$array link is working" >> $log
+
+   rm $DIR_TEL/picture/cam_new$array.jpg
+   curl -m 20 -o $DIR_TEL/picture/cam_new$array.jpg $item
+
+    if identify -format '%f' $DIR_TEL/picture/cam_new$array.jpg; then
+      echo "Jpeg$array file is okay" >> $log
+      if [ ! -z "${rotate[$array]}"  ]; then
+        convert -quiet -rotate ${rotate[$array]} $DIR_TEL/picture/cam_new$array.jpg $DIR_TEL/picture/cam_new$array.jpg
+      fi
+      if [ ! -z "${horizontally[$array]}"  ]; then  
+        if [ "${horizontally[$array]}" = "1" ]; then
+          convert -quiet -flop $DIR_TEL/picture/cam_new$array.jpg $DIR_TEL/picture/cam_new$array.jpg
+        fi
+      fi
+      if [ ! -z "${vertically[$array]}"  ]; then 
+        if [ "${vertically[$array]}" = "1" ]; then
+          convert -quiet -flip $DIR_TEL/picture/cam_new$array.jpg $DIR_TEL/picture/cam_new$array.jpg
+        fi
+      fi
+    else
+      echo "JPEG$array picture has an error" >> $log
+      rm $DIR_TEL/picture/cam_new$array.jpg
+      cp $DIR_TEL/picture/cam_error.jpg $DIR_TEL/picture/cam_new$array.jpg
+    fi
   else
-   echo "Webcam link has an error" >> $log
-   cam_link="$DIR_TEL/picture/no_cam.jpg"
+   echo "Webcam$array link has an error" >> $log
+   cp $DIR_TEL/picture/no_cam.jpg $DIR_TEL/picture/cam_new$array.jpg
   fi
 }
 
