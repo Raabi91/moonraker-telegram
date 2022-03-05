@@ -32,7 +32,7 @@ send=60
 list=1
 
 for f in ${strarr[@]}; do
-    if [[ "$f" != "_*" ]]; then
+    if [[ $f != _* ]]; then
     word_length=$(echo ${#f})
     if [ "$last_word" = "$f" ]; then
         if [ "$word_length" -gt "60" ]; then
