@@ -8,9 +8,9 @@ Type=simple
 Restart=no
 User=MT_USER
 WorkingDirectory=MT_DIR/scripts
-ExecStart=sh MT_DIR/scripts/moonraker-telegram_start.sh &
+ExecStart=bash MT_DIR/scripts/start.sh &
 RemainAfterExit=yes
-ExecStop=sh MT_DIR/scripts/moonraker-telegram_stop.sh &
+ExecStop=bash MT_DIR/scripts/stop.sh &
 
 [Install]
 WantedBy=multi-user.target
