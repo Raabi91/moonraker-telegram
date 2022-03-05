@@ -89,7 +89,7 @@ else
   exit 0
 fi
 
-
+ echo "sende telegram"
 
 if [ -n "${msg}" ]; then
  echo "msg vorhanden"
