@@ -111,13 +111,33 @@ elif [ "$state_msg" = "7" ]; then
 
 else
   if [ "$custom_picture" = "1" ]; then
-    msg="$state_msg"
-    take_picture
-    curl -s -X POST \
-      ${tokenurl}/sendPhoto \
-      -F chat_id=${chatid} \
-      -F photo="@$cam_link" \
-      -F caption="${msg}"
+    rm $DIR_TEL/picture/cam_new*.jpg
+    light_on
+    array=0
+    for item in ${webcam[*]}
+    do
+      take_picture
+      array=$((array+1))
+    done
+    light_off
+
+    picture_number=0
+    for filename in $DIR_TEL/picture/cam_new*; do
+      if [ "$picture_number" == "0" ]; then
+        curl -s -X POST \
+          ${tokenurl}/sendPhoto \
+          -F chat_id=${chatid} \
+          -F photo="@$filename" \
+          -F caption="${msg}"
+      elif [ "$picture_number" != "0" ]; then
+        curl -s -X POST \
+          ${tokenurl}/sendPhoto \
+          -F chat_id=${chatid} \
+          -F photo="@$filename"
+      fi
+      picture_number=$((picture_number+1))
+      sleep 0.1
+    done
   else
     msg="$state_msg"
     curl -s -X POST \
