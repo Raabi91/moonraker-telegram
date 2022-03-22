@@ -11,22 +11,22 @@ cam_array=$((gif_cam-1))
 
 take_picture()
 {
-  curl -o $DIR_TEL/picture/gif/$picture_gif.jpg ${webcam[$cam_array]}
+    curl -o "$DIR_TEL/picture/gif/$picture_gif.jpg" "${webcam[$cam_array]}"
 
-  convert -quiet -rotate $rotate $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
+    convert -quiet -rotate "$rotate" "$DIR_TEL/picture/gif/$picture_gif.jpg" "$DIR_TEL/picture/gif/$picture_gif.jpg"
 
-  if [ "$horizontally" = "1" ]; then
-    convert -quiet -flop $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
-  fi
-  if [ "$vertically" = "1" ]; then
-    convert -quiet -flip $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
-  fi
+    if [ "$horizontally" = "1" ]; then
+        convert -quiet -flop $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
+    fi
+    if [ "$vertically" = "1" ]; then
+        convert -quiet -flip $DIR_TEL/picture/gif/$picture_gif.jpg $DIR_TEL/picture/gif/$picture_gif.jpg
+    fi
 }
 
- if [ -n "${led_on}" ]; then
+if [ -n "${led_on}" ]; then
     curl -H "Content-Type: application/json" -X POST $led_on
     sleep $led_on_delay
- fi
+fi
 picture_gif=01
 take_picture
 sleep 0.5
@@ -57,27 +57,27 @@ sleep 0.5
 picture_gif=10
 take_picture
 
- if [ -n "${led_off}" ]; then
-    sleep $led_off_delay
+if [ -n "${led_off}" ]; then
+    sleep "$led_off_delay"
     curl -H "Content-Type: application/json" -X POST $led_off
- fi
+fi
 
-convert -quiet -resize 768x576 -delay 20 -loop 0 $DIR_TEL/picture/gif/*.jpg $DIR_TEL/picture/5sec.gif
+convert -quiet -resize 768x576 -delay 20 -loop 0 "$DIR_TEL/picture/gif/*.jpg" "$DIR_TEL/picture/5sec.gif"
 
-rm -r $DIR_TEL/picture/gif/*.jpg 
+rm -r "$DIR_TEL/picture/gif/*.jpg "
 
-. $config_dir/telegram_config.conf
+. "$config_dir/telegram_config.conf"
 
 tokenurl="https://api.telegram.org/bot$token"
 
 ## Send Gif
 
-    msg=""
-    curl -s -X POST \
-      ${tokenurl}/sendAnimation \
-      -F chat_id=${chatid} \
-      -F animation="@$DIR_TEL/picture/5sec.gif" \
-      -F caption="${msg}"
-    msg=""
+msg=""
+curl -s -X POST \
+    ${tokenurl}/sendAnimation \
+    -F chat_id="${chatid}" \
+    -F animation="@$DIR_TEL/picture/5sec.gif" \
+    -F caption="${msg}"
+msg=""
 
 exit 0

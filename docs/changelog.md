@@ -1,3 +1,8 @@
+# 20.03.2022
+- Checked all files with shellcheck
+- Various spellchecks
+- Added missing commands to help output in messenger
+
 # 05.03.2022
 - integrate Pull request Support notification based on cooldown of heater bed from @nknotts
 - add multicam support

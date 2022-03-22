@@ -3,13 +3,13 @@
 MYDIR_TEL=`dirname $0`
 DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 
-. $DIR_TEL/multi_config.sh
-. $DIR_TEL/example_config.sh
-. $config_dir/telegram_config.conf
+. "$DIR_TEL/multi_config.sh"
+. "$DIR_TEL/example_config.sh"
+. "$config_dir/telegram_config.conf"
 
 list_json=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/server/files/list")
 list_clean=$(echo "$list_json" | grep -oP '(?<="path": ")[^,]*')
-echo $list_clean > /tmp/list_clean.txt
+echo "$list_clean" > /tmp/list_clean.txt
 sed -i 's/" /|/g' /tmp/list_clean.txt
 sed -i 's/"//g' /tmp/list_clean.txt
 
@@ -29,7 +29,7 @@ files=1
 send=60
 list=1
 
-for f in ${strarr[@]}; do
+for f in "${strarr[@]}"; do
     word_length=$(echo ${#f})
     if [ "$last_word" = "$f" ]; then
         if [ "$word_length" -gt "60" ]; then
@@ -62,7 +62,7 @@ for f in ${strarr[@]}; do
             send=$(echo "$send+$send" | bc -l)
             list=$(echo "$list+1" | bc -l)
             place=1
-            keyboard=""   
+            keyboard=""
         else
             if [ "$place" = "1" ]; then
                 keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"p:,$f\"},"

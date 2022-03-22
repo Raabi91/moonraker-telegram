@@ -1,1 +1,1 @@
-this folder is only for save the cam pic and the gif
+This folder is only for saving the cam picture and the gif

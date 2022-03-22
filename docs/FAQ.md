@@ -1,10 +1,10 @@
 # FAQ
 
-## How to set up Moonraker's update_manager for moonraker-telegram.
+## How to set up Moonraker's update_manager for moonraker-telegram
 
 Add this to your Moonraker config;
 
-```
+```ini
 [update_manager client moonraker-telegram]
 type: git_repo
 path: /home/pi/moonraker-telegram
@@ -14,16 +14,14 @@ requirements: scripts/moonraker-telegram-requirements.txt
 install_script: scripts/install.sh
 ```
 
-## How to use the /set comand:
+## How to use the /set comand
 
-the /set command cannot be called from the / submenu because it needs variables atm
+the ``/set`` command cannot be called from the / submenu because it needs variables which are structured as follows: ``/set:xxx:yy``
 
-it is structured as follows /set:xxx:yy
+- Replace ``xxx`` by your extruder or heat bed name
+- Replace ``yy`` by the temperature you want to change to
 
-where the xx stands for your extruder or heat bed name
-and yy for the temperature you want to change
-
-Exampel's
+Examples:
 
 ```
 /set:extruder:230
@@ -32,15 +30,16 @@ Exampel's
 
 ## How to use Multicams
 
-to use Multicams you need to extend 4 of your variables to generate a list and this varibalen must be bracketed:
+To use Multicams you need to extend 4 of your variables to generate a list and this varibales must be bracketed:
 
-the variable what you need are
+The variables you need are:
+
 - webcam
 - rotate
 - horizontally
 - vertically
 
-Exampel for 3 cams
+Example for 3 cams
 
 ```
 webcam=("http://127.0.0.1:8080/?action=snapshot" "http://127.0.0.1:8083/?action=snapshot" "http://127.0.0.1:8082/?action=snapshot")
@@ -49,10 +48,10 @@ horizontally=("0" "0" "1")
 vertically=("0" "1" "0")
 ```
 
-the relations among each other are linear to each other.
+The relations among each other are linear to each other.
 
-that means related to the example the first value in rotate = 0 refers to the first webcam (http://127.0.0.1:8080/?action=snapshot). 
-the second value = 180 refers to the second webcam (http://127.0.0.1:8081/?action=snapshot).
+That means related to the example the first value in rotate = 0 refers to the first webcam (``http://127.0.0.1:8080/?action=snapshot``). 
+The second value = 180 refers to the second webcam (``http://127.0.0.1:8081/?action=snapshot``).
 
 
 ## Update_Manager shows invalid or false
@@ -61,34 +60,34 @@ If the update manager shows an error you must perform the following;
 
 1.  Save your telegram_config.sh on your computer.
 2.  Login to the terminal and remove the moonraker-telegram folder.
-    ´´´
+    ```bash
     rm -rf moonraker-telegram
-    ´´´
+    ```
 3.  Perform a new [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md).
 4.  Restore your telegram_config.sh after reinstallation.
 5.  Restart moonraker-telegram.
-    ´´´
+    ```bash
     sudo systemctl restart moonraker-telegram
-    ´´´
+    ```
 
 ## Use the bot with force_logins: true
 
- if you want to use your bot with force_logins: true then you just have to enter the [API KEY](https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Telegram_config.md#Your-moonraker-API-Key-when-u-use-force-login-true) in your telegram_config.sh
+If you want to use your bot with ``force_logins: true`` then you just have to enter the [API KEY](https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Telegram_config.md#Your-moonraker-API-Key-when-u-use-force-login-true) in your telegram_config.sh
 
 
 ## How to upgrade moonraker-telegram via terminal
 
 If you use multiple bots you must first enter into each specific folder you created for those bots;
 
-```
+```bash
 cd Your_folder_name
 ```
 
-Then perform the update with the difference that the service name must be adapted to the instance. (sudo systemctl restart moonraker-telegramxxxx)
+Then perform the update with the difference that the service name must be adapted to the instance. (``sudo systemctl restart moonraker-telegramxxxx``)
 
-Execute the code. When you are asked to overwrite your telegram_config.sh say no.
+Execute the code. When you are asked to overwrite your ``telegram_config.sh`` reply no.
 
-```
+```bash
 cd moonraker-telegram
 git pull
 ./scripts/install.sh
@@ -96,73 +95,82 @@ git pull
 
 Then restart moonraker-telegram
 
-```
+```bash
 sudo systemctl restart moonraker-telegram
 ```
 
 If you have
 
-```
+```ini
 # moonraker config path
 config_dir=/home/pi/klipper_config
 ```
 
-in telegram_config.sh you must delete it manually for the moment. The text afer config_dir= can be anything.
+in ``telegram_config.sh`` you must delete it manually for the moment. The text afer ``config_dir=`` can be anything.
 
 ## How to edit the config with Mainsail
 
-Go to Mainsail -> Settings -> Machine
+Go to *Mainsail* -> *Settings* -> *Machine*
 
-and go into the config folder, then you can edit the telegram_config.sh.
+and go into the config folder, then you can edit the ``telegram_config.sh``.
 
-After editing the config reboot your machine.
+After editing the config, restart moonraker-telegram with:
+
+```
+sudo systemctl restart moonraker-telegram
+```
+
+or simply reboot your machine.
 
 ## How to edit the config with fluidd
 
-Go to Mainsail -> Printer -> Config tab
+Go to *Mainsail* -> *Printer* -> *Config* tab
 
-Now you are able to edit the telegram_config.sh.
+Now you are able to edit the ``telegram_config.sh``.
 
-After editing the config reboot your machine.
+After editing the config, restart moonraker-telegram with:
+
+```
+sudo systemctl restart moonraker-telegram
+```
+
+or simply reboot your machine.
 
 ## New variables are not displayed in my config?
 
-this is normal because moonraker-telegram accesses a sample config in the background. if you want to change a variable just copy the appropriate variable from [telegram_config.md](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Telegram_config.md). Then copy it into your config and change the value.
+This is expected because moonraker-telegram accesses a sample config in the background. If you want to change a variable just copy the appropriate variable from [telegram_config](docs/Telegram_config.md) into your config and change the value.
 
 ## How to send your own custom messages via Klipper
 
-first of all check if [respond] is present in your printer config if not add it. 
+First of all check if ``[respond]`` is present in your printer config if not add it. 
+Then set up a custom gcode macro like the following: 
 
-then set up a custom gcode macro like
-
-```
+```ini
 [gcode_macro telegram_MSG]
 gcode:
     RESPOND PREFIX=telegram: MSG="your message"
 ```
 
-the prefix is used to specify whether you only want a message or also an image
+The prefix is used to specify whether you only want a message or also an image
 
-PREFIX=telegram: is for messages only
+``PREFIX=telegram:`` is for messages only
 
-PREFIX=telegram_picture: is for messages with picture
-
-so you need only a picture see the examples
+``PREFIX=telegram_picture:`` is for pictures with an optional message
 
 Examples:
 
-```
-Only Text:
+```ini
+# Send only a text via telegram
 [gcode_macro telegram_MSG]
 gcode:
     RESPOND PREFIX=telegram: MSG="your message"
 
-Text and picture:
+# Send a picture with a text via telegram
 [gcode_macro telegram_MSG+picture]
 gcode:
     RESPOND PREFIX=telegram_picture: MSG="your message"
 
-Only picture:
+# Send only a picture via telegram
 [gcode_macro telegram_picture]
 gcode:
     RESPOND PREFIX=telegram_picture: MSG=""
@@ -176,13 +184,13 @@ If you need more messages just copy and paste the first macro and edit it
 
 Create a directory for a second bot like;
 
-```
+```bash
 mkdir telegram1
 ```
 
-Then go in to the folder;
+Then go in to the folder:
 
-```
+```bash
 cd telegram1
 ```
 
@@ -197,89 +205,82 @@ These service names are needed for restarting the services later on.
 
 ## How to use commands with buttons in Telegram
 
-Tell the botfather which commands are available. This enables Telegram to auto-complete commands to your bot. Send /setcommands to @botfather, select the bot and then send the lines in the box below (one message with multiple lines).
+Tell the botfather which commands are available. This enables Telegram to auto-complete commands to your bot. Send ``/setcommands`` to ``@botfather``, select the bot and then send the lines in the box below (one message with multiple lines).
 
 ```
-state - Sends the current status including a current photo.
-pause - Pause current Print.  A confirmation is required
-resume - resume current Print.
-cancel - Aborts the currently running print. A confirmation is required
-help - show list of commands.
-print - Will open a file dialog showing the files stored in moonraker. You can select a file to print it.
-power - Will open a file dialog showing the Power devices of moonraker. You can choose a device to interact with it
-gcode_macro - Will open a file dialog showing the custom Gcode_macros of the printer.cfg. You can choose a macro to execute it
-gif - send a 5 second gif
-host - Will open a file dialog to reboot or shutdown your host
+state - Current status including a photo
+pause - Pause current print. A confirmation will be requested
+resume - Resume current print.
+cancel - Abort the current print. A confirmation will be requested
+help - Show list of commands.
+print - Select a file from moonraker for printing
+power - Interact with power devices of moonraker
+gcode_macro - Run custom GCode Macros of moonraker
+gif - Send a 5 second gif
+host - Restart Firmware or Klipper and reboot and shutdown of the Host
 ```
 
-## How to use Automatic led for cam
+## How to use automatic led for cam
 
-!!! written in advance the whole thing was designed at the moment only for the poweplugin of moonraker or gcode macros of klipper !!!
+!!! **Attention: This is designed only for the powerplugin of moonraker or gcode macros of klipper** !!!
 
-if the led varibals are missing you only have to copy them from the [Telegram_config.md](https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Telegram_config.md) and paste them into your own.
+If the led variables are missing you only have to copy them from the [Telegram_config.md](https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Telegram_config.md) and paste them into your own.
 
-the setup is actually quite simple and we subdivide depending on the control
+The setup is actually quite simple and we subdivide depending on the control
 
 ### 1. Control of the leds via Power manager:
 
-simply set the variables to the appropriate command and add the <device> with your device name.
-if you have spaces in your device names, replace the spaces with %20
+Simply set the variables in the configuration to the appropriate command and replace the ``<device>`` with your device name. 
+If you have spaces in your device names, replace the spaces with %20
 
 ```
-ON:
-http://127.0.0.1:$port/machine/device_power/on?<device>
-
-OFF:
-http://127.0.0.1:$port/machine/device_power/off?<device>
+led_on="http://127.0.0.1:$port/machine/device_power/on?<device>"
+led_off"http://127.0.0.1:$port/machine/device_power/off?<device>"
 ```
 
-Example
+Example if you have in your ``moonraker.config`` the following power configuration:
 
-Moonraker.config
-
-```
+```ini
 [power Tronxy X5SAPro]
 type: gpio
 pin: gpio4
-.......
+#.......
 ```
 
-it must then look like this
+Then the configuration for this device must be as follows
 
 ```
-ON:
-http://127.0.0.1:$port/machine/device_power/on?Tronxy%20X5SAPro
-
-OFF:
-http://127.0.0.1:$port/machine/device_power/off?Tronxy%20X5SAPro
+led_on="http://127.0.0.1:$port/machine/device_power/on?Tronxy%20X5SAPro"
+led_off"http://127.0.0.1:$port/machine/device_power/off?Tronxy%20X5SAPro"
 ```
 
 ### 2. Control of the leds via gcode macro:
 
-simply set the variables to the appropriate command and add the <macro> with your macro name.
+Simply set the variables in the configuration to the appropriate command and add the ``<macro>`` with your macro name.
 
 ```
-http://127.0.0.1:$port/printer/gcode/script?script=<macro>
+led_on="http://127.0.0.1:$port/printer/gcode/script?script=<macro>"
+led_off="http://127.0.0.1:$port/printer/gcode/script?script=<macro>"
 ```
 
 Example
 
 printer.cfg
 
-```
+```ini
 [gcode_macro led_on]
 gcode:
-....
+#....
 ```
 
-it must then look like this
+Then the configuration for this gcode must be as follows
 
 ```
-http://127.0.0.1:$port/printer/gcode/script?script=led_on
+led_on="http://127.0.0.1:$port/printer/gcode/script?script=led_on"
 ```
 
-if you need some time after the power on command just set the delay variables there you can set a delay in seconds
+If you need some time after the power on/off commands just set the delay variables the the desired amount of seconds.
 
 ## Gcode upload not work
 
-Make sure your gcode is ending at .gcode an you have set [octoprint_compat] in the moonraker.config
+Make sure your gcode is ending at .gcode and you that have set [octoprint_compat] in the moonraker.config

@@ -3,15 +3,15 @@
 MYDIR_TEL=`dirname $0`
 DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 
-. $DIR_TEL/multi_config.sh
-. $DIR_TEL/example_config.sh
-. $config_dir/telegram_config.conf
+. "$DIR_TEL/multi_config.sh"
+. "$DIR_TEL/example_config.sh"
+. "$config_dir/telegram_config.conf"
 
 list_json=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/list")
-echo $list_json
+echo "$list_json"
 list_clean=$(echo "$list_json" | grep -oP '(?<="gcode_macro )[^",]*')
-echo $list_clean
-echo $list_clean > /tmp/list_clean.txt
+echo "$list_clean"
+echo "$list_clean" > /tmp/list_clean.txt
 sed -i 's/" /|/g' /tmp/list_clean.txt
 sed -i 's/"//g' /tmp/list_clean.txt
 
@@ -31,26 +31,13 @@ files=1
 send=60
 list=1
 
-for f in ${strarr[@]}; do
+for f in "${strarr[@]}"; do
     if [[ $f != _* ]]; then
-    word_length=$(echo ${#f})
-    if [ "$last_word" = "$f" ]; then
-        if [ "$word_length" -gt "60" ]; then
-            f="´gcode_macro_too_long"
-        fi
-        if [ "$place" = "1" ]; then
-            keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"g:,$f\"}]"
-            place=2
-        elif [ "$place" = "2" ]; then
-            keyboard="$keyboard{\"text\":\"$f\",\"callback_data\":\"g:,$f\"}]"
-            place=1
-        fi
-        files=$(echo "$files+1" | bc -l)
-    else
-        if [ "$word_length" -gt "60" ]; then
-            f="gcode_macro_too_long"
-        fi
-        if [ $send = $files ]; then
+        word_length=$(echo ${#f})
+        if [ "$last_word" = "$f" ]; then
+            if [ "$word_length" -gt "60" ]; then
+                f="gcode_macro_too_long"
+            fi
             if [ "$place" = "1" ]; then
                 keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"g:,$f\"}]"
                 place=2
@@ -59,25 +46,38 @@ for f in ${strarr[@]}; do
                 place=1
             fi
             files=$(echo "$files+1" | bc -l)
-            msg="Your list $list"
-            curl -s -X POST "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" -F text="$msg" -F reply_markup="{\"inline_keyboard\":[$keyboard]}"
-            msg=""
-            send=$(echo "$send+$send" | bc -l)
-            list=$(echo "$list+1" | bc -l)
-            place=1
-            keyboard=""   
         else
-            if [ "$place" = "1" ]; then
-                keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"g:,$f\"},"
-                place=2
-            elif [ "$place" = "2" ]; then
-                keyboard="$keyboard{\"text\":\"$f\",\"callback_data\":\"g:,$f\"}],"
-                place=1
+            if [ "$word_length" -gt "60" ]; then
+                f="gcode_macro_too_long"
             fi
-          
-            files=$(echo "$files+1" | bc -l)
+            if [ $send = $files ]; then
+                if [ "$place" = "1" ]; then
+                    keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"g:,$f\"}]"
+                    place=2
+                elif [ "$place" = "2" ]; then
+                    keyboard="$keyboard{\"text\":\"$f\",\"callback_data\":\"g:,$f\"}]"
+                    place=1
+                fi
+                files=$(echo "$files+1" | bc -l)
+                msg="Your list $list"
+                curl -s -X POST "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" -F text="$msg" -F reply_markup="{\"inline_keyboard\":[$keyboard]}"
+                msg=""
+                send=$(echo "$send+$send" | bc -l)
+                list=$(echo "$list+1" | bc -l)
+                place=1
+                keyboard=""
+            else
+                if [ "$place" = "1" ]; then
+                    keyboard="$keyboard[{\"text\":\"$f\",\"callback_data\":\"g:,$f\"},"
+                    place=2
+                elif [ "$place" = "2" ]; then
+                    keyboard="$keyboard{\"text\":\"$f\",\"callback_data\":\"g:,$f\"}],"
+                    place=1
+                fi
+
+                files=$(echo "$files+1" | bc -l)
+            fi
         fi
-    fi
     fi
 done
 
