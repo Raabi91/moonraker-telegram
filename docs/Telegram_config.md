@@ -2,7 +2,7 @@
 
 ## You can copy all the variables you need to change from here.
 
-### Port from moonraker
+### Port of moonraker
 
 ```
 port="7125"
@@ -194,7 +194,9 @@ delay_end_msg="0"
 delay_pause_msg="0"
 ```
 
-## LED Control for Cam ([more detailed description](https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#How-to-use-automatic-led-for-cam))
+## LED Control for Cam
+
+[More detailed description here](https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md#How-to-use-automatic-led-for-cam))
 
 ### Led on link for picture
 

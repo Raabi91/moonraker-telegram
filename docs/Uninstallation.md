@@ -2,7 +2,7 @@
 
 1. Remove this
 
-```
+```ini
 [update_manager client moonraker-telegram]
 type: git_repo
 path: /home/pi/moonraker-telegram
@@ -14,32 +14,31 @@ install_script: scripts/install.sh
 
 from your moonraker configuration
 
-2. Del the telegram.config over mainsail oder fluidd
-3. go into ssh and stop moonraker-telegram
+2. Delete the telegram.config over mainsail oder fluidd
+3. Go into ssh and stop moonraker-telegram
 
 ```
 sudo systemctl stop moonraker-telegram
 ```
 
-4. del the moonraker-telegram folder
+4. Delete the moonraker-telegram folder
 
 ```
 rm -rf moonraker-telegram
 ```
 
-5. del the .moonraker-telegram-env folder
+5. Delete the .moonraker-telegram-env folder
 
 ```
 rm -rf .moonraker-telegram-env
 ```
 
-6. remove the systemd service
+6. Remove the systemd service
 
 ```
 sudo rm /etc/systemd/system/moonraker-telegram.service
 sudo systemctl daemon-reload
 ```
 
-now ist moonraker-telegram is completely removed
-
-if you use multiple installations you have to change the moonraker-telegram folder name and the systemd service name
+Now moonraker-telegram is completely removed.
+If you use multiple installations you have to adapt the moonraker-telegram folder name and the systemd service name as needed.
