@@ -22,7 +22,7 @@ def on_chat_message(msg):
     if str(chat_id) != chatid_mt:
         print('chat id are not same')
         bot.sendMessage(
-            chat_id, 'you have no permission to communicate with me.')
+            chat_id, 'You have no permission to communicate with me.')
     else:
         if content_type == 'document':
             file_id = msg['document']['file_id']
@@ -42,7 +42,7 @@ def on_chat_message(msg):
             if str(chat_id) != chatid_mt:
                 print('chat id are not same')
                 bot.sendMessage(
-                    chat_id, 'you have no permission to communicate with me.')
+                    chat_id, 'You have no permission to communicate with me.')
             else:
                 print('chat id are same')
                 if command == '/help':
@@ -62,28 +62,28 @@ def on_chat_message(msg):
                     keyboard = InlineKeyboardMarkup(inline_keyboard=[
                         [InlineKeyboardButton(text='Firmware Restart', callback_data='fi_re'),
                          InlineKeyboardButton(text='Klipper Restart', callback_data='ki_re')],
-                        [InlineKeyboardButton(text='reboot Host', callback_data='pi_re'),
-                         InlineKeyboardButton(text='shutdown Host', callback_data='pi_sh')],
+                        [InlineKeyboardButton(text='Host Reboot', callback_data='pi_re'),
+                         InlineKeyboardButton(text='Host Shutdown', callback_data='pi_sh')],
                     ])
                     bot.sendMessage(
-                        chat_id, 'what do you want to do with your Host', reply_markup=keyboard)
+                        chat_id, 'What do you want to do with your Host?', reply_markup=keyboard)
                 elif command == '/pause':
                     content_type, chat_type, chat_id = telepot.glance(msg)
                     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                        [InlineKeyboardButton(text='yes', callback_data='yes_pause'),
-                         InlineKeyboardButton(text='no', callback_data='no')],
+                        [InlineKeyboardButton(text='Yes', callback_data='yes_pause'),
+                         InlineKeyboardButton(text='No', callback_data='no')],
                     ])
                     bot.sendMessage(
-                        chat_id, 'do you really want to pause', reply_markup=keyboard)
+                        chat_id, 'Do you really want to pause the current print?', reply_markup=keyboard)
                 elif "/set" in command:
                     content_type, chat_type, chat_id = telepot.glance(msg)
                     a, heater, temp = command.split(":")
                     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                        [InlineKeyboardButton(text='yes', callback_data='heat:%s:%s' % (heater, temp)),
-                         InlineKeyboardButton(text='no', callback_data='no')],
+                        [InlineKeyboardButton(text='Yes', callback_data='heat:%s:%s' % (heater, temp)),
+                         InlineKeyboardButton(text='No', callback_data='no')],
                     ])
                     bot.sendMessage(
-                        chat_id, 'do you really want to set %s to %s°?' % (heater, temp), reply_markup=keyboard)
+                        chat_id, 'Do you really want to set %s to %s°?' % (heater, temp), reply_markup=keyboard)
                 elif command == '/resume':
                     x = requests.post(
                         f'http://127.0.0.1:{port}/printer/print/resume', headers={"X-Api-Key":f'{api_key}'})
@@ -91,11 +91,11 @@ def on_chat_message(msg):
                 elif command == '/cancel':
                     content_type, chat_type, chat_id = telepot.glance(msg)
                     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                        [InlineKeyboardButton(text='yes', callback_data='yes_cancel'),
-                         InlineKeyboardButton(text='no', callback_data='no')],
+                        [InlineKeyboardButton(text='Yes', callback_data='yes_cancel'),
+                         InlineKeyboardButton(text='No', callback_data='no')],
                     ])
                     bot.sendMessage(
-                        chat_id, 'do you really want to abort', reply_markup=keyboard)
+                        chat_id, 'Do you really want to cancel the current print?', reply_markup=keyboard)
 
 
 def on_callback_query(msg):
@@ -107,57 +107,57 @@ def on_callback_query(msg):
     if query_data == 'yes_cancel':
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/cancel', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
-        bot.sendMessage(chatid_mt, 'Got it')
+        bot.sendMessage(chatid_mt, 'Canceling Print')
     # pause
     elif query_data == 'yes_pause':
         x = requests.post(f'http://127.0.0.1:{port}/printer/print/pause', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
-        bot.sendMessage(chatid_mt, 'Got it')
+        bot.sendMessage(chatid_mt, 'Pausing Print')
     # Pi
     elif "pi_sh" in query_data:
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                [InlineKeyboardButton(text='yes', callback_data='pi_sy'),
-                 InlineKeyboardButton(text='no', callback_data='no')],
+                [InlineKeyboardButton(text='Yes', callback_data='pi_sy'),
+                 InlineKeyboardButton(text='No', callback_data='no')],
             ])
             bot.sendMessage(
-                chatid_mt, 'do you really want to shoutdown your pi?', reply_markup=keyboard)
+                chatid_mt, 'Do you really want to shutdown your host?', reply_markup=keyboard)
     elif "pi_re" in query_data:
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                [InlineKeyboardButton(text='yes', callback_data='pi_ry'),
-                 InlineKeyboardButton(text='no', callback_data='no')],
+                [InlineKeyboardButton(text='Yes', callback_data='pi_ry'),
+                 InlineKeyboardButton(text='No', callback_data='no')],
             ])
             bot.sendMessage(
-                chatid_mt, 'do you really want to reboot your pi?', reply_markup=keyboard)
+                chatid_mt, 'Do you really want to reboot your host?', reply_markup=keyboard)
     elif "fi_re" in query_data:
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                [InlineKeyboardButton(text='yes', callback_data='fi_ry'),
-                 InlineKeyboardButton(text='no', callback_data='no')],
+                [InlineKeyboardButton(text='Yes', callback_data='fi_ry'),
+                 InlineKeyboardButton(text='No', callback_data='no')],
             ])
             bot.sendMessage(
-                chatid_mt, 'do you really want to Restart Klipper?', reply_markup=keyboard)
+                chatid_mt, 'Do you really want to restart Klipper?', reply_markup=keyboard)
     elif "ki_re" in query_data:
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                [InlineKeyboardButton(text='yes', callback_data='ki_ry'),
-                 InlineKeyboardButton(text='no', callback_data='no')],
+                [InlineKeyboardButton(text='Yes', callback_data='ki_ry'),
+                 InlineKeyboardButton(text='No', callback_data='no')],
             ])
             bot.sendMessage(
-                chatid_mt, 'do you really want to Restart your Firmware?', reply_markup=keyboard)
+                chatid_mt, 'Do you really want to restart your Firmware?', reply_markup=keyboard)
     elif "pi_sy" in query_data:
-        bot.sendMessage(chatid_mt, 'Got it')
+        bot.sendMessage(chatid_mt, 'Executing shutdown of host')
         x = requests.post(
             f'http://127.0.0.1:{port}/machine/shutdown', headers={"X-Api-Key":f'{api_key}'})
     elif "fi_ry" in query_data:
-        bot.sendMessage(chatid_mt, 'Got it')
+        bot.sendMessage(chatid_mt, 'Executing restart of Firmware')
         x = requests.post(
             f'http://127.0.0.1:{port}/printer/firmware_restart', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
     elif "ki_ry" in query_data:
-        bot.sendMessage(chatid_mt, 'Got it')
+        bot.sendMessage(chatid_mt, 'Executing restart of klipper')
         x = requests.post(
             f'http://127.0.0.1:{port}/printer/restart', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
     elif "pi_ry" in query_data:
-        bot.sendMessage(chatid_mt, 'Got it')
+        bot.sendMessage(chatid_mt, 'Executing reboot of host')
         x = requests.post(
             f'http://127.0.0.1:{port}/machine/reboot', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
@@ -168,14 +168,14 @@ def on_callback_query(msg):
         print(gcode)
         if gcode == 'filename_too_long':
             bot.sendMessage(
-                chatid_mt, 'the original filename has too many characters to use it with the telegram bot. (max 60 characters)')
+                chatid_mt, 'The original filename has too many characters (maximum is 60) to use it with the telegram bot. ')
         else:
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                [InlineKeyboardButton(text='yes', callback_data='p,:%s' % gcode),
-                 InlineKeyboardButton(text='no', callback_data='no')],
+                [InlineKeyboardButton(text='Yes', callback_data='p,:%s' % gcode),
+                 InlineKeyboardButton(text='No', callback_data='no')],
             ])
             bot.sendMessage(
-                chatid_mt, 'do you really want to start printing of %s' % gcode, reply_markup=keyboard)
+                chatid_mt, 'Do you really want to start printing of %s?' % gcode, reply_markup=keyboard)
     elif "p,:" in query_data:
         a, gcode = query_data.split(",:")
         print(a)
@@ -190,7 +190,7 @@ def on_callback_query(msg):
             f'http://127.0.0.1:{port}/printer/gcode/script?script=SET_HEATER_TEMPERATURE%20HEATER={heater}%20TARGET={temp}', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
         bot.sendMessage(
-            chatid_mt, 'Okay, i set %s to %s°' % (heater, temp))
+            chatid_mt, 'Setting %s to %s°' % (heater, temp))
     # Gcode_macro
     elif "g:," in query_data:
         a, macro = query_data.split(":,")
@@ -199,11 +199,11 @@ def on_callback_query(msg):
                 chatid_mt, 'the original macro name has too many characters to use it with the telegram bot. (max 60 characters)')
         else:
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                [InlineKeyboardButton(text='yes', callback_data='g,:%s' % macro),
-                 InlineKeyboardButton(text='no', callback_data='no')],
+                [InlineKeyboardButton(text='Yes', callback_data='g,:%s' % macro),
+                 InlineKeyboardButton(text='No', callback_data='no')],
             ])
             bot.sendMessage(
-                chatid_mt, 'do you really want to execute %s' % macro, reply_markup=keyboard)
+                chatid_mt, 'Do you really want to execute %s?' % macro, reply_markup=keyboard)
     elif "g,:" in query_data:
         a, macro = query_data.split(",:")
         x = requests.post(
@@ -215,7 +215,7 @@ def on_callback_query(msg):
         a, device = query_data.split(":,")
         if device == 'device_name_too_long':
             bot.sendMessage(
-                chatid_mt, 'the original Device name has too many characters to use it with the telegram bot. (max 60 characters)')
+                chatid_mt, 'The original Device name has too many characters (maximum is 60) to use it with the telegram bot.')
         else:
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
                 [InlineKeyboardButton(text='On', callback_data='on,:%s' % device),
@@ -223,42 +223,42 @@ def on_callback_query(msg):
                      text='Off', callback_data='of,:%s' % device),
                  InlineKeyboardButton(text='Status', callback_data='st,:%s' % device)],
             ])
-            bot.sendMessage(chatid_mt, 'what do you want to do with %s' %
+            bot.sendMessage(chatid_mt, 'What do you want to do with %s?' %
                             device, reply_markup=keyboard)
     elif "on,:" in query_data:
         a, device = query_data.split(",:")
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text='yes', callback_data='on:,%s' % device),
-             InlineKeyboardButton(text='no', callback_data='no')],
+            [InlineKeyboardButton(text='Yes', callback_data='on:,%s' % device),
+             InlineKeyboardButton(text='No', callback_data='no')],
         ])
-        bot.sendMessage(chatid_mt, 'do you really want to turn on %s' %
+        bot.sendMessage(chatid_mt, 'Do you really want to turn on %s?' %
                         device, reply_markup=keyboard)
     elif "of,:" in query_data:
         a, device = query_data.split(",:")
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text='yes', callback_data='of:,%s' % device),
-             InlineKeyboardButton(text='no', callback_data='no')],
+            [InlineKeyboardButton(text='Yes', callback_data='of:,%s' % device),
+             InlineKeyboardButton(text='No', callback_data='no')],
         ])
-        bot.sendMessage(chatid_mt, 'do you really want to turn off %s' %
+        bot.sendMessage(chatid_mt, 'Do you really want to turn off %s?' %
                         device, reply_markup=keyboard)
     elif "on:," in query_data:
         a, device = query_data.split(":,")
         x = requests.post(
             f'http://127.0.0.1:{port}/machine/device_power/on?{device}', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
-        bot.sendMessage(chatid_mt, 'okay I have turned on %s' % device)
+        bot.sendMessage(chatid_mt, 'Turned on %s' % device)
     elif "of:," in query_data:
         a, device = query_data.split(":,")
         x = requests.post(
             f'http://127.0.0.1:{port}/machine/device_power/off?{device}', headers={"X-Api-Key":f'{api_key}'})
         print(x.text)
-        bot.sendMessage(chatid_mt, 'okay I have turned off %s' % device)
+        bot.sendMessage(chatid_mt, 'Turned off %s' % device)
     elif "st,:" in query_data:
         a, device = query_data.split(",:")
         os.system(f'bash {DIR}/scripts/power_state.sh "{device}"')
     # no
     elif query_data == 'no':
-        bot.sendMessage(chatid_mt, 'Okay, i do nothing')
+        bot.sendMessage(chatid_mt, 'Not executing any action')
 
 
 bot = telepot.Bot(f'{token}')

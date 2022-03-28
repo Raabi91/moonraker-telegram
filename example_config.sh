@@ -15,23 +15,19 @@ api_key=""
 # Start message
 msg_start="Started printing $print_filename"
 # error/failed message
-msg_error="printing of $print_filename Failed"
+msg_error="Printing $print_filename failed at $print_progress %, please check"
 # Pause message
-msg_pause="printing of $print_filename Paused"
+msg_pause="Printing $print_filename paused at $print_progress %, please check"
 # Complete message
 msg_end="Finished printing $print_filename"
 # Time message
 msg_state="Printing $print_filename at $print_progress. Current Time $print_current. Remaining Time $print_remaining"
 # standby message
-msg_standby="hey, i'm idling, please let me print something"
+msg_standby="Idling, please let me print something"
 # complete message
-msg_complete="hey, i finished the last print now i am idling"
-# paused message
-msg_paused="hey, i'm on break, please take a look"
-# error message
-msg_error="hey, i had a error. please look it up"
+msg_complete="Last print finished"
 # bed cool down message
-msg_bed_cooldown="hey, my heater bed is cool"
+msg_bed_cooldown="Heat Bed Cooldown completed"
 #
 # time in seconds to get an State update. to disable set it to 0
 time="0"

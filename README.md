@@ -1,71 +1,50 @@
 # moonraker-telegram
 
-A Script/Programm to send the printer State before, during and after a print via Telegram Messenger. But its only Working with moonraker
+A Script/Programm to send the printer state before, during and after a print via Telegram Messenger. But its only working with moonraker
 
----
+## Changelog
 
-## [Changelog](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/changelog.md)
+**If you have a problem to edit your config, do an upgrade first**
 
----
+You can find the Changelog [here](docs/changelog.md)
 
-### if you have a problem to edit your config do an upgrade
+## Currently Supported Actions
 
-## until now we supported:
-
-- Print start
+- Print Start
 - Print Complete
 - Print Paused
 - Print Failed
-- Send State timed, processed and at high
-- First Commands avaible (/state, /pause, /resume, /cancel, /help, /print, /power, /gcode_macros, /gif, /host)
-- You can deactivate the messages by not entering any text at the config
-- send own messages (with a picture) via klipper shell plugin an gcode macros (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
-- multiple bots for multiple moonraker setups (see [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md))
+- Send State timed, processed and at heights
+- Commands available (``/state``, ``/pause``, ``/resume``, ``/cancel``, ``/help``, ``/print``, ``/power``, ``/gcode_macros``, ``/gif``, ``/host``)
+- You can deactivate the messages by not entering any text in the config
+- Send custom messages (with a picture) via klipper shell plugin and gcode macros (see [FAQ](docs/FAQ.md))
+- Multiple bots for multiple moonraker setups (see [FAQ](docs/FAQ.md))
 - .gcode uploads
-- automatic led on/off at picture for powermanager oder gcode macro
+- Automatic led on/off at picture for powermanager oder gcode macro
 
-for the placeholders in the messages look at https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Variables.md
+for the placeholders in the messages look at the [variables documentation](docs/Variables.md)
 
 ## Info / Contact / Help
 
 If you want to talk to other users of this plugin and maybe have some influence in the development of this plugin, you can join the [Moonraker-Telegram-Group](https://t.me/joinchat/HEI8MD3rG1qhl7tg)
 
-## [Installation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md)
+## Installation
 
-For installation lock at [Installation.md](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Installation.md) in the docs folder
+For installation guide please look at [Installation](docs/Installation.md) guide
 
-thanks to sugar0 for a link to an italian install quide: https://klipper-italia.xyz/extra/installazione-moonraker-telegram/
+Thanks to sugar0 for a link to an italian install quide: https://klipper-italia.xyz/extra/installazione-moonraker-telegram/
 
-## [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md)
+## FAQ
 
-Do you have more Question look at the [FAQ](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/FAQ.md)
+Do you have more questions please look at the [FAQ](docs/FAQ.md)
 
-## [Uninstallation](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/deinstallation.md)
+## Uninstallation
 
-you want to remove moonraker-telegram then look here: [Uninstallation.md](https://github.com/Raabi91/moonraker-telegram/blob/main/docs/Uninstallation.md)
+If you want to remove moonraker-telegram please then look at the [Uninstallation](docs/Uninstallation.md) guide.
 
----
+## References
 
-**Klipper** by [KevinOConnor](https://github.com/KevinOConnor) :
-
-https://github.com/KevinOConnor/klipper
-
----
-
-**Moonraker** by [Arksine](https://github.com/Arksine) :
-
-https://github.com/Arksine/moonraker
-
----
-
-**Mainsail Webinterface** by [meteyou](https://github.com/meteyou) :
-
-https://github.com/meteyou/mainsail
-
----
-
-**Fluidd Webinterface** by [cadriel](https://github.com/cadriel) :
-
-https://github.com/cadriel/fluidd
-
----
+- [Klipper](https://github.com/KevinOConnor/klipper) by [KevinOConnor](https://github.com/KevinOConnor)
+- [Moonraker](https://github.com/Arksine/moonraker) by [Arksine](https://github.com/Arksine)
+- [Mainsail](https://github.com/meteyou/mainsail) Webinterface by [meteyou](https://github.com/meteyou)
+- [Fluidd](https://github.com/cadriel/fluidd) Webinterface by [cadriel](https://github.com/cadriel)

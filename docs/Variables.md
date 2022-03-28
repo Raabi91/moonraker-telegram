@@ -1,4 +1,6 @@
-this is an overview of the placeholders for the messages
+# Variables
+
+This is an overview of the placeholders for the messages
 
 | Placeholder      | Description                          |
 | ---------------- | ------------------------------------ |
