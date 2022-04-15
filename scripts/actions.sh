@@ -56,7 +56,7 @@ take_picture()
 
 create_variables()
 {
-    print=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/query?print_stats&display_status&gcode_move&extruder=target,temperature&heater_bed=target,temperature")
+    print=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/query?print_stats&virtual_sdcard&display_status&gcode_move&extruder=target,temperature&heater_bed=target,temperature")
     #### Filename ####
     print_filename=$(echo "$print" | grep -oP '(?<="filename": ")[^"]*')
     filename="${print_filename// /%20}"
@@ -71,12 +71,12 @@ create_variables()
     gcode_start_byte=$(echo "$file" | grep -oP '(?<="gcode_start_byte": )[^,]*')
     gcode_end_byte=$(echo "$file" | grep -oP '(?<="gcode_end_byte": )[^,]*')
     file_position=$(echo "$print" | grep -oP '(?<="file_position": )[^,]*')
-    if [ "$file_position" > "$gcode_end_byte" ]; then
+    if [ "$file_position" -gt "$gcode_end_byte" ]; then
         progress="1"
     else
-        positon_gcode=$(echo "scale=0; $file_position-$gcode_start_byte" | bc -l)
-        gcode_length=$(echo "scale=0; $gcode_end_byte-$gcode_start_byte" | bc -l)
-        progress=$(echo "scale=0; $positon_gcode/$gcode_length" | bc -l)
+        positon_gcode=$(echo "$file_position-$gcode_start_byte" | bc -l)
+        gcode_length=$(echo "$gcode_end_byte-$gcode_start_byte" | bc -l)
+        progress=$(echo "$positon_gcode/$gcode_length" | bc -l)
     fi
     #### Print_state ####
     print_state_read1=$(echo "$print" | grep -oP '(?<="state": ")[^"]*')
