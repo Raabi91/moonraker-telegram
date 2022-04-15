@@ -67,8 +67,17 @@ create_variables()
     fi
     #### Print Duration ####
     print_duration=$(echo "$print" | grep -oP '(?<="print_duration": )[^,]*')
-    #### Progress ####
-    progress=$(echo "$print" | grep -oP '(?<="progress": )[^,]*')
+    #### Progress ###
+    gcode_start_byte=$(echo "$file" | grep -oP '(?<="gcode_start_byte": )[^,]*')
+    gcode_end_byte=$(echo "$file" | grep -oP '(?<="gcode_end_byte": )[^,]*')
+    file_position=$(echo "$print" | grep -oP '(?<="file_position": )[^,]*')
+    if [ "$file_position" > "$gcode_end_byte" ]; then
+        progress="1"
+    else
+        positon_gcode=$(echo "scale=0; $file_position-$gcode_start_byte" | bc -l)
+        gcode_length=$(echo "scale=0; $gcode_end_byte-$gcode_start_byte" | bc -l)
+        progress=$(echo "scale=0; $positon_gcode/$gcode_length" | bc -l)
+    fi
     #### Print_state ####
     print_state_read1=$(echo "$print" | grep -oP '(?<="state": ")[^"]*')
     #### Extruder Temps ####
@@ -116,7 +125,7 @@ create_variables()
     if [ "$print_duration" = "0.0" ]; then
         math2="0"
     else
-        if [ "$progress" = "0.0" ]; then
+        if [ "$progress" <= "0.0" ]; then
             math2="0"
         else
             math1=$(echo "scale=0; $print_duration/$progress" | bc -l)
