@@ -65,8 +65,9 @@ create_variables()
     else
         file=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/server/files/metadata?filename=$filename")
     fi
-    #### Print Duration ####
+    #### Duration ####
     print_duration=$(echo "$print" | grep -oP '(?<="print_duration": )[^,]*')
+    total_duration=$(echo "$print" | grep -oP '(?<="total_duration": )[^,]*')
     #### Progress ###
     gcode_start_byte=$(echo "$file" | grep -oP '(?<="gcode_start_byte": )[^,]*')
     gcode_end_byte=$(echo "$file" | grep -oP '(?<="gcode_end_byte": )[^,]*')
@@ -127,20 +128,37 @@ create_variables()
     else
         if [ "$progress" <= "0.0" ]; then
             math2="0"
+            math4="0"
+            math8="0"
         else
             math1=$(echo "scale=0; $print_duration/$progress" | bc -l)
             math2=$(echo "scale=0; $math1-$print_duration" | bc -l)
-            echo $math1
-            echo $math2
+
+            math3=$(echo "scale=0; $total_duration/$progress" | bc -l)
+            math4=$(echo "scale=0; $math3-$print_duration" | bc -l)
+
+            math5=$(echo "scale=0; $total_duration+$print_duration" | bc -l)
+            math6=$(echo "scale=0; $math5/2" | bc -l)
+            math7=$(echo "scale=0; $math6/$progress" | bc -l)
+            math8=$(echo "scale=0; $math7-$math6" | bc -l)
         fi
     fi
 
     remaining=$(printf "%.0f" $math2)
     print_remaining=$(printf '%02d:%02d:%02d\n' $(($remaining/3600)) $(($remaining%3600/60)) $(($remaining%60)))
 
+    remaining1=$(printf "%.0f" $math4)
+    total_remaining=$(printf '%02d:%02d:%02d\n' $(($remaining1/3600)) $(($remaining1%3600/60)) $(($remaining1%60)))
+    
+    remaining2=$(printf "%.0f" $math8)
+    calculate_remaining=$(printf '%02d:%02d:%02d\n' $(($remaining2/3600)) $(($remaining2%3600/60)) $(($remaining2%60)))
+
     #### Current to H M S ####
     current=$(printf "%.0f" $print_duration)
     print_current=$(printf '%02d:%02d:%02d\n' $(($current/3600)) $(($current%3600/60)) $(($current%60)))
+
+    current1=$(printf "%.0f" $total_duration)
+    total_current=$(printf '%02d:%02d:%02d\n' $(($current1/3600)) $(($current1%3600/60)) $(($current1%60)))
 
     #### Progress to % ####
     print_progress1=$(echo "scale=1; $progress*100" | bc )
