@@ -1,3 +1,7 @@
+# 15.04.2022
+ - rework progress
+ - add new variables for messages ($total_current, $total_remaining, $calculate_remaining)
+
 # 20.03.2022
 - Checked all files with shellcheck
 - Various spellchecks
