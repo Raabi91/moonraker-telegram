@@ -193,6 +193,10 @@ def on_callback_query(msg):
         print(x.text)
         bot.sendMessage(
             chatid_mt, 'Setting %s to %s°' % (heater, temp))
+    #Timelapse
+    elif "Time:" in query_data:
+        a, file = query_data.split(":,")
+        os.system(f'bash {DIR}/scripts/send_file.sh "timelapse.txt" "{file}" ')
     # Gcode_macro
     elif "g:," in query_data:
         a, macro = query_data.split(":,")

@@ -25,13 +25,13 @@ read -a strarr <<< "$list_fin"
 last_word=$(echo ${strarr[${#strarr[@]}-1]})
 
 number=1
-rm timelapse.conf
+rm timelapse.txt
 touch timelapse.txt
 
 keyboard=""
 place=1
 files=1
-send=120
+send=40
 list=1
 
 for str in ${strarr[@]}; do
@@ -39,23 +39,24 @@ for str in ${strarr[@]}; do
     name="${str//%20/ }"
     name=${name#"timelapse_"}
     name=${name%".mp4"}
-    list="$number = $name"
+    list_msg="$number = $name"
     echo "$number = $str" >> timelapse.txt
+    
       if  [ "$number" == "1" ]; then
-        msg="Timelapse List (chose the number to get the file)"$'\n'"$list"
+        list1="Timelapse List $list"$'\n'$'\n'"$list_msg"
       else
-        msg="${list1}"$'\n'"${list}"
+        list1="${list1}"$'\n'$'\n'"${list_msg}"
       fi
-
+    msg="$list1"
     if [ "$last_word" = "$str" ]; then
         if [ "$place" = "1" ]; then
             keyboard="$keyboard[{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
             place=2
         elif [ "$place" = "2" ]; then
-            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}"
+            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
             place=3
         elif [ "$place" = "3" ]; then
-            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}"
+            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
             place=4
         elif [ "$place" = "4" ]; then
             keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
@@ -68,10 +69,10 @@ for str in ${strarr[@]}; do
             keyboard="$keyboard[{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
             place=2
         elif [ "$place" = "2" ]; then
-            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}"
+            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
             place=3
         elif [ "$place" = "3" ]; then
-            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}"
+            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
             place=4
         elif [ "$place" = "4" ]; then
             keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
@@ -82,20 +83,21 @@ for str in ${strarr[@]}; do
             msg=""
             send=$(echo "$send+$send" | bc -l)
             list=$(echo "$list+1" | bc -l)
+            list1="Timelapse List $list"$'\n'"$list_msg"
             place=1
             keyboard=""   
         else
         if [ "$place" = "1" ]; then
-            keyboard="$keyboard[{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
+            keyboard="$keyboard[{\"text\":\"$number\",\"callback_data\":\"time:,$number\"},"
             place=2
         elif [ "$place" = "2" ]; then
-            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}"
+            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"},"
             place=3
         elif [ "$place" = "3" ]; then
-            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}"
+            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"},"
             place=4
         elif [ "$place" = "4" ]; then
-            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
+            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}],"
             place=1
         fi
           
