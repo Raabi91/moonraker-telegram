@@ -53,6 +53,8 @@ def on_chat_message(msg):
                     os.system(f'bash {DIR}/scripts/telegram.sh 5')
                 elif command == '/print':
                     os.system(f'bash {DIR}/scripts/list_files.sh')
+                elif command == '/timelapse':
+                    os.system(f'bash {DIR}/scripts/timelapse.sh')
                 elif command == '/gcode_macro':
                     os.system(f'bash {DIR}/scripts/gcode.sh')
                 elif command == '/power':
