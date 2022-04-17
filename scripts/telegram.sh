@@ -86,20 +86,21 @@ elif [ "$state_msg" = "5" ]; then
     fi
 elif [ "$state_msg" = "6" ]; then
     msg="Available commands are:
-    /state - Current status including a photo
-    /pause - Pause current print. A confirmation will be requested
-    /resume - Resume current print.
-    /cancel - Abort the current print. A confirmation will be requested
-    /help - Show list of commands.
-    /print - Select a file from moonraker for printing
-    /power - Interact with power devices of moonraker
-    /gcode_macro - Run custom GCode Macros of moonraker
-    /gif - Send a 5 second gif
-    /host - Restart Firmware or Klipper and reboot and shutdown of the Host
-    /timelapse - download files from timelpase plugin by selection
-    
-    you have further questions then please look first in the Faq:
-    https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md"
+  --------------------------------------------
+/state - Current status including a photo
+/pause - Pause current print. A confirmation will be requested
+/resume - Resume current print.
+/cancel - Abort the current print. A confirmation will be requested
+/help - Show list of commands.
+/print - Select a file from moonraker for printing
+/power - Interact with power devices of moonraker
+/gcode_macro - Run custom GCode Macros of moonraker
+/gif - Send a 5 second gif
+/host - Restart Firmware or Klipper and reboot and shutdown of the Host
+/timelapse - download files from timelpase plugin by selection
+  --------------------------------------------  
+you have further questions then please look first in the Faq:
+https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md"
 
     curl -s -X POST \
         ${tokenurl}/sendMessage \

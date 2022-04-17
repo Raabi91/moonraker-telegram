@@ -27,7 +27,7 @@ touch timelapse.txt
 keyboard=""
 place=1
 files=1
-send=5
+send=40
 list=1
 
 for str in ${strarr[@]}; do
