@@ -8,17 +8,13 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . $config_dir/telegram_config.conf
 
 list_json=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/server/files/directory?path=timelapse")
-echo $list_json
-echo 1
-echo 1
 list_clean=$(echo "$list_json" | grep -oP '(?<="filename": ")[^}]*')
-echo $list_clean
 echo $list_clean > /tmp/list_clean.txt
 sed -i 's/" /|/g' /tmp/list_clean.txt
 sed -i 's/"//g' /tmp/list_clean.txt
 sed -i 's/ /%20/g' /tmp/list_clean.txt
 list_fin="$(cat /tmp/list_clean.txt)"
-echo $list_fin
+rm /tmp/list_clean.txt
 IFS='|'
 read -a strarr <<< "$list_fin"
 
@@ -89,7 +85,7 @@ for str in ${strarr[@]}; do
             msg=""
             send=$(echo "$send+$send" | bc -l)
             list=$(echo "$list+1" | bc -l)
-            list1="Timelapse List $list"$'\n'"------------"$'\n'"$list_msg"
+            list1="Timelapse List $list"
             place=1
             keyboard=""   
         else

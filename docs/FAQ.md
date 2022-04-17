@@ -218,6 +218,7 @@ power - Interact with power devices of moonraker
 gcode_macro - Run custom GCode Macros of moonraker
 gif - Send a 5 second gif
 host - Restart Firmware or Klipper and reboot and shutdown of the Host
+timelapse -  download files from timelpase plugin by selection
 ```
 
 ## How to use automatic led for cam
