@@ -31,7 +31,7 @@ touch timelapse.txt
 keyboard=""
 place=1
 files=1
-send=40
+send=5
 list=1
 
 for str in ${strarr[@]}; do
@@ -43,9 +43,9 @@ for str in ${strarr[@]}; do
     echo "$number = $str" >> timelapse.txt
     
       if  [ "$number" == "1" ]; then
-        list1="Timelapse List $list"$'\n'$'\n'"$list_msg"
+        list1="Timelapse List $list"$'\n'"------------"$'\n'"$list_msg"
       else
-        list1="${list1}"$'\n'$'\n'"${list_msg}"
+        list1="${list1}"$'\n'"------------"$'\n'"${list_msg}"
       fi
     msg="$list1"
     if [ "$last_word" = "$str" ]; then
@@ -59,6 +59,9 @@ for str in ${strarr[@]}; do
             keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
             place=4
         elif [ "$place" = "4" ]; then
+            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
+            place=5
+        elif [ "$place" = "5" ]; then
             keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
             place=1
         fi
@@ -76,6 +79,9 @@ for str in ${strarr[@]}; do
             place=4
         elif [ "$place" = "4" ]; then
             keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
+            place=5
+        elif [ "$place" = "5" ]; then
+            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}]"
             place=1
         fi
             files=$(echo "$files+1" | bc -l)
@@ -83,7 +89,7 @@ for str in ${strarr[@]}; do
             msg=""
             send=$(echo "$send+$send" | bc -l)
             list=$(echo "$list+1" | bc -l)
-            list1="Timelapse List $list"$'\n'"$list_msg"
+            list1="Timelapse List $list"$'\n'"------------"$'\n'"$list_msg"
             place=1
             keyboard=""   
         else
@@ -97,6 +103,9 @@ for str in ${strarr[@]}; do
             keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"},"
             place=4
         elif [ "$place" = "4" ]; then
+            keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"},"
+            place=5
+        elif [ "$place" = "5" ]; then
             keyboard="$keyboard{\"text\":\"$number\",\"callback_data\":\"time:,$number\"}],"
             place=1
         fi
