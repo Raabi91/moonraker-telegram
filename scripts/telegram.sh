@@ -95,7 +95,11 @@ elif [ "$state_msg" = "6" ]; then
     /power - Interact with power devices of moonraker
     /gcode_macro - Run custom GCode Macros of moonraker
     /gif - Send a 5 second gif
-    /host - Restart Firmware or Klipper and reboot and shutdown of the Host"
+    /host - Restart Firmware or Klipper and reboot and shutdown of the Host
+    /timelapse - download files from timelpase plugin by selection
+    
+    you have further questions then please look first in the Faq:
+    https://github.com/Raabi91/moonraker-telegram/blob/master/docs/FAQ.md"
 
     curl -s -X POST \
         ${tokenurl}/sendMessage \

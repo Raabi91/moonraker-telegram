@@ -53,6 +53,8 @@ def on_chat_message(msg):
                     os.system(f'bash {DIR}/scripts/telegram.sh 5')
                 elif command == '/print':
                     os.system(f'bash {DIR}/scripts/list_files.sh')
+                elif command == '/timelapse':
+                    os.system(f'bash {DIR}/scripts/timelapse.sh')
                 elif command == '/gcode_macro':
                     os.system(f'bash {DIR}/scripts/gcode.sh')
                 elif command == '/power':
@@ -191,6 +193,10 @@ def on_callback_query(msg):
         print(x.text)
         bot.sendMessage(
             chatid_mt, 'Setting %s to %s°' % (heater, temp))
+    #Timelapse
+    elif "time:" in query_data:
+        a, file = query_data.split(":,")
+        os.system(f'bash {DIR}/scripts/send_file.sh "timelapse.txt" "{file}" ')
     # Gcode_macro
     elif "g:," in query_data:
         a, macro = query_data.split(":,")

@@ -1,3 +1,6 @@
+# 17.04.2022
+ - /timelapse added to download timelapse files from timelpase plugin by selection
+
 # 15.04.2022
  - rework progress
  - add new variables for messages ($total_current, $total_remaining, $calculate_remaining)
