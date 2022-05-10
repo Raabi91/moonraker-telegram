@@ -48,7 +48,6 @@ pic_state="1"
 pic_standby="1"
 pic_complete="1"
 pic_paused="1"
-pic_error="1"
 pic_bed_cooldown="1"
 # with 5sec gif at state message = 1, without gif = 0
 gif="0"
