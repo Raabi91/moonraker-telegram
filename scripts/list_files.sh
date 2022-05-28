@@ -29,7 +29,7 @@ files=1
 send=60
 list=1
 
-for f in "${strarr[@]}"; do
+for f in ${strarr[@]}; do
     word_length=$(echo ${#f})
     if [ "$last_word" = "$f" ]; then
         if [ "$word_length" -gt "60" ]; then
