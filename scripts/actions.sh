@@ -59,7 +59,7 @@ create_variables()
     print=$(curl -H "X-Api-Key: $api_key" -s "http://127.0.0.1:$port/printer/objects/query?print_stats&virtual_sdcard&display_status&gcode_move&extruder=target,temperature&heater_bed=target,temperature")
     #### Filename ####
     print_filename=$(echo "$print" | grep -oP '(?<="filename": ")[^"]*')
-    filename="${print_filename// /%20}"
+    filename=$(echo $filename | sed -f $DIR_TEL/scripts/url_escape.sed)
     if [ -z "$filename" ]; then
         file=""
     else
