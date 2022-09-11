@@ -128,22 +128,43 @@ else
         light_off
 
         picture_number=0
-        for filename in $DIR_TEL/picture/cam_new*; do
+        webcams=$(echo "${#webcam[@]}")
+        if [ "$webcams" == "1" ]; then
+          for filename in $DIR_TEL/picture/cam_new*; do
             if [ "$picture_number" == "0" ]; then
-                curl -s -X POST \
-                    ${tokenurl}/sendPhoto \
-                    -F chat_id="${chatid}" \
-                    -F photo="@$filename" \
-                    -F caption="${msg}"
-            elif [ "$picture_number" != "0" ]; then
-                curl -s -X POST \
-                    ${tokenurl}/sendPhoto \
-                    -F chat_id="${chatid}" \
-                    -F photo="@$filename"
+              curl -s -X POST \
+                  ${tokenurl}/sendPhoto \
+                  -F chat_id="${chatid}" \
+                  -F photo="@$filename" \
+                  -F caption="${msg}"
             fi
             picture_number=$((picture_number+1))
             sleep 0.1
-        done
+          done
+        elif [ "$webcams" != "1" ]; then
+          for filename in $DIR_TEL/picture/cam_new*; do            
+              if [ "$picture_number" == "0" ]; then
+                  media='{"type":"photo","media":"attach://photo_'$picture_number'"}' 
+                  photos="photo_$picture_number=@$filename"
+              elif [ "$picture_number" != "0" ]; then
+                  media=$media',{"type":"photo","media":"attach://photo_'$picture_number'"}'
+                  photos="$photos -F photo_$picture_number=@$filename"
+              fi
+            picture_number=$((picture_number+1))
+            sleep 0.1
+          done  
+              curl -s -X POST \
+                ${tokenurl}/sendMediaGroup \
+                -F chat_id="${chatid}" \
+                -F media='['$media']' \
+                -F $photos
+              curl -s -X POST \
+                ${tokenurl}/sendMessage \
+                -d text="${msg}" \
+                -d chat_id="${chatid}"
+        fi 
+                
+        rm $DIR_TEL/picture/cam_new*.jpg
     else
         msg="$state_msg"
         curl -s -X POST \
@@ -168,25 +189,42 @@ if [[ -n "${msg}" ]]; then
         light_off
 
         picture_number=0
-        for filename in $DIR_TEL/picture/cam_new*; do
+        webcams=$(echo "${#webcam[@]}")
+        if [ "$webcams" == "1" ]; then
+          for filename in $DIR_TEL/picture/cam_new*; do
             if [ "$picture_number" == "0" ]; then
-                media='{"type":"photo","media":"attach://photo_'$picture_number'","caption":"'${msg}'"}' 
-                photos="photo_$picture_number=@$filename"
-            elif [ "$picture_number" != "0" ]; then
-                media=$media',{"type":"photo","media":"attach://photo_'$picture_number'"}'
-               photos="$photos -F photo_$picture_number=@$filename"
+              curl -s -X POST \
+                  ${tokenurl}/sendPhoto \
+                  -F chat_id="${chatid}" \
+                  -F photo="@$filename" \
+                  -F caption="${msg}"
             fi
             picture_number=$((picture_number+1))
             sleep 0.1
-        done
-
-        curl -s -X POST \
-            ${tokenurl}/sendMediaGroup \
-            -F chat_id="${chatid}" \
-            -F media='['$media']' \
-            -F $photos
-
-        sleep 5
+          done
+        elif [ "$webcams" != "1" ]; then
+          for filename in $DIR_TEL/picture/cam_new*; do            
+              if [ "$picture_number" == "0" ]; then
+                  media='{"type":"photo","media":"attach://photo_'$picture_number'"}' 
+                  photos="photo_$picture_number=@$filename"
+              elif [ "$picture_number" != "0" ]; then
+                  media=$media',{"type":"photo","media":"attach://photo_'$picture_number'"}'
+                  photos="$photos -F photo_$picture_number=@$filename"
+              fi
+            picture_number=$((picture_number+1))
+            sleep 0.1
+          done 
+              curl -s -X POST \
+                ${tokenurl}/sendMediaGroup \
+                -F chat_id="${chatid}" \
+                -F media='['$media']' \
+                -F $photos
+              curl -s -X POST \
+                ${tokenurl}/sendMessage \
+                -d text="${msg}" \
+                -d chat_id="${chatid}"
+        fi 
+                
         rm $DIR_TEL/picture/cam_new*.jpg
         
     elif [ "$picture" = "0" ]; then
