@@ -157,6 +157,7 @@ else
                 ${tokenurl}/sendMediaGroup \
                 -F chat_id="${chatid}" \
                 -F media='['$media']' \
+                -F disable_notification="true" \
                 -F $photos
               curl -s -X POST \
                 ${tokenurl}/sendMessage \
@@ -218,6 +219,7 @@ if [[ -n "${msg}" ]]; then
                 ${tokenurl}/sendMediaGroup \
                 -F chat_id="${chatid}" \
                 -F media='['$media']' \
+                -F disable_notification="true" \
                 -F $photos
               curl -s -X POST \
                 ${tokenurl}/sendMessage \
