@@ -152,18 +152,24 @@ else
               fi
             picture_number=$((picture_number+1))
             sleep 0.1
-          done  
+          done 
+            if [ "$msg" != "" ]; then 
               curl -s -X POST \
                 ${tokenurl}/sendMediaGroup \
                 -F chat_id="${chatid}" \
                 -F media='['$media']' \
                 -F disable_notification="true" \
                 -F $photos
-            if [ "$msg" != "" ]; then
               curl -s -X POST \
                 ${tokenurl}/sendMessage \
                 -d text="${msg}" \
                 -d chat_id="${chatid}"
+            else 
+              curl -s -X POST \
+                ${tokenurl}/sendMediaGroup \
+                -F chat_id="${chatid}" \
+                -F media='['$media']' \
+                -F $photos
             fi   
         fi 
                 
