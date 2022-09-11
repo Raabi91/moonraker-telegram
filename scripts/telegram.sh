@@ -159,10 +159,12 @@ else
                 -F media='['$media']' \
                 -F disable_notification="true" \
                 -F $photos
+            if [ "$msg" != "" ]; then
               curl -s -X POST \
                 ${tokenurl}/sendMessage \
                 -d text="${msg}" \
                 -d chat_id="${chatid}"
+            fi   
         fi 
                 
         rm $DIR_TEL/picture/cam_new*.jpg
