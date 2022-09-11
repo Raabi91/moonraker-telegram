@@ -170,21 +170,25 @@ if [[ -n "${msg}" ]]; then
         picture_number=0
         for filename in $DIR_TEL/picture/cam_new*; do
             if [ "$picture_number" == "0" ]; then
-                curl -s -X POST \
-                    ${tokenurl}/sendPhoto \
-                    -F chat_id="${chatid}" \
-                    -F photo="@$filename" \
-                    -F caption="${msg}"
+                media='{"type":"photo","media":"attach://photo_'$picture_number'","caption":"'${msg}'"}' 
+                photos="photo_$picture_number=@$filename"
             elif [ "$picture_number" != "0" ]; then
-                curl -s -X POST \
-                    ${tokenurl}/sendPhoto \
-                    -F chat_id="${chatid}" \
-                    -F photo="@$filename"
+                media=$media',{"type":"photo","media":"attach://photo_'$picture_number'"}'
+               photos="$photos -F photo_$picture_number=@$filename"
             fi
             picture_number=$((picture_number+1))
             sleep 0.1
         done
 
+        curl -s -X POST \
+            ${tokenurl}/sendMediaGroup \
+            -F chat_id="${chatid}" \
+            -F media='['$media']' \
+            -F $photos
+
+        sleep 5
+        rm $DIR_TEL/picture/cam_new*.jpg
+        
     elif [ "$picture" = "0" ]; then
 
         curl -s -X POST \
