@@ -126,7 +126,7 @@ else
             array=$((array+1))
         done
         light_off
-
+        msg="$state_msg"
         picture_number=0
         webcams=$(echo "${#webcam[@]}")
         if [ "$webcams" == "1" ]; then
