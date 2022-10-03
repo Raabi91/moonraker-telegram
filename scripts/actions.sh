@@ -4,7 +4,7 @@ light_on()
 {
     if [ -n "${led_on}" ]; then
         echo "Led on" >> "$log"
-        curl -H "Content-Type: application/json" -X POST "$led_on"
+        curl --connect-timeout 3  -H "Content-Type: application/json" -X POST "$led_on"
         sleep "$led_on_delay"
     fi
 }
@@ -14,7 +14,7 @@ light_off()
     if [ "$gif_enable" = "0" ]; then
         if [ -n "${led_off}" ]; then
             sleep "$led_off_delay"
-            curl -H "Content-Type: application/json" -X POST "$led_off"
+            curl --connect-timeout 3  -H "Content-Type: application/json" -X POST "$led_off"
             echo "LED off" >> "$log"
         fi
     fi
