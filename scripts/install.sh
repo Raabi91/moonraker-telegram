@@ -59,9 +59,21 @@ install_config()
         echo -e ""
     fi
 
-
+    . $DIR/multi_config.sh
+    
+    echo -e "\n========= check Symlink ==========="
+    
+    if [[ -L "$config_dir" && -d "$config_dir" ]]
+    then
+        echo "$config_dir is a symlink to a directory"
+        config_dir=$(cd -P "$config_dir" && pwd)
+    else
+      echo "$config_dir is not a Symlink"
+    fi
+    
     if ! [ -e $config_dir/telegram_config.conf ]
     then
+        echo -e "\n========= Copy Telegram_config to Config Folder ==========="
         cp $DIR/example_config.sh $config_dir/telegram_config.conf
         chmod 777 $config_dir/telegram_config.conf
     fi

@@ -26,6 +26,12 @@ chatid="your_chatid"
 api_key=""
 ```
 
+### Your Path to the log folder
+
+```
+log="/home/pi/printer_data/logs"
+```
+
 ### messages for the states: (for the placeholders in the messages look at https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Variables.md)
 
 ### Start message
