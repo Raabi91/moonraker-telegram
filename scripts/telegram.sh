@@ -7,7 +7,7 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . "$DIR_TEL/example_config.sh"
 . "$config_dir/telegram_config.conf"
 . "$DIR_TEL/scripts/actions.sh"
-echo "telegram.sh" >> "$log"
+echo "telegram.sh" >> "$log/$multi_instanz.log"
 
 create_variables
 
@@ -126,24 +126,54 @@ else
             array=$((array+1))
         done
         light_off
-
+        msg="$state_msg"
         picture_number=0
-        for filename in $DIR_TEL/picture/cam_new*; do
+        webcams=$(echo "${#webcam[@]}")
+        if [ "$webcams" == "1" ]; then
+          for filename in $DIR_TEL/picture/cam_new*; do
             if [ "$picture_number" == "0" ]; then
-                curl -s -X POST \
-                    ${tokenurl}/sendPhoto \
-                    -F chat_id="${chatid}" \
-                    -F photo="@$filename" \
-                    -F caption="${msg}"
-            elif [ "$picture_number" != "0" ]; then
-                curl -s -X POST \
-                    ${tokenurl}/sendPhoto \
-                    -F chat_id="${chatid}" \
-                    -F photo="@$filename"
+              curl -s -X POST \
+                  ${tokenurl}/sendPhoto \
+                  -F chat_id="${chatid}" \
+                  -F photo="@$filename" \
+                  -F caption="${msg}"
             fi
             picture_number=$((picture_number+1))
             sleep 0.1
-        done
+          done
+        elif [ "$webcams" != "1" ]; then
+          for filename in $DIR_TEL/picture/cam_new*; do            
+              if [ "$picture_number" == "0" ]; then
+                  media='{"type":"photo","media":"attach://photo_'$picture_number'"}' 
+                  photos="photo_$picture_number=@$filename"
+              elif [ "$picture_number" != "0" ]; then
+                  media=$media',{"type":"photo","media":"attach://photo_'$picture_number'"}'
+                  photos="$photos -F photo_$picture_number=@$filename"
+              fi
+            picture_number=$((picture_number+1))
+            sleep 0.1
+          done 
+            if [ "$msg" != "" ]; then 
+              curl -s -X POST \
+                ${tokenurl}/sendMediaGroup \
+                -F chat_id="${chatid}" \
+                -F media='['$media']' \
+                -F disable_notification="true" \
+                -F $photos
+              curl -s -X POST \
+                ${tokenurl}/sendMessage \
+                -d text="${msg}" \
+                -d chat_id="${chatid}"
+            else 
+              curl -s -X POST \
+                ${tokenurl}/sendMediaGroup \
+                -F chat_id="${chatid}" \
+                -F media='['$media']' \
+                -F $photos
+            fi   
+        fi 
+                
+        rm $DIR_TEL/picture/cam_new*.jpg
     else
         msg="$state_msg"
         curl -s -X POST \
@@ -151,7 +181,7 @@ else
             -d text="${msg}" \
             -d chat_id="${chatid}"
     fi
-    echo "Send MSG = $msg" >> "$log"
+    echo "Send MSG = $msg" >> "$log/$multi_instanz.log"
     exit 0
 fi
 
@@ -168,23 +198,45 @@ if [[ -n "${msg}" ]]; then
         light_off
 
         picture_number=0
-        for filename in $DIR_TEL/picture/cam_new*; do
+        webcams=$(echo "${#webcam[@]}")
+        if [ "$webcams" == "1" ]; then
+          for filename in $DIR_TEL/picture/cam_new*; do
             if [ "$picture_number" == "0" ]; then
-                curl -s -X POST \
-                    ${tokenurl}/sendPhoto \
-                    -F chat_id="${chatid}" \
-                    -F photo="@$filename" \
-                    -F caption="${msg}"
-            elif [ "$picture_number" != "0" ]; then
-                curl -s -X POST \
-                    ${tokenurl}/sendPhoto \
-                    -F chat_id="${chatid}" \
-                    -F photo="@$filename"
+              curl -s -X POST \
+                  ${tokenurl}/sendPhoto \
+                  -F chat_id="${chatid}" \
+                  -F photo="@$filename" \
+                  -F caption="${msg}"
             fi
             picture_number=$((picture_number+1))
             sleep 0.1
-        done
-
+          done
+        elif [ "$webcams" != "1" ]; then
+          for filename in $DIR_TEL/picture/cam_new*; do            
+              if [ "$picture_number" == "0" ]; then
+                  media='{"type":"photo","media":"attach://photo_'$picture_number'"}' 
+                  photos="photo_$picture_number=@$filename"
+              elif [ "$picture_number" != "0" ]; then
+                  media=$media',{"type":"photo","media":"attach://photo_'$picture_number'"}'
+                  photos="$photos -F photo_$picture_number=@$filename"
+              fi
+            picture_number=$((picture_number+1))
+            sleep 0.1
+          done 
+              curl -s -X POST \
+                ${tokenurl}/sendMediaGroup \
+                -F chat_id="${chatid}" \
+                -F media='['$media']' \
+                -F disable_notification="true" \
+                -F $photos
+              curl -s -X POST \
+                ${tokenurl}/sendMessage \
+                -d text="${msg}" \
+                -d chat_id="${chatid}"
+        fi 
+                
+        rm $DIR_TEL/picture/cam_new*.jpg
+        
     elif [ "$picture" = "0" ]; then
 
         curl -s -X POST \
@@ -193,7 +245,7 @@ if [[ -n "${msg}" ]]; then
             -d chat_id="${chatid}"
 
     fi
-    echo "Send MSG = $msg" >> "$log"
+    echo "Send MSG = $msg" >> "$log/$multi_instanz.log"
     if [ "$gif_enable" = "1" ]; then
         bash "$DIR_TEL/scripts/gif.sh"
     fi

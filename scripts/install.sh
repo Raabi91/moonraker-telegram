@@ -36,11 +36,11 @@ install_config()
     then
         echo -e "========= pleas input your settings description on github ==========="
         echo -e "please enter your moonraker config path"
-        echo -e "and press enter (like /home/pi/klipper_config):"
+        echo -e "and press enter (like new /home/pi/printer_data/config ; old /home/pi/klipper_config):"
         read CONFIG
         if [ -z "$CONFIG" ]
         then
-            CONFIG="/home/pi/klipper_config"
+            CONFIG="/home/pi/printer_data/config"
         fi
         echo "# moonraker config path" >> $DIR/multi_config.sh
         echo "config_dir=\"$CONFIG\"" >> $DIR/multi_config.sh
@@ -59,30 +59,21 @@ install_config()
         echo -e ""
     fi
 
-    if ! grep -q "log=" $DIR/multi_config.sh
+    . $DIR/multi_config.sh
+    
+    echo -e "\n========= check Symlink ==========="
+    
+    if [[ -L "$config_dir" && -d "$config_dir" ]]
     then
-        echo -e "get log_path from the moonraker config if its empty set to defult (~/klipper_logs)"
-        echo -e ""
-        . $DIR/multi_config.sh
-        log_moonraker=$(grep log_path: $config_dir/moonraker.conf)
-        IFS=': '
-        read -a log_path <<< "$log_moonraker"
-        log_path_moonraker=$(echo ${log_path[1]})
-        if [ -z "$log_path_moonraker" ]
-        then
-            log_path_moonraker="~/klipper_logs"
-        fi
-        find="~"
-        replace="${HOME}"
-        log_path_fine=$(sed "s+${find}+${replace}+g" <<<"$log_path_moonraker")
-        echo "## Log File ##" >> $DIR/multi_config.sh
-        echo "log=\"$log_path_fine/$multi_instanz.log\"" >> $DIR/multi_config.sh
-        echo -e "Your log file will be created in $log_path_fine with the name of $multi_instanz.log"
-        echo -e ""
+        echo "$config_dir is a symlink to a directory"
+        config_dir=$(cd -P "$config_dir" && pwd)
+    else
+      echo "$config_dir is not a Symlink"
     fi
-
+    
     if ! [ -e $config_dir/telegram_config.conf ]
     then
+        echo -e "\n========= Copy Telegram_config to Config Folder ==========="
         cp $DIR/example_config.sh $config_dir/telegram_config.conf
         chmod 777 $config_dir/telegram_config.conf
     fi
