@@ -7,7 +7,7 @@ DIR_TEL="`cd $MYDIR_TEL/../; pwd`"
 . "$DIR_TEL/example_config.sh"
 . "$config_dir/telegram_config.conf"
 . "$DIR_TEL/scripts/actions.sh"
-echo "telegram.sh" >> "$log"
+echo "telegram.sh" >> "$log/$multi_instanz.log"
 
 create_variables
 
@@ -181,7 +181,7 @@ else
             -d text="${msg}" \
             -d chat_id="${chatid}"
     fi
-    echo "Send MSG = $msg" >> "$log"
+    echo "Send MSG = $msg" >> "$log/$multi_instanz.log"
     exit 0
 fi
 
@@ -245,7 +245,7 @@ if [[ -n "${msg}" ]]; then
             -d chat_id="${chatid}"
 
     fi
-    echo "Send MSG = $msg" >> "$log"
+    echo "Send MSG = $msg" >> "$log/$multi_instanz.log"
     if [ "$gif_enable" = "1" ]; then
         bash "$DIR_TEL/scripts/gif.sh"
     fi

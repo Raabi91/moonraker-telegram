@@ -9,6 +9,8 @@ chatid="your_chatid"
 #
 #Your moonraker API-Key when u use force login true
 api_key=""
+#Your Path to the log folder
+log="/home/pi/printer_data/logs"
 # messages for the states
 ### for the placeholders in the messages look at https://github.com/Raabi91/moonraker-telegram/blob/master/docs/Variables.md
 #

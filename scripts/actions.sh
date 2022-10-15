@@ -3,7 +3,7 @@
 light_on()
 {
     if [ -n "${led_on}" ]; then
-        echo "Led on" >> "$log"
+        echo "Led on" >> "$log/$multi_instanz.log"
         curl --connect-timeout 2  -H "Content-Type: application/json" -X POST "$led_on"
         sleep "$led_on_delay"
     fi
@@ -15,7 +15,7 @@ light_off()
         if [ -n "${led_off}" ]; then
             sleep "$led_off_delay"
             curl --connect-timeout 2  -H "Content-Type: application/json" -X POST "$led_off"
-            echo "LED off" >> "$log"
+            echo "LED off" >> "$log/$multi_instanz.log"
         fi
     fi
 }
@@ -23,13 +23,13 @@ light_off()
 take_picture()
 {
     if curl --output /dev/null --silent --fail -r 0-0  "$item"; then
-        echo "Webcam$array link is working" >> "$log"
+        echo "Webcam$array link is working" >> "$log/$multi_instanz.log"
 
         rm "$DIR_TEL/picture/cam_new$array.jpg"
         curl -m 20 -o "$DIR_TEL/picture/cam_new$array.jpg" "$item"
 
         if identify -format '%f' "$DIR_TEL/picture/cam_new$array.jpg"; then
-            echo "Jpeg$array file is okay" >> "$log"
+            echo "Jpeg$array file is okay" >> "$log/$multi_instanz.log"
             if [ ! -z "${rotate[$array]}" ]; then
                 convert -quiet -rotate "${rotate[$array]}" "$DIR_TEL/picture/cam_new$array.jpg" "$DIR_TEL/picture/cam_new$array.jpg"
             fi
@@ -44,12 +44,12 @@ take_picture()
                 fi
             fi
         else
-            echo "JPEG$array picture has an error" >> "$log"
+            echo "JPEG$array picture has an error" >> "$log/$multi_instanz.log"
             rm "$DIR_TEL/picture/cam_new$array.jpg"
             cp "$DIR_TEL/picture/cam_error.jpg" "$DIR_TEL/picture/cam_new$array.jpg"
         fi
     else
-        echo "Webcam$array link has an error" >> "$log"
+        echo "Webcam$array link has an error" >> "$log/$multi_instanz.log"
         cp "$DIR_TEL/picture/no_cam.jpg" "$DIR_TEL/picture/cam_new$array.jpg"
     fi
 }

@@ -6,10 +6,10 @@ DIR_STOP="`cd $MYDIR_STOP/../; pwd`"
 . "$DIR_STOP/example_config.sh"
 . "$config_dir/telegram_config.conf"
 
-echo "$(date)" >> "$log"
-echo "Stop $multi_instanz" >> "$log"
-echo "" >> "$log"
-echo "" >> "$log"
+echo "$(date)" >> "$log/$multi_instanz.log"
+echo "Stop $multi_instanz" >> "$log/$multi_instanz.log"
+echo "" >> "$log/$multi_instanz.log"
+echo "" >> "$log/$multi_instanz.log"
 
 
 ps aux | grep -ie "$DIR_STOP" | awk '{print $2}' | xargs kill -9
