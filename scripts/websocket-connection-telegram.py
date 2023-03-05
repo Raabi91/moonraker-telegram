@@ -165,9 +165,15 @@ def on_message(ws, message):
         a, telegram = message.split("telegram_picture: ")
         telegram_msg, b = telegram.split('"')
         os.system(f'bash {DIR1}/scripts/telegram.sh "{telegram_msg}" "1"')
+    if "notify_klippy_ready" in message:
+        ws.send(json.dumps(subscribe()))
+        print(message)
     if "Klipper state: Ready" in message:
         ws.send(json.dumps(subscribe()))
+        print(message)
     if "Klipper state: Shutdown" in message:
+        os.system(f'bash {DIR1}/scripts/read_state.sh "1"')
+    if "Klipper state: Disconnect" in message:
         os.system(f'bash {DIR1}/scripts/read_state.sh "1"')
     if "jsonrpc" in message:
         python_json_obj = json.loads(message)
