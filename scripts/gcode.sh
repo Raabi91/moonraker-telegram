@@ -33,6 +33,7 @@ list=1
 
 for f in ${strarr[@]}; do
     word_length=$(echo ${#f})
+  if  [[ "$f" != "_"* ]] ; then
     if [ "$last_word" = "$f" ]; then
         if [ "$word_length" -gt "60" ]; then
             f="gcode_macro_too_long"
