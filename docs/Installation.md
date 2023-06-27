@@ -113,3 +113,11 @@ sudo systemctl restart moonraker-telegram
 ```
 
 (I also suggest a full reboot if needed).
+
+The shell script that sends messages uses the **bc** program. Minimal Raspberry Pi installations will not have this installed by default.
+
+If your ``/state`` command shows ``0.0%`` and ``00:00:00``, install the **bc** program ``sudo apt install bc``.
+
+```
+Printing myprint.gcode at 0.0%. Current Time 00:24:29. Remaining Time 00:00:00
+```
